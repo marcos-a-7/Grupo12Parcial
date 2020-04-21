@@ -1,5 +1,13 @@
 package modelo;
 
-public class Empresa {
+import java.util.ArrayList;
 
+public class Empresa {
+	String nombre;
+	ArrayList<Contrato> contratos = new ArrayList<Contrato>();
+	
+	
+	
+	
+	
 }
