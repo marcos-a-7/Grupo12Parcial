@@ -2,7 +2,7 @@ package modelo;
 
 public class Internet500 extends Internet {
 
-	@Override
+	
 	public double getCosto() {
 		return 1000;
 	}

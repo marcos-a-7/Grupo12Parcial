@@ -1,6 +1,7 @@
 package modelo;
 
 public class Contrato {
+
 	private static int generadorIdContrato = 1;
 	private int idContrato;
 	private Persona titular;
@@ -32,9 +33,11 @@ public class Contrato {
 	public void setPaqueteServicios(IServicio paqueteServicios) {
 		this.paqueteServicios = paqueteServicios;
 	}
+
 	public Factura getFactura() {
 		Factura ret = null;
 		//this.paqueteServicios;
 		return ret;
 	}
+
 }
