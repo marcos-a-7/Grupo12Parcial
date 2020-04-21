@@ -2,12 +2,13 @@ package modelo;
 
 public class DecoradorTelefono extends DecoradorServicio {
 
-	private static int generadorNum = 4000000;
-	private int numeroTelefono;
-
-	public DecoradorTelefono() {
+	public DecoradorTelefono(IServicio servicioEncapsulado) {
+		super(servicioEncapsulado);
 		this.numeroTelefono = generadorNum++;
 	}
+
+	private static int generadorNum = 4000000;
+	private int numeroTelefono;
 
 	public double getCosto() {
 		return 200;
