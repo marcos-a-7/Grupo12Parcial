@@ -15,9 +15,6 @@ public class Contrato {
 	public int getIdContrato() {
 		return idContrato;
 	}
-	public void setIdContrato(int idContrato) {
-		this.idContrato = idContrato;
-	}
 	public Persona getTitular() {
 		return titular;
 	}
@@ -35,6 +32,12 @@ public class Contrato {
 	}
 	public void setPaqueteServicios(IServicio paqueteServicios) {
 		this.paqueteServicios = paqueteServicios;
+	}
+
+	public Factura getFactura() {
+		Factura ret = null;
+		//this.paqueteServicios;
+		return ret;
 	}
 
 }
