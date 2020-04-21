@@ -1,5 +1,6 @@
 package modelo;
 
 public class Empresa {
- TE EXTRAno
+private String nombre;
+	
 }
