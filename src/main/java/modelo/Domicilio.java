@@ -1,6 +1,6 @@
 package modelo;
 
-public class Domicilio {
+public class Domicilio implements Cloneable {
 	private String calle;
 	private int numero;
 	
@@ -25,5 +25,9 @@ public class Domicilio {
 	@Override
 	public String toString() {
 		return "Domicilio: " + this.calle + " " + this.numero;
+	}
+	@Override
+	protected Domicilio clone() throws CloneNotSupportedException {
+		return (Domicilio)super.clone();
 	}
 }

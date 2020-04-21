@@ -10,4 +10,8 @@ public class PersonaJuridica extends Persona {
 	public String toString() {
 		return super.toString() + " Juridica - Nombre: " + this.nombre + " DNI: " + this.dni + "\n" ;
 	}
+	@Override
+	protected PersonaJuridica clone() throws CloneNotSupportedException {
+		throw new CloneNotSupportedException();
+	}
 }

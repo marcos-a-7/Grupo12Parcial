@@ -34,7 +34,7 @@ public class Contrato {
 	}
 	public Factura getFactura() {
 		Factura ret = null;
-		this.paqueteServicios;
+		//this.paqueteServicios;
 		return ret;
 	}
 }

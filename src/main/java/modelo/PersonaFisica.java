@@ -9,4 +9,8 @@ public class PersonaFisica extends Persona {
 	public String toString() {
 		return super.toString() + " Fisica - Nombre: " + this.nombre + " DNI: " + this.dni + "\n" ;
 	}
+	@Override
+	protected PersonaFisica clone() throws CloneNotSupportedException {
+		return (PersonaFisica)super.clone();
+	}
 }
