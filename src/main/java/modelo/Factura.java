@@ -5,14 +5,14 @@ public class Factura implements Cloneable {
 	private IServicio paqueteServicios;
 	private Persona persona;
 	private Domicilio domicilio;
-	
+
 	public Factura(int idContrato, Persona persona, Domicilio domicilio, IServicio paqueteServicios) {
 		this.idContrato = idContrato;
 		this.persona = persona;
 		this.domicilio = domicilio;
 		this.paqueteServicios = paqueteServicios;
 	}
-	
+
 	public String imprimeFactura() {
 		StringBuilder sb = new StringBuilder();
 		sb.append("Numero de contrato: " + this.idContrato + "\n");
@@ -23,11 +23,16 @@ public class Factura implements Cloneable {
 	}
 
 	@Override
-	protected Factura clone() throws CloneNotSupportedException {
+	protected Factura clone() {
 		Factura aux = null;
-		aux = (Factura)super.clone();
-		aux.domicilio = this.domicilio.clone();
-		aux.persona = this.persona.clone();
+		try {
+			aux = (Factura) super.clone();
+			aux.domicilio = this.domicilio.clone();
+			aux.persona = this.persona.clone();
+		} catch (CloneNotSupportedException e) {
+			System.out.println("No se pudo duplicar factura, debido a que es persona juridica");
+		}
 		return aux;
+
 	}
 }
