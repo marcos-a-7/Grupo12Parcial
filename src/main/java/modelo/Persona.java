@@ -1,8 +1,8 @@
 package modelo;
 
-public class Persona {
-	private String nombre;
-	private int dni;
+public abstract class Persona {
+	protected String nombre;
+	protected int dni;
 	
 	public Persona(String nombre, int dni) {
 		this.nombre = nombre;
@@ -14,5 +14,9 @@ public class Persona {
 	}
 	public int getDni() {
 		return dni;
+	}
+	@Override
+	public String toString() {
+		return "Persona ";
 	}
 }
