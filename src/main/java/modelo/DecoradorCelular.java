@@ -6,28 +6,18 @@ public class DecoradorCelular extends DecoradorServicio {
 	private int numeroCelular;
 	
 	
-	
-	
 	public DecoradorCelular() {
 		this.numeroCelular = generadorNum++;
 	}
-
-
-
+	
 	public double getCosto() {
 		return 300;
 	}
-	
-	
-
 	@Override
 	public String detalle() {
 		return super.detalle() + " Linea Movil +54-9-223-"+ this.getNumeroCelular() + this.getCosto();
 	}
-
-
-
-	private int getNumeroCelular() {
+	public int getNumeroCelular() {
 		return this.numeroCelular;
 	}
 
