@@ -1,10 +1,11 @@
 package modelo;
 
 public abstract class Persona implements Cloneable {
-	protected String nombre, medioPago;
+	protected String nombre;
+	protected MedioPago medioPago;
 	protected int dni;
 	
-	public Persona(String nombre, int dni, String medioPago) {
+	public Persona(String nombre, int dni, MedioPago medioPago) {
 		this.nombre = nombre;
 		this.dni = dni;
 	}
@@ -15,10 +16,10 @@ public abstract class Persona implements Cloneable {
 	public int getDni() {
 		return dni;
 	}
-	public String getMedioPago() {
+	public MedioPago getMedioPago() {
 		return medioPago;
 	}
-	public void setMedioPago(String medioPago) {
+	public void setMedioPago(MedioPago medioPago) {
 		this.medioPago = medioPago;
 	}
 	@Override
@@ -29,5 +30,5 @@ public abstract class Persona implements Cloneable {
 	protected Persona clone() throws CloneNotSupportedException {
 		return (Persona)super.clone();
 	}
-	
+	public abstract double getTasa();
 }
