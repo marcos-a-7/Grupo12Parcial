@@ -35,9 +35,9 @@ public class Contrato {
 	}
 
 	public Factura getFactura() {
-		Factura ret = null;
-		//this.paqueteServicios;
-		return ret;
+		Factura factura = null;
+		factura = new Factura(idContrato,titular,domicilio,paqueteServicios);
+		return factura;
 	}
 
 }
