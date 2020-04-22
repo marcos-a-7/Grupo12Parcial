@@ -7,9 +7,7 @@ public class Internet100 extends Internet {
 	}
 
 	public String detalle() {
-
-		return super.detalle() + " 100: " + this.getCosto() + "\n";
-
+		return super.detalle() + " 100: " + this.getCosto() + "\n" ;
 	}
 
 }
