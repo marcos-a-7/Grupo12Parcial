@@ -2,8 +2,13 @@ package modelo;
 
 public class PersonaFisica extends Persona {
 
-	public PersonaFisica(String nombre, int dni) {
-		super(nombre, dni);
+	public PersonaFisica(String nombre, int dni, MedioPago medioPago) {
+		super(nombre, dni, medioPago);
+	}
+	
+	@Override
+	public double getTasa() {
+		return medioPago.getTasaFisica();
 	}
 	@Override
 	public String toString() {
