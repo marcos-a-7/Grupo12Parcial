@@ -7,10 +7,14 @@ public class Contrato {
 	private Domicilio domicilio;
 	private PaqueteServicios paqueteServicios;
 	
-	public Contrato() {
-		this.idContrato = generadorIdContrato++;
-	}
 	
+	
+	public Contrato(Persona titular, Domicilio domicilio, IServicio paqueteServicios) {
+		this.idContrato = generadorIdContrato++;
+		this.titular = titular;
+		this.domicilio = domicilio;
+		this.paqueteServicios = paqueteServicios;
+	}
 	public int getIdContrato() {
 		return idContrato;
 	}
