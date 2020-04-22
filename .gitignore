@@ -2,3 +2,4 @@
 target/classes/META-INF/MANIFEST.MF
 target/classes/META-INF/MANIFEST.MF
 target/classes/META-INF/maven/Grupo12Parcial/Grupo12Parcial/pom.properties
+*.MF
