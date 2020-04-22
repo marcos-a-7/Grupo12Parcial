@@ -1,22 +1,45 @@
 package modelo;
 
-
 import java.util.ArrayList;
 import java.util.Iterator;
+
+import Excepciones.ImposibleCrearPaqueteException;
+import Excepciones.MedioPagoInvalidoException;
+import Excepciones.NumeroInvalidoException;
+import Excepciones.TipoNoEncontradoException;
+import Excepciones.TipoPersonaInvalidoException;
 
 public class Empresa {
 	String nombre;
 	ArrayList<Contrato> contratos = new ArrayList<Contrato>();
-	
+
 	public Empresa(String nombre) {
 		this.nombre = nombre;
 	}
-	
-	//MAL
-	public void addContrato(Contrato contrato) {
-		contratos.add(contrato);
+
+	public void addContrato(String tipoPersona, String nombre, int dni, String medioPago, String calle, int numeroCalle,
+			String tipoInternet, int cantCelu, int cantTel, int cantCable) {
+		try {
+			Persona persona = PersonaFactory.getPersona(tipoPersona, nombre, dni, medioPago);
+			Domicilio domicilio = new Domicilio(calle, numeroCalle);
+			PaqueteServicios paqueteServicios = PaqueteServiciosFactory.getPaqueteServicios(tipoInternet, cantCelu,
+					cantTel, cantCable);
+			this.contratos.add(ContratoFactory.getContrato(persona, domicilio, paqueteServicios));
+		} catch (TipoNoEncontradoException e) {
+			System.out.println(e.getMessage() + e.getTipo());
+		} catch (ImposibleCrearPaqueteException e) {
+			System.out.println(e.getMessage());
+		} catch (MedioPagoInvalidoException e) {
+			this.addContrato(tipoPersona, nombre, dni, "Efectivo", calle, numeroCalle, tipoInternet, cantCelu, cantTel,
+					cantCable);
+			System.out.println(e.getMessage() + " se dejara por defecto en efectivo");
+		} catch (NumeroInvalidoException e) {
+			System.out.println(e.getMessage());
+		} catch (TipoPersonaInvalidoException e) {
+			System.out.println(e.getMessage());
+		}
 	}
-	//
+
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
 	}
@@ -33,76 +56,76 @@ public class Empresa {
 		boolean encontre = false;
 		Contrato contrato = null;
 		Iterator<Contrato> it = contratos.iterator();
-		while(it.hasNext() && encontre) {
+		while (it.hasNext() && encontre) {
 			contrato = it.next();
-			if(id==contrato.getIdContrato())
+			if (id == contrato.getIdContrato())
 				encontre = true;
 		}
-		if(!encontre)
+		if (!encontre)
 			contrato = null;
 		return contrato;
 	}
-	
+
 	public Contrato buscaContrato(String calle, int numero) {
 		boolean encontre = false;
-		Domicilio domicilio = new Domicilio(calle,numero);
+		Domicilio domicilio = new Domicilio(calle, numero);
 		Contrato contrato = null;
 		Iterator<Contrato> it = contratos.iterator();
-		while(it.hasNext() && encontre) {
+		while (it.hasNext() && encontre) {
 			contrato = it.next();
-			if(contrato.getDomicilio().equals(domicilio))
+			if (contrato.getDomicilio().equals(domicilio))
 				encontre = true;
 		}
-		if(!encontre)
+		if (!encontre)
 			contrato = null;
 		return contrato;
 	}
-	
+
 	public ArrayList<Contrato> buscaContratosTitular(String nombre, int dni) {
 		ArrayList<Contrato> contratosTitular = new ArrayList<Contrato>();
 		Contrato contrato = null;
 		Persona titular = null;
 		Iterator<Contrato> it = contratos.iterator();
-		while(it.hasNext()) {
+		while (it.hasNext()) {
 			contrato = it.next();
 			titular = contrato.getTitular();
-			if(titular.getNombre().equals(nombre) && (titular.getDni()==dni))
+			if (titular.getNombre().equals(nombre) && (titular.getDni() == dni))
 				contratosTitular.add(contrato);
 		}
-		if(contratosTitular.isEmpty())
+		if (contratosTitular.isEmpty())
 			contratosTitular = null;
 		return contratosTitular;
 	}
-	
+
 	public String reporte() {
 		Contrato aux = null;
 		StringBuilder sb = null;
-		if(contratos!=null) {
+		if (contratos != null) {
 			sb = new StringBuilder();
 			Iterator<Contrato> it = this.contratos.iterator();
-			while(it.hasNext()) {
+			while (it.hasNext()) {
 				aux = it.next();
 				sb.append(aux.getFactura().imprimeFactura());
 			}
 		}
 		return sb.toString();
 	}
-	
+
 	public String enlistarFacturas() {
 		Contrato aux = null;
 		Factura factura = null;
 		StringBuilder sb = null;
-		if(contratos!=null) {
+		if (contratos != null) {
 			sb = new StringBuilder();
 			Iterator<Contrato> it = this.contratos.iterator();
-			while(it.hasNext()) {
+			while (it.hasNext()) {
 				aux = it.next();
 				factura = aux.getFactura();
-				sb.append("Contrato: " + factura.getIdContrato() + "Costo total: " + factura.getPaqueteServicios().getCostoBase() + "\n");
+				sb.append("Contrato: " + factura.getIdContrato() + "Costo total: "
+						+ factura.getPaqueteServicios().getCostoBase() + "\n");
 			}
 		}
 		return sb.toString();
 	}
 
-	
 }

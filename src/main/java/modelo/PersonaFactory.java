@@ -1,21 +1,40 @@
 package modelo;
 
+import Excepciones.MedioPagoInvalidoException;
+import Excepciones.NumeroInvalidoException;
+import Excepciones.TipoPersonaInvalidoException;
+
 public class PersonaFactory {
 
-	public PersonaFactory() {
-		// TODO Auto-generated constructor stub
-	}
-
-	public Persona getPersona(String tipo, String nombre, int dni, MedioPago medioPago) {
+	protected static Persona getPersona(String tipo, String nombre, int dni, String medioPago)
+			throws MedioPagoInvalidoException, NumeroInvalidoException, TipoPersonaInvalidoException {
+		Persona persona = null;
+		MedioPago auxMedioPago = null;
+		
+		if (dni<=0)
+			throw new NumeroInvalidoException("El numero de dni es invalido, no puede ser negativo");
+		
+		if (medioPago == null) 
+			throw new MedioPagoInvalidoException("No se ingreso ningun medio de pago");
+		else if (medioPago.equals("Tarjeta"))
+			auxMedioPago = new Tarjeta();
+		else if (medioPago.equals("Cheque"))
+			auxMedioPago = new Cheque();
+		else if (medioPago.equals("Efectivo"))
+			auxMedioPago = new Efectivo();
+		else
+			throw new MedioPagoInvalidoException("Medio de pago ingresado no valido");
+		
 		if (tipo == null)
-			return null;
+			throw new TipoPersonaInvalidoException("No se ingreso ningun tipo de persona");
 		else if (tipo.equals("Fisica"))
-			return new PersonaFisica(nombre, dni, medioPago);
+			persona = new PersonaFisica(nombre, dni, auxMedioPago);
 		else if (tipo.equals("Juridica"))
-			return new PersonaJuridica(nombre, dni, medioPago);
-		return null;
+			persona = new PersonaJuridica(nombre, dni, auxMedioPago);
+		else
+			throw new TipoPersonaInvalidoException("Tipo de persona ingresado no valido");
+		
+		return persona;
 	}
-
-
 
 }
