@@ -9,6 +9,18 @@ public class PaqueteServicios {
 	ArrayList<Telefono> telefonos = new ArrayList<Telefono>();
 	ArrayList<Cable> cables = new ArrayList<Cable>();
 
+	public PaqueteServicios(Internet internet) {
+		this.internet = internet;
+	}
+
+	public PaqueteServicios() {
+
+	}
+
+	public void setInternet(Internet internet) {
+		this.internet = internet;
+	}
+
 	public Internet getInternet() {
 		return internet;
 	}
