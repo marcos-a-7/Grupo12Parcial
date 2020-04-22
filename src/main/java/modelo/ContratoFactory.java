@@ -2,6 +2,7 @@ package modelo;
 
 public class ContratoFactory {
 
+
 	public ContratoFactory() {
 		// TODO Auto-generated constructor stub
 	}
@@ -11,4 +12,5 @@ public class ContratoFactory {
 				return new Contrato(titular,domicilio,paqueteServicios);
 		return null;
 	}
+
 }

@@ -36,7 +36,7 @@ public class Empresa {
 			while(it.hasNext()) {
 				aux = it.next();
 				factura = aux.getFactura();
-				sb.append("Contrato: " + factura.getIdContrato() + "Costo total: " + factura.getPaqueteServicios().getCostoTotal() + "\n");
+				sb.append("Contrato: " + factura.getIdContrato() + "Costo total: " + factura.getPaqueteServicios().getCostoBase() + "\n");
 			}
 		}
 		return sb.toString();
