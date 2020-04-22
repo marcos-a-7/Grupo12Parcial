@@ -6,6 +6,4 @@ public interface IServicio {
 
 	String detalle();
 
-	double getCostoTotal();
-
 }

@@ -5,7 +5,7 @@ public class Contrato {
 	private int idContrato;
 	private Persona titular;
 	private Domicilio domicilio;
-	private IServicio paqueteServicios;
+	private PaqueteServicios paqueteServicios;
 	
 	public Contrato() {
 		this.idContrato = generadorIdContrato++;
@@ -26,10 +26,10 @@ public class Contrato {
 	public void setDomicilio(Domicilio domicilio) {
 		this.domicilio = domicilio;
 	}
-	public IServicio getPaqueteServicios() {
+	public PaqueteServicios getPaqueteServicios() {
 		return paqueteServicios;
 	}
-	public void setPaqueteServicios(IServicio paqueteServicios) {
+	public void setPaqueteServicios(PaqueteServicios paqueteServicios) {
 		this.paqueteServicios = paqueteServicios;
 	}
 	public Factura getFactura() {
@@ -37,5 +37,6 @@ public class Contrato {
 		factura = new Factura(idContrato,titular,domicilio,paqueteServicios);
 		return factura;
 	}
+	
 
 }

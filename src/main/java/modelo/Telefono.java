@@ -1,9 +1,8 @@
 package modelo;
 
-public class DecoradorTelefono extends DecoradorServicio {
-
-	public DecoradorTelefono(IServicio servicioEncapsulado) {
-		super(servicioEncapsulado);
+public class Telefono implements IServicio{
+	
+	public Telefono() {
 		this.numeroTelefono = generadorNum++;
 	}
 
@@ -14,13 +13,11 @@ public class DecoradorTelefono extends DecoradorServicio {
 		return 200;
 	}
 
-	@Override
 	public String detalle() {
-		return super.detalle() + " Linea Fija +54-9-223-" + this.getNumeroTelefono() + " " + this.getCosto() + "\n";
+		return "Linea Fija +54-9-223-" + this.getNumeroTelefono() + " $" + this.getCosto() + "\n";
 	}
 
 	public int getNumeroTelefono() {
 		return this.numeroTelefono;
 	}
-
 }
