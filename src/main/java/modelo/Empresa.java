@@ -12,6 +12,19 @@ public class Empresa {
 		this.nombre = nombre;
 	}
 	
+	public void addContrato(Contrato contrato) {
+		contratos.add(contrato);
+	}
+	
+	public Contrato buscaContrato(int id) {
+		Contrato contrato = null;
+		
+		Iterator<Contrato> it = contratos.iterator();
+		
+		
+		return contrato;
+	}
+	
 	public String reporte() {
 		Contrato aux = null;
 		StringBuilder sb = null;
