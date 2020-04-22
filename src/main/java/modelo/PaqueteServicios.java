@@ -63,10 +63,16 @@ public class PaqueteServicios {
 
 	public Celular buscaCelular(int num) {
 		Celular aux = null;
+		boolean encontre = false;
 		Iterator<Celular> it = celulares.iterator();
-		aux = it.next();
-		while (it.hasNext() && aux.getNumeroCelular() != num) {
+		while (it.hasNext() && !encontre) {
 			aux = it.next();
+			if (aux.getNumeroCelular() == num) {
+				encontre = true;
+			}
+		}
+		if (!encontre) {
+			aux = null;
 		}
 		return aux;
 	}
@@ -80,10 +86,17 @@ public class PaqueteServicios {
 
 	public Telefono buscaTelefono(int num) {
 		Telefono aux = null;
+		boolean encontre = false;
 		Iterator<Telefono> it = telefonos.iterator();
-		aux = it.next();
-		while (it.hasNext() && aux.getNumeroTelefono() != num) {
+
+		while (it.hasNext() && !encontre) {
 			aux = it.next();
+			if (aux.getNumeroTelefono() == num) {
+				encontre = true;
+			}
+		}
+		if (!encontre) {
+			aux = null;
 		}
 		return aux;
 	}
