@@ -1,7 +1,7 @@
 package modelo;
 
-import Excepciones.ImposibleCrearPaqueteException;
-import Excepciones.TipoNoEncontradoException;
+import excepciones.ImposibleCrearPaqueteException;
+import excepciones.TipoNoEncontradoException;
 
 public class PaqueteServiciosFactory {
 

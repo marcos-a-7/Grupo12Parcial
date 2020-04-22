@@ -3,11 +3,11 @@ package modelo;
 import java.util.ArrayList;
 import java.util.Iterator;
 
-import Excepciones.ImposibleCrearPaqueteException;
-import Excepciones.MedioPagoInvalidoException;
-import Excepciones.NumeroInvalidoException;
-import Excepciones.TipoNoEncontradoException;
-import Excepciones.TipoPersonaInvalidoException;
+import excepciones.ImposibleCrearPaqueteException;
+import excepciones.MedioPagoInvalidoException;
+import excepciones.NumeroInvalidoException;
+import excepciones.TipoNoEncontradoException;
+import excepciones.TipoPersonaInvalidoException;
 
 public class Empresa {
 	String nombre;
