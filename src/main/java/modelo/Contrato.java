@@ -9,7 +9,7 @@ public class Contrato {
 	
 	
 	
-	public Contrato(Persona titular, Domicilio domicilio, IServicio paqueteServicios) {
+	public Contrato(Persona titular, Domicilio domicilio, PaqueteServicios paqueteServicios) {
 		this.idContrato = generadorIdContrato++;
 		this.titular = titular;
 		this.domicilio = domicilio;
