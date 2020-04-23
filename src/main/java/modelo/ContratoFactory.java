@@ -1,5 +1,9 @@
 package modelo;
 
+import clientes.Domicilio;
+import clientes.Persona;
+import servicios.PaqueteServicios;
+
 /**
  * @author Grupo12
  *<b>Crea un contrato nuevo</b>

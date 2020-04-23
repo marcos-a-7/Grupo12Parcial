@@ -1,4 +1,4 @@
-package modelo;
+package clientes;
 
 /**
  * @author grupo12

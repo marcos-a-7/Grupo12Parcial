@@ -1,5 +1,14 @@
 package modelo;
 
+import clientes.Domicilio;
+import clientes.Persona;
+import servicios.Cable;
+import servicios.Celular;
+import servicios.Internet100;
+import servicios.Internet500;
+import servicios.PaqueteServicios;
+import servicios.Telefono;
+
 /**
  * @author grupo12
  *<b> la clase contrato guarda los datos de la persona y del paquete de servicio, tambien puede generar una factura</b>

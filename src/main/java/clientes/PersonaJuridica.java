@@ -1,5 +1,9 @@
-package modelo;
+package clientes;
 
+/**
+ * @author Grupo12
+ *La persona Juridica no puede ser clonada<br>
+ */
 public class PersonaJuridica extends Persona {
 
 	public PersonaJuridica(String nombre, int dni, MedioPago medioPago) {

@@ -1,5 +1,9 @@
-package modelo;
+package clientes;
 
+/**
+ * @author Grupo12
+ *La clase abstracta persona guarda el nombre, el medio con el que va a pagar y el DNI correspondiente al titular, implementa la interfase cloneable y obliga a la clases hijas a implementar el metodo clone()<br>
+ */
 public abstract class Persona implements Cloneable {
 	protected String nombre;
 	protected MedioPago medioPago;

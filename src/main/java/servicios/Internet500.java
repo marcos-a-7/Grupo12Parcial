@@ -1,5 +1,9 @@
-package modelo;
+package servicios;
 
+/**
+ * @author Grupo12
+ *La clase internet500 implementa el patron singleton y devuelve el costo de dicho internet<br>
+ */
 public class Internet500 extends Internet {
 	private static Internet500 internet500; 
 	

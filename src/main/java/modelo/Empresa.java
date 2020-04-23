@@ -3,11 +3,16 @@ package modelo;
 import java.util.ArrayList;
 import java.util.Iterator;
 
+import clientes.Domicilio;
+import clientes.Persona;
+import clientes.PersonaFactory;
 import excepciones.ImposibleCrearPaqueteException;
 import excepciones.MedioPagoInvalidoException;
 import excepciones.NumeroInvalidoException;
 import excepciones.TipoNoEncontradoException;
 import excepciones.TipoPersonaInvalidoException;
+import servicios.PaqueteServicios;
+import servicios.PaqueteServiciosFactory;
 
 
 /**
@@ -126,11 +131,10 @@ public class Empresa {
 
 
 	/**
-	 * Busca un contrato a partir de un nombre y un dni<br>
-	 * <b>Pre: </b> Debe ingresar un nombre no nulo y un dni no nulo positivo<br>
-	 * <b>Post: </b> Devolvera el contrato correspondiente al nombre y el dni ingresado, si no devolvera null<br>
-	 * @param nombre : el nombre del titular del contrato buscado
-	 * @param dni : el deni del titular del contrato buscado
+	 * Busca un contrato a partir de un dni<br>
+	 * <b>Pre: </b> no tiene<br>
+	 * <b>Post: </b> Devolvera el contrato correspondiente al dni ingresado, si no devolvera null<br>
+	 * @param dni : el dni del titular del contrato buscado
 	 * @return retorna un contrato o null
 	 */
 	
@@ -151,24 +155,40 @@ public class Empresa {
 	}
 
 
-	/**
-	 * Genera un reporte con todos los contratos
-	 * @return retorna un string con cada impresion correspondiente a cada factura<br>
-     */
+	
 
+	/**
+	 * Elimina un contrato segun el id
+	 * <b>Pre: </b> no tiene<br>
+	 * <b>Post: </b> remueve el contrato si el id corresponde a uno existente, de lo contrario no realiza ninguna accion<br>
+	 * @param id el id del contrato a eliminar
+	 */
 	public void eliminaContrato(int id) {
 		Contrato contrato = this.buscaContrato(id);
 		if (contrato != null)
 			this.contratos.remove(contrato);
 	}
 	
+	/**
+	 * Elimina un contrato segun la calle y el numero de domicilio
+	 * <b>Pre: </b> no tiene<br>
+	 * <b>Post: </b> remueve el contrato si la calle y el numero de la calle corresponden a uno existente, de lo contrario no realiza ninguna accion<br>
+	 * @param calle : la calle del domicilio del titular<br>
+	 * @param numero : el numero del domicilio del titular <br>
+	 */
 	public void eliminaContrato(String calle, int numero) {
 		Contrato contrato = this.buscaContrato(calle, numero);
 		if (contrato != null)
 			this.contratos.remove(contrato);
 	}
 	
-	public void eliminaContratosTitular(String nombre, int dni) {
+	/**
+	 *  Elimina un contrato segun el id del titular
+	 * <b>Pre: </b> no tiene<br>
+	 * <b>Post: </b> remueve todos los contratos si el DNI corresponde a uno existente, de lo contrario no realiza ninguna accion<br>
+	 * @param dni : DNI del titular correspondiente
+	 */
+	public void eliminaContratosTitular(int dni) {
 		Contrato contrato;
 		ArrayList<Contrato> contratosTitular = this.buscaContratosTitular(dni);
 		if (contratosTitular != null) {
@@ -180,7 +200,10 @@ public class Empresa {
 		}
 	}
 	
-
+	/**
+	 * Genera un reporte con todos los contratos
+	 * @return retorna un string con la impresion correspondiente a cada factura<br>
+     */
 	public String reporte() {
 		Contrato aux = null;
 		StringBuilder sb = null;
@@ -198,7 +221,7 @@ public class Empresa {
 	
 	/**
 	 * Genera una lista de las facturas
-	 * @return retorna un string con toda la descripcion de cada contrato<br>
+	 * @return retorna un string con el id de contrato y el costo total final de cada uno de ellos<br>
 	 */
 	public String enlistarFacturas() {
 		Contrato aux = null;
@@ -211,7 +234,7 @@ public class Empresa {
 				aux = it.next();
 				factura = aux.getFactura();
 				sb.append("Contrato: " + factura.getIdContrato() + "Costo total: "
-						+ factura.getPaqueteServicios().getCostoBase() + "\n");
+						+ factura.getCostoFinal() + "\n");
 			}
 		}
 		return sb.toString();

@@ -1,4 +1,4 @@
-package modelo;
+package servicios;
 
 /**
  * @author grupo12

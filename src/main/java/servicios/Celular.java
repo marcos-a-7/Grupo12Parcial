@@ -1,8 +1,8 @@
-package modelo;
+package servicios;
 
 /**
  * @author grupo12
- *<b> Genera un numero, devuelve costo y un detalle del mismo</b>
+ *<b>El servicio celular Genera un numero, devuelve costo y un detalle del mismo</b>
  */
 public class Celular implements IServicio {
 

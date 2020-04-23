@@ -1,5 +1,9 @@
-package modelo;
+package clientes;
 
+/**
+ * @author Grupo12
+ *La persona fisica es siempre es clonable<br>
+ */
 public class PersonaFisica extends Persona {
 
 	public PersonaFisica(String nombre, int dni, MedioPago medioPago) {
