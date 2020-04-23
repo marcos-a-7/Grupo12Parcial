@@ -17,7 +17,7 @@ public class PaqueteServiciosFactory {
 	 * @return retorna un paquete de servicio nuevo
 	 * @throws ImposibleCrearPaqueteException : arrojara una excepcion de este tipo si tuvo algun problema al crear un paquete de servicios<br>
 	 */
-	protected static PaqueteServicios getPaqueteServicios(String tipoInternet, int cantCelu, int cantTel, int cantCable)
+	public static PaqueteServicios getPaqueteServicios(String tipoInternet, int cantCelu, int cantTel, int cantCable)
 			throws ImposibleCrearPaqueteException {
 		PaqueteServicios paquete = null;
 		int i;

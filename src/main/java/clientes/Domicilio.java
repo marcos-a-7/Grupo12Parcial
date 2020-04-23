@@ -30,7 +30,7 @@ public class Domicilio implements Cloneable {
 		return "Domicilio: " + this.calle + " " + this.numero;
 	}
 	@Override
-	protected Domicilio clone() throws CloneNotSupportedException {
+	public Domicilio clone() throws CloneNotSupportedException {
 		return (Domicilio)super.clone();
 	}
 }

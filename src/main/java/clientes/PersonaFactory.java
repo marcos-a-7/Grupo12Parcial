@@ -23,7 +23,7 @@ public class PersonaFactory {
 	 * @throws NumeroInvalidoException : en casi de que el numero de DNI sea invalido<br>
 	 * @throws TipoPersonaInvalidoException : En caso que el tipo de persona sea invalido <br>
 	 */
-	protected static Persona getPersona(String tipo, String nombre, int dni, String medioPago)
+	public static Persona getPersona(String tipo, String nombre, int dni, String medioPago)
 			throws MedioPagoInvalidoException, NumeroInvalidoException, TipoPersonaInvalidoException {
 		Persona persona = null;
 		MedioPago auxMedioPago = null;
