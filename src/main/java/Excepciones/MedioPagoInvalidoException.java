@@ -1,4 +1,4 @@
-package Excepciones;
+package excepciones;
 
 public class MedioPagoInvalidoException extends Exception {
 	

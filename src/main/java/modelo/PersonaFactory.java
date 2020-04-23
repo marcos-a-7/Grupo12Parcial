@@ -1,8 +1,8 @@
 package modelo;
 
-import Excepciones.MedioPagoInvalidoException;
-import Excepciones.NumeroInvalidoException;
-import Excepciones.TipoPersonaInvalidoException;
+import excepciones.MedioPagoInvalidoException;
+import excepciones.NumeroInvalidoException;
+import excepciones.TipoPersonaInvalidoException;
 
 public class PersonaFactory {
 
