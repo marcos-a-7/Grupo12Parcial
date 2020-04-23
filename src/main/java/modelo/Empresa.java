@@ -3,11 +3,22 @@ package modelo;
 import java.util.ArrayList;
 import java.util.Iterator;
 
+import clientes.Domicilio;
+import clientes.PersonaFactory;
 import excepciones.ImposibleCrearPaqueteException;
 import excepciones.MedioPagoInvalidoException;
 import excepciones.NumeroInvalidoException;
 import excepciones.TipoNoEncontradoException;
 import excepciones.TipoPersonaInvalidoException;
+import servicios.PaqueteServicios;
+import servicios.PaqueteServiciosFactory;
+
+
+/**
+ * @author Grupo12
+ *<b>Se encarga de realizar los contratos y los guarda en el atributo contratos de tipo ArrayList, tambien guarda el nombre de la empresa</b><br>
+ */
+
 
 public class Empresa {
 	String nombre;
@@ -17,6 +28,23 @@ public class Empresa {
 		this.nombre = nombre;
 	}
 
+
+	/**
+	 * Add contrato<br>
+	 * crea un contrato y lo agrega al array list<br>
+	 * <b>Pre: </b> el dni debe ser numero positivo<br>
+	 * <b>Post: </b> crea una persona, un domicilio, un paquete de servicios y un contrato y luego lo guarda en el arraylist, en caso de que el tipo de persona, el nombre, el medio de pago, la calle o el numero de calle sea invalido, lanzara una excepcion correspondiente con su mensaje correspondiente en cada caso especificando el error y lo mostrara por pantalla <br>
+	 * @param tipoPersona : puede ser juridica o fisica en la poscondicion aclara que pasa si no se ingresa una correcta
+	 * @param nombre : el nombre de la persona
+	 * @param dni : el dni de la persona
+	 * @param medioPago : por que medio va a pagar si por cheque efectivo o tarjeta
+	 * @param calle : nombre de la calle del domicilio
+	 * @param numeroCalle : numero del domicilio
+	 * @param tipoInternet : el tipo de internet a contratar 100 o 500
+	 * @param cantCelu : La cantidad de celulares a contratar
+	 * @param cantTel : La cantidad de telefonos a contratar
+	 * @param cantCable : La cantidad de cable a contratar
+	 */
 	public void addContrato(String tipoPersona, String nombre, int dni, String medioPago, String calle, int numeroCalle,
 			String tipoInternet, int cantCelu, int cantTel, int cantCable) {
 		Contrato auxContrato;
