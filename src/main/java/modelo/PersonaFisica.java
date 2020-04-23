@@ -17,7 +17,7 @@ public class PersonaFisica extends Persona {
 	}
 
 	@Override
-	protected PersonaFisica clone() throws CloneNotSupportedException {
+	public PersonaFisica clone() throws CloneNotSupportedException {
 		return (PersonaFisica) super.clone();
 	}
 }

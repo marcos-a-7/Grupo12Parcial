@@ -27,7 +27,7 @@ public abstract class Persona implements Cloneable {
 		return "Persona ";
 	}
 	@Override
-	protected Persona clone() throws CloneNotSupportedException {
+	public Persona clone() throws CloneNotSupportedException {
 		return (Persona)super.clone();
 	}
 	public abstract double getTasa();
