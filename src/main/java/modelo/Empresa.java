@@ -8,10 +8,14 @@ import excepciones.MedioPagoInvalidoException;
 import excepciones.NumeroInvalidoException;
 import excepciones.TipoNoEncontradoException;
 import excepciones.TipoPersonaInvalidoException;
+
 /**
  * @author Grupo12
  *<b>Se encarga de realizar los contratos y los guarda en el atributo contratos de tipo ArrayList, tambien guarda el nombre de la empresa</b>
  */
+
+
+
 public class Empresa {
 	String nombre;
 	ArrayList<Contrato> contratos = new ArrayList<Contrato>();
@@ -38,12 +42,15 @@ public class Empresa {
 	 */
 	public void addContrato(String tipoPersona, String nombre, int dni, String medioPago, String calle, int numeroCalle,
 			String tipoInternet, int cantCelu, int cantTel, int cantCable) {
+		Contrato auxContrato;
 		try {
 			Persona persona = PersonaFactory.getPersona(tipoPersona, nombre, dni, medioPago);
 			Domicilio domicilio = new Domicilio(calle, numeroCalle);
 			PaqueteServicios paqueteServicios = PaqueteServiciosFactory.getPaqueteServicios(tipoInternet, cantCelu,
 					cantTel, cantCable);
-			this.contratos.add(ContratoFactory.getContrato(persona, domicilio, paqueteServicios));
+			auxContrato = this.buscaContrato(calle, numeroCalle);
+			if(auxContrato == null)
+				this.contratos.add(ContratoFactory.getContrato(persona, domicilio, paqueteServicios));
 		} catch (TipoNoEncontradoException e) {
 			System.out.println(e.getMessage() + e.getTipo());
 		} catch (ImposibleCrearPaqueteException e) {
@@ -139,10 +146,37 @@ public class Empresa {
 		return contratosTitular;
 	}
 
+
 	/**
 	 * Genera un reporte con todos los contratos
 	 * @return retorna un string con cada impresion correspondiente a cada factura<br>
      */
+
+	public void eliminaContrato(int id) {
+		Contrato contrato = this.buscaContrato(id);
+		if (contrato != null)
+			this.contratos.remove(contrato);
+	}
+	
+	public void eliminaContrato(String calle, int numero) {
+		Contrato contrato = this.buscaContrato(calle, numero);
+		if (contrato != null)
+			this.contratos.remove(contrato);
+	}
+	
+	public void eliminaContratosTitular(String nombre, int dni) {
+		Contrato contrato;
+		ArrayList<Contrato> contratosTitular = this.buscaContratosTitular(nombre, dni);
+		if (contratosTitular != null) {
+			Iterator<Contrato> it = contratosTitular.iterator();
+			while(it.hasNext()) {
+				contrato = it.next();
+				this.contratos.remove(contrato);
+			}
+		}
+	}
+	
+
 	public String reporte() {
 		Contrato aux = null;
 		StringBuilder sb = null;
@@ -178,5 +212,4 @@ public class Empresa {
 		}
 		return sb.toString();
 	}
-
 }
