@@ -84,15 +84,13 @@ public class Empresa {
 		return contrato;
 	}
 
-	public ArrayList<Contrato> buscaContratosTitular(String nombre, int dni) {
+	public ArrayList<Contrato> buscaContratosTitular(int dni) {
 		ArrayList<Contrato> contratosTitular = new ArrayList<Contrato>();
 		Contrato contrato = null;
-		Persona titular = null;
 		Iterator<Contrato> it = contratos.iterator();
 		while (it.hasNext()) {
 			contrato = it.next();
-			titular = contrato.getTitular();
-			if (titular.getNombre().equals(nombre) && (titular.getDni() == dni))
+			if (contrato.getTitular().getDni() == dni)
 				contratosTitular.add(contrato);
 		}
 		if (contratosTitular.isEmpty())
