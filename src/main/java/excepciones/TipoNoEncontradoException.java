@@ -1,4 +1,4 @@
-package Excepciones;
+package excepciones;
 
 public class TipoNoEncontradoException extends ImposibleCrearPaqueteException {
 	String tipo;

@@ -41,6 +41,36 @@ public class Contrato {
 		factura = new Factura(idContrato,titular,domicilio,paqueteServicios);
 		return factura;
 	}
-	
-
+	public void addCelulares(int cantCelu) {
+		int i;
+		for (i = 0; i < cantCelu; i++)
+			this.paqueteServicios.addCelular(new Celular());
+	}
+	public void addTelefonos(int cantTel) {
+		int i;
+		for (i = 0; i < cantTel; i++)
+			this.paqueteServicios.addTelefono(new Telefono());
+	}
+	public void addCables(int cantCables) {
+		int i;
+		for (i = 0; i < cantCables; i++)
+			this.paqueteServicios.addCable(new Cable());
+	}
+	public void eliminaCelulare(int numeroCelular) {
+		this.paqueteServicios.eliminaCelular(numeroCelular);
+	}
+	public void eliminaTelefonos(int numeroTelefono) {
+		this.paqueteServicios.eliminaTelefono(numeroTelefono);
+	}
+	public void eliminaCables(int cantCables) {
+		this.paqueteServicios.eliminaCable();
+	}
+	//recibe un tipo de internet valido
+	public void cambiaInternet(String tipoInternet) {
+		if (tipoInternet.equals("100")) {
+			paqueteServicios.setInternet(Internet100.getInstance());
+		} else if (tipoInternet.equals("500")) {
+			paqueteServicios.setInternet(Internet500.getInstance());
+		}
+	}
 }
