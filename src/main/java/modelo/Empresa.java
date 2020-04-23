@@ -112,7 +112,7 @@ public class Empresa {
 	
 	public void eliminaContratosTitular(String nombre, int dni) {
 		Contrato contrato;
-		ArrayList<Contrato> contratosTitular = this.buscaContratosTitular(nombre, dni);
+		ArrayList<Contrato> contratosTitular = this.buscaContratosTitular(dni);
 		if (contratosTitular != null) {
 			Iterator<Contrato> it = contratosTitular.iterator();
 			while(it.hasNext()) {
