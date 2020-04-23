@@ -3,25 +3,11 @@ package modelo;
 import java.util.ArrayList;
 import java.util.Iterator;
 
-import clientes.Domicilio;
-import clientes.Persona;
-import clientes.PersonaFactory;
 import excepciones.ImposibleCrearPaqueteException;
 import excepciones.MedioPagoInvalidoException;
 import excepciones.NumeroInvalidoException;
 import excepciones.TipoNoEncontradoException;
 import excepciones.TipoPersonaInvalidoException;
-import servicios.PaqueteServicios;
-import servicios.PaqueteServiciosFactory;
-
-
-/**
- * @author Grupo12
- *<b>Se encarga de realizar los contratos y los guarda en el atributo contratos de tipo ArrayList, tambien guarda el nombre de la empresa</b>
- */
-
-
-
 
 public class Empresa {
 	String nombre;
@@ -31,22 +17,6 @@ public class Empresa {
 		this.nombre = nombre;
 	}
 
-	/**
-	 * Add contrato<br>
-	 * crea un contrato y lo agrega al array list
-	 * <b>Pre: </b> el dni debe ser numero positivo<br>
-	 * <b>Post: </b> crea una persona, un domicilio, un paquete de servicios y un contrato y luego lo guarda en el arraylist, en caso de que el tipo de persona, el nombre, el medio de pago, la calle o el numero de calle sea invalido, lanzara una excepcion correspondiente con su mensaje correspondiente en cada caso especificando el error y lo mostrara por pantalla <br>
-	 * @param tipoPersona : puede ser juridica o fisica en la poscondicion aclara que pasa si no se ingresa una correcta
-	 * @param nombre : el nombre de la persona
-	 * @param dni : el dni de la persona
-	 * @param medioPago : por que medio va a pagar si por cheque efectivo o tarjeta
-	 * @param calle : nombre de la calle del domicilio
-	 * @param numeroCalle : numero del domicilio
-	 * @param tipoInternet : el tipo de internet a contratar 100 o 500
-	 * @param cantCelu : La cantidad de celulares a contratar
-	 * @param cantTel : La cantidad de telefonos a contratar
-	 * @param cantCable : La cantidad de cable a contratar
-	 */
 	public void addContrato(String tipoPersona, String nombre, int dni, String medioPago, String calle, int numeroCalle,
 			String tipoInternet, int cantCelu, int cantTel, int cantCable) {
 		Contrato auxContrato;
@@ -85,13 +55,6 @@ public class Empresa {
 		return contratos;
 	}
 
-	/**
-	 * Busca un contrato a traves de un id<br>
-	 * <b>Pre: </b> no tiene<br>
-	 * <b>Post: </b> devolvera el contrato de dicho id ingresado, si no lo encuentra devolvera null<br>
-	 * @param id : es el id el cual esta asociado a un contrato<br>
-	 * @return retorna un contrato o null <br>
-	 */
 	public Contrato buscaContrato(int id) {
 		boolean encontre = false;
 		Contrato contrato = null;
@@ -106,14 +69,6 @@ public class Empresa {
 		return contrato;
 	}
 
-	/**
-	 * Busca un contrato a traves de una calle y el numero de direccion<br>
-	 * <b>Pre: </b> Debe ingresar una calle no nula<br>
-	 * <b>Post: </b> devolvera el contrato correspondiente a la calle y numero ingresado, si no lo encuentra devolvera null<br>
-	 * @param calle : La calle del domicilio de la persona 
-	 * @param numero : El numero de la calle del domicilio de la persona
-	 * @return retorna un contrato o null<br>
-	 */
 	public Contrato buscaContrato(String calle, int numero) {
 		boolean encontre = false;
 		Domicilio domicilio = new Domicilio(calle, numero);
@@ -129,18 +84,7 @@ public class Empresa {
 		return contrato;
 	}
 
-
-	/**
-	 * Busca un contrato a partir de un dni<br>
-	 * <b>Pre: </b> no tiene<br>
-	 * <b>Post: </b> Devolvera el contrato correspondiente al dni ingresado, si no devolvera null<br>
-	 * @param dni : el dni del titular del contrato buscado
-	 * @return retorna un contrato o null
-	 */
-	
-
 	public ArrayList<Contrato> buscaContratosTitular(int dni) {
-
 		ArrayList<Contrato> contratosTitular = new ArrayList<Contrato>();
 		Contrato contrato = null;
 		Iterator<Contrato> it = contratos.iterator();
@@ -154,40 +98,18 @@ public class Empresa {
 		return contratosTitular;
 	}
 
-
-	
-
-	/**
-	 * Elimina un contrato segun el id
-	 * <b>Pre: </b> no tiene<br>
-	 * <b>Post: </b> remueve el contrato si el id corresponde a uno existente, de lo contrario no realiza ninguna accion<br>
-	 * @param id el id del contrato a eliminar
-	 */
 	public void eliminaContrato(int id) {
 		Contrato contrato = this.buscaContrato(id);
 		if (contrato != null)
 			this.contratos.remove(contrato);
 	}
 	
-	/**
-	 * Elimina un contrato segun la calle y el numero de domicilio
-	 * <b>Pre: </b> no tiene<br>
-	 * <b>Post: </b> remueve el contrato si la calle y el numero de la calle corresponden a uno existente, de lo contrario no realiza ninguna accion<br>
-	 * @param calle : la calle del domicilio del titular<br>
-	 * @param numero : el numero del domicilio del titular <br>
-	 */
 	public void eliminaContrato(String calle, int numero) {
 		Contrato contrato = this.buscaContrato(calle, numero);
 		if (contrato != null)
 			this.contratos.remove(contrato);
 	}
 	
-	/**
-	 *  Elimina un contrato segun el id del titular
-	 * <b>Pre: </b> no tiene<br>
-	 * <b>Post: </b> remueve todos los contratos si el DNI corresponde a uno existente, de lo contrario no realiza ninguna accion<br>
-	 * @param dni : DNI del titular correspondiente
-	 */
 	public void eliminaContratosTitular(int dni) {
 		Contrato contrato;
 		ArrayList<Contrato> contratosTitular = this.buscaContratosTitular(dni);
@@ -200,10 +122,6 @@ public class Empresa {
 		}
 	}
 	
-	/**
-	 * Genera un reporte con todos los contratos
-	 * @return retorna un string con la impresion correspondiente a cada factura<br>
-     */
 	public String reporte() {
 		Contrato aux = null;
 		StringBuilder sb = null;
@@ -218,11 +136,6 @@ public class Empresa {
 		return sb.toString();
 	}
 
-	
-	/**
-	 * Genera una lista de las facturas
-	 * @return retorna un string con el id de contrato y el costo total final de cada uno de ellos<br>
-	 */
 	public String enlistarFacturas() {
 		Contrato aux = null;
 		Factura factura = null;
@@ -234,7 +147,7 @@ public class Empresa {
 				aux = it.next();
 				factura = aux.getFactura();
 				sb.append("Contrato: " + factura.getIdContrato() + "Costo total: "
-						+ factura.getCostoFinal() + "\n");
+						+ factura.getPaqueteServicios().getCostoBase() + "\n");
 			}
 		}
 		return sb.toString();
