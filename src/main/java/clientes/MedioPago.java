@@ -1,4 +1,4 @@
-package modelo;
+package clientes;
 
 public abstract class MedioPago {
 	public abstract double getTasaFisica();

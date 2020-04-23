@@ -1,5 +1,9 @@
-package modelo;
+package clientes;
 
+/**
+ * @author Grupo12
+ *La persona fisica es siempre es clonable<br>
+ */
 public class PersonaFisica extends Persona {
 
 	public PersonaFisica(String nombre, int dni, MedioPago medioPago) {
@@ -17,7 +21,7 @@ public class PersonaFisica extends Persona {
 	}
 
 	@Override
-	protected PersonaFisica clone() throws CloneNotSupportedException {
+	public PersonaFisica clone() throws CloneNotSupportedException {
 		return (PersonaFisica) super.clone();
 	}
 }

@@ -1,5 +1,9 @@
-package modelo;
+package servicios;
 
+/**
+ * @author grupo12
+ *<b>El servicio telefono Genera un numero, devuelve costo y un detalle del mismo</b>
+ */
 public class Telefono implements IServicio{
 	
 	public Telefono() {

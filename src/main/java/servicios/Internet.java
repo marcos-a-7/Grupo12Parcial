@@ -1,4 +1,4 @@
-package modelo;
+package servicios;
 
 public abstract class Internet implements IServicio {
 

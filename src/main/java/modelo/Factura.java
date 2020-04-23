@@ -1,5 +1,13 @@
 package modelo;
 
+import clientes.Domicilio;
+import clientes.Persona;
+import servicios.PaqueteServicios;
+
+/**
+ * @author Grupo12
+ *La clase factura implementa la interfase cloneable, se encarga de generar los datos de la factura e implementa el motodo clone()<br>
+ */
 public class Factura implements Cloneable {
 	private int idContrato;
 	private PaqueteServicios paqueteServicios;
@@ -25,14 +33,23 @@ public class Factura implements Cloneable {
 	public Domicilio getDomicilio() {
 		return domicilio;
 	}
+	public double getCostoFinal() {
+		return this.paqueteServicios.getCostoBase()*this.persona.getTasa();
+	}
+	/**
+	 * Imprime la factura de un contrato<br>
+	 * @return retorna un string con la factura del contrato<br>
+	 */
 	public String imprimeFactura() {
 		StringBuilder sb = new StringBuilder();
 		sb.append("Numero de contrato: " + this.idContrato + "\n");
 		sb.append(persona.toString());
 		sb.append(this.paqueteServicios.detalle());
-		sb.append("Costo total: " + this.paqueteServicios.getCostoBase());
+		sb.append("Costo basico: " + this.paqueteServicios.getCostoBase());
+		sb.append("Aplicando tasas (descuentos/impuestos) Costo Final: "+this.getCostoFinal());
 		return sb.toString();
 	}
+	
 	@Override
 	protected Factura clone() {
 		Factura aux = null;

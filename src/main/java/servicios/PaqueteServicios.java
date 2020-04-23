@@ -1,8 +1,12 @@
-package modelo;
+package servicios;
 
 import java.util.ArrayList;
 import java.util.Iterator;
 
+/**
+ * @author Grupo12
+ *Se encarga de manejar todas las combinaciones de servicios en un conjunto<br>
+ */
 public class PaqueteServicios {
 	Internet internet;
 	ArrayList<Celular> celulares = new ArrayList<Celular>();
@@ -61,6 +65,13 @@ public class PaqueteServicios {
 		return celulares.size();
 	}
 
+	/**
+	 * Busca un celular segun un numero de celular<br>
+	 * <b>Pre:</b>No tiene<br>
+	 * <b>Post:</b>Devolvera un celular el cual tenga el numero ingresado en caso de no encontrarlo devolvera null<br>
+	 * @param num : Numero de celular<br>
+	 * @return retorna celular o null<br>
+	 */
 	public Celular buscaCelular(int num) {
 		Celular aux = null;
 		boolean encontre = false;
@@ -77,6 +88,12 @@ public class PaqueteServicios {
 		return aux;
 	}
 
+	/**
+	 * Busca un celular segun un numero de celular y lo elimina<br>
+	 * <b>Pre:</b>No tiene<br>
+	 * <b>Post:</b>Eliminara un celular el cual tenga el numero ingresado en caso de no encontrarlo no realizara ninguna accion<br>
+	 * @param num : numero de celular<br>
+	 */
 	public void eliminaCelular(int num) {
 		Celular aux;
 		aux = this.buscaCelular(num);
@@ -84,6 +101,13 @@ public class PaqueteServicios {
 			celulares.remove(aux);
 	}
 
+	/**
+	 *Busca un telefono segun un numero de telefono <br>
+	 * <b>Pre:</b>No tiene<br>
+	 * <b>Post:</b>Devolvera un telofno el cual tenga el numero ingresado en caso de no encontrarlo devolvera null<br>
+	 * @param num : Numero de telefono<br>
+	 * @return retorna Telefono o null<br>
+	 */
 	public Telefono buscaTelefono(int num) {
 		Telefono aux = null;
 		boolean encontre = false;
@@ -101,6 +125,12 @@ public class PaqueteServicios {
 		return aux;
 	}
 
+	/**
+	 *Busca un celular segun un numero de telefono y lo elimina<br>
+	 * <b>Pre:</b>No tiene<br>
+	 * <b>Post:</b>Eliminara un telefono el cual tenga el numero ingresado en caso de no encontrarlo no realizara ninguna accion<br>
+	 * @param num : numero de telefono<br>
+	 */
 	public void eliminaTelefono(int num) {
 		Telefono aux;
 		aux = this.buscaTelefono(num);
@@ -108,11 +138,17 @@ public class PaqueteServicios {
 			telefonos.remove(aux);
 	}
 
+	/**
+	 * Elimina un cable en caso que tenga al menos uno<br>
+	 */
 	public void eliminaCable() {
 		if (cables.size() > 0)
 			cables.remove(cables.size() - 1);
 	}
 
+	/**
+	 * @return retorna la suma de todos los costos incluidos en el paquete<br>
+	 */
 	public double getCostoBase() {
 		double costoBase = 0;
 		Iterator<Cable> it1 = cables.iterator();
@@ -134,6 +170,9 @@ public class PaqueteServicios {
 		return costoBase;
 	}
 
+	/**
+	 * @return retorna un string con el detalle de cada servicio<br>
+	 */
 	public String detalle() {
 
 		StringBuilder sb = new StringBuilder();

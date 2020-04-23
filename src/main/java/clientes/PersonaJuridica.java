@@ -1,5 +1,9 @@
-package modelo;
+package clientes;
 
+/**
+ * @author Grupo12
+ *La persona Juridica no puede ser clonada<br>
+ */
 public class PersonaJuridica extends Persona {
 
 	public PersonaJuridica(String nombre, int dni, MedioPago medioPago) {
@@ -15,7 +19,7 @@ public class PersonaJuridica extends Persona {
 		return super.toString() + " Juridica - Nombre: " + this.nombre + " DNI: " + this.dni + "\n" ;
 	}
 	@Override
-	protected PersonaJuridica clone() throws CloneNotSupportedException {
+	public PersonaJuridica clone() throws CloneNotSupportedException {
 		throw new CloneNotSupportedException();
 	}
 }

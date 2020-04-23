@@ -1,11 +1,23 @@
-package modelo;
+package servicios;
 
 import excepciones.ImposibleCrearPaqueteException;
 import excepciones.TipoNoEncontradoException;
 
+/**
+ * @author Grupo12
+ *Se encarga de crear Paquetes de servicios <br>
+ */
 public class PaqueteServiciosFactory {
 
-	protected static PaqueteServicios getPaqueteServicios(String tipoInternet, int cantCelu, int cantTel, int cantCable)
+	/**
+	 * @param tipoInternet : el tipo de internet que quiera el cliente<br>
+	 * @param cantCelu : la cantidad de celulares a contratar<br>
+	 * @param cantTel : la cantidad de telefonos a contratatar<br>
+	 * @param cantCable : la cantidad de cables a contratar<br>
+	 * @return retorna un paquete de servicio nuevo
+	 * @throws ImposibleCrearPaqueteException : arrojara una excepcion de este tipo si tuvo algun problema al crear un paquete de servicios<br>
+	 */
+	public static PaqueteServicios getPaqueteServicios(String tipoInternet, int cantCelu, int cantTel, int cantCable)
 			throws ImposibleCrearPaqueteException {
 		PaqueteServicios paquete = null;
 		int i;

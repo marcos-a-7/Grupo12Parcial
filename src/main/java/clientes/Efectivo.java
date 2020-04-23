@@ -1,5 +1,9 @@
-package modelo;
+package clientes;
 
+/**
+ * @author Grupo12
+ *<b>Devuelve el descuento correspondiente</b>
+ */
 public class Efectivo extends MedioPago {
 	@Override
 	public double getTasaFisica() {
