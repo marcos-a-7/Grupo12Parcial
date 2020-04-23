@@ -1,11 +1,14 @@
 package modelo;
 
+/**
+ * @author Grupo12
+ *<b>se guarda la calle y el numero, implementa la interfase cloneable y el metodo clone, sobreescribe el metodo tostring el cual devuelve los datos del domicilio</b>
+ */
 public class Domicilio implements Cloneable {
 	private String calle;
 	private int numero;
 	
 	public Domicilio(String calle, int numero) {
-		super();
 		this.calle = calle;
 		this.numero = numero;
 	}

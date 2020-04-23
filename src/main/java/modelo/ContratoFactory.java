@@ -1,5 +1,9 @@
 package modelo;
 
+/**
+ * @author Grupo12
+ *<b>Crea un contrato nuevo</b>
+ */
 public class ContratoFactory {
 
 

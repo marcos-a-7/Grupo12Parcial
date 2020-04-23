@@ -1,5 +1,9 @@
 package modelo;
 
+/**
+ * @author grupo12
+ *Devuelve el incremento correspondiente al pagar por cheque
+ */
 public class Cheque extends MedioPago {
 	@Override
 	public double getTasaFisica() {

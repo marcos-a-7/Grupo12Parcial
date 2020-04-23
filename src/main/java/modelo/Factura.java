@@ -1,5 +1,9 @@
 package modelo;
 
+/**
+ * @author Grupo12
+ *La clase factura implementa la interfase cloneable, se encarga de generar los datos de la factura e implementa el motodo clone()<br>
+ */
 public class Factura implements Cloneable {
 	private int idContrato;
 	private PaqueteServicios paqueteServicios;
