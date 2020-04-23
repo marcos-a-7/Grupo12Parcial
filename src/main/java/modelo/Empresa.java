@@ -124,6 +124,7 @@ public class Empresa {
 		return contrato;
 	}
 
+
 	/**
 	 * Busca un contrato a partir de un nombre y un dni<br>
 	 * <b>Pre: </b> Debe ingresar un nombre no nulo y un dni no nulo positivo<br>
@@ -132,15 +133,16 @@ public class Empresa {
 	 * @param dni : el deni del titular del contrato buscado
 	 * @return retorna un contrato o null
 	 */
-	public ArrayList<Contrato> buscaContratosTitular(String nombre, int dni) {
+	
+
+	public ArrayList<Contrato> buscaContratosTitular(int dni) {
+
 		ArrayList<Contrato> contratosTitular = new ArrayList<Contrato>();
 		Contrato contrato = null;
-		Persona titular = null;
 		Iterator<Contrato> it = contratos.iterator();
 		while (it.hasNext()) {
 			contrato = it.next();
-			titular = contrato.getTitular();
-			if (titular.getNombre().equals(nombre) && (titular.getDni() == dni))
+			if (contrato.getTitular().getDni() == dni)
 				contratosTitular.add(contrato);
 		}
 		if (contratosTitular.isEmpty())
@@ -168,7 +170,7 @@ public class Empresa {
 	
 	public void eliminaContratosTitular(String nombre, int dni) {
 		Contrato contrato;
-		ArrayList<Contrato> contratosTitular = this.buscaContratosTitular(nombre, dni);
+		ArrayList<Contrato> contratosTitular = this.buscaContratosTitular(dni);
 		if (contratosTitular != null) {
 			Iterator<Contrato> it = contratosTitular.iterator();
 			while(it.hasNext()) {
