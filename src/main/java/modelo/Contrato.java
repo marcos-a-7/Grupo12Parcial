@@ -50,9 +50,12 @@ public class Contrato {
 		this.paqueteServicios = paqueteServicios;
 	}
 	/**
-	 * GetFactura<br>
+	 *  * GetFactura<br>
+	 *  <b>Pre:</b> no tiene<br>
+	 *  <b>Post:</b> devolvera una factura<br>
 	 * <b>Crea una factura y la devuelve</b>
 	 *
+	 * @return retorna una factura<br>
 	 */
 	public Factura getFactura() {
 		Factura factura = null;
@@ -83,7 +86,11 @@ public class Contrato {
 	public void eliminaCables(int cantCables) {
 		this.paqueteServicios.eliminaCable();
 	}
-	//recibe un tipo de internet valido
+	/**
+	 * <b>Pre:</b> el tipo de internet debe ser valido<br>
+	 * <b>Post:</b> cambiara el tipo de internet establecido al ingresado<br>
+	 * @param tipoInternet : El tipo de internet al cual se quiere cambiar<br>
+	 */
 	public void cambiaInternet(String tipoInternet) {
 		if (tipoInternet.equals("100")) {
 			paqueteServicios.setInternet(Internet100.getInstance());

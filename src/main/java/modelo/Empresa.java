@@ -17,7 +17,7 @@ import servicios.PaqueteServiciosFactory;
 
 /**
  * @author Grupo12
- *<b>Se encarga de realizar los contratos y los guarda en el atributo contratos de tipo ArrayList, tambien guarda el nombre de la empresa</b>
+ *<b>Se encarga de realizar los contratos y los guarda en el atributo contratos de tipo ArrayList, tambien guarda el nombre de la empresa</b><br>
  */
 
 
@@ -33,7 +33,7 @@ public class Empresa {
 
 	/**
 	 * Add contrato<br>
-	 * crea un contrato y lo agrega al array list
+	 * crea un contrato y lo agrega al array list<br>
 	 * <b>Pre: </b> el dni debe ser numero positivo<br>
 	 * <b>Post: </b> crea una persona, un domicilio, un paquete de servicios y un contrato y luego lo guarda en el arraylist, en caso de que el tipo de persona, el nombre, el medio de pago, la calle o el numero de calle sea invalido, lanzara una excepcion correspondiente con su mensaje correspondiente en cada caso especificando el error y lo mostrara por pantalla <br>
 	 * @param tipoPersona : puede ser juridica o fisica en la poscondicion aclara que pasa si no se ingresa una correcta
