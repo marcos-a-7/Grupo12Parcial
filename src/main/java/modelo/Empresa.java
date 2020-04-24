@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 
 import clientes.Domicilio;
+import clientes.Persona;
 import clientes.PersonaFactory;
 import excepciones.ImposibleCrearPaqueteException;
 import excepciones.MedioPagoInvalidoException;
