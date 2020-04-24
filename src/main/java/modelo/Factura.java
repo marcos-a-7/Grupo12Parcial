@@ -5,8 +5,10 @@ import clientes.Persona;
 import servicios.PaqueteServicios;
 
 /**
- * @author Grupo12
- *La clase factura implementa la interfase cloneable, se encarga de generar los datos de la factura e implementa el motodo clone()<br>
+ * @author Grupo12<br>
+ *         <b> La clase factura implementa la interfase cloneable, se encarga de
+ *         generar los datos de la factura e implementa el motodo
+ *         clone()</b><br>
  */
 public class Factura implements Cloneable {
 	private int idContrato;
@@ -24,20 +26,26 @@ public class Factura implements Cloneable {
 	public int getIdContrato() {
 		return idContrato;
 	}
+
 	public PaqueteServicios getPaqueteServicios() {
 		return paqueteServicios;
 	}
+
 	public Persona getPersona() {
 		return persona;
 	}
+
 	public Domicilio getDomicilio() {
 		return domicilio;
 	}
+
 	public double getCostoFinal() {
-		return this.paqueteServicios.getCostoBase()*this.persona.getTasa();
+		return this.paqueteServicios.getCostoBase() * this.persona.getTasa();
 	}
+
 	/**
 	 * Imprime la factura de un contrato<br>
+	 * 
 	 * @return retorna un string con la factura del contrato<br>
 	 */
 	public String imprimeFactura() {
@@ -45,13 +53,13 @@ public class Factura implements Cloneable {
 		sb.append("Numero de contrato: " + this.idContrato + "\n");
 		sb.append(persona.toString());
 		sb.append(this.paqueteServicios.detalle());
-		sb.append("Costo basico: " + this.paqueteServicios.getCostoBase()+ "\n");
-		sb.append("Aplicando tasas (descuentos/impuestos) Costo Final: "+this.getCostoFinal() + "\n");
+		sb.append("Costo basico: " + this.paqueteServicios.getCostoBase() + "\n");
+		sb.append("Aplicando tasas (descuentos/impuestos) Costo Final: " + this.getCostoFinal() + "\n");
 		return sb.toString();
 	}
-	
+
 	@Override
-	protected Factura clone() {
+	public Factura clone() {
 		Factura aux = null;
 		try {
 			aux = (Factura) super.clone();
@@ -59,6 +67,7 @@ public class Factura implements Cloneable {
 			aux.persona = this.persona.clone();
 		} catch (CloneNotSupportedException e) {
 			System.out.println("No se pudo duplicar factura, debido a que es persona juridica\n");
+			aux = null;
 		}
 		return aux;
 	}
