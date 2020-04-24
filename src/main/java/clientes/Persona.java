@@ -12,6 +12,7 @@ public abstract class Persona implements Cloneable {
 	public Persona(String nombre, int dni, MedioPago medioPago) {
 		this.nombre = nombre;
 		this.dni = dni;
+		this.medioPago = medioPago;
 	}
 
 	public String getNombre() {

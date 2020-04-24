@@ -45,8 +45,8 @@ public class Factura implements Cloneable {
 		sb.append("Numero de contrato: " + this.idContrato + "\n");
 		sb.append(persona.toString());
 		sb.append(this.paqueteServicios.detalle());
-		sb.append("Costo basico: " + this.paqueteServicios.getCostoBase());
-		sb.append("Aplicando tasas (descuentos/impuestos) Costo Final: "+this.getCostoFinal());
+		sb.append("Costo basico: " + this.paqueteServicios.getCostoBase()+ "\n");
+		sb.append("Aplicando tasas (descuentos/impuestos) Costo Final: "+this.getCostoFinal() + "\n");
 		return sb.toString();
 	}
 	
