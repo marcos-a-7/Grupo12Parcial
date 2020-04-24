@@ -25,7 +25,9 @@ public class Prueba1 {
 		empresa.addContrato("Fisica", "Juan Prueba", 40500600, "Cheque", "Colon", 3000, "100", 3, 1, 0); // caso de misma direccion, no lo crea
 		empresa.addContrato("Fisica", "Juan Prueba", 40500600, "Tarjeta", "Colon", 3001, "100", 3, 1, 0); 
 		empresa.addContrato("Juridica", "Juana Tester", 12345678, "Billete de Estanciero", "Formosa", 1, "500", 0, 0, 0); //Debe setear metodo de pago como efectivo solo
-		empresa.addContrato("", "Empty", 123, "Cheque", "Chaco", 203, "100", 0, 0, 0);
+		empresa.addContrato("", "Empty", 123, "Cheque", "Chaco", -5, "100", 0, 0, 0);
+		empresa.addContrato("Fisica", "Bruce wayne", -4050, "Cheque", "Colon", 3000, "100", 3, 1, 0); // caso de dni negativo
+		empresa.addContrato("Fisica", "Bruce wayne", 40906, "Cheque", "Colon", 3000, "100", 3, 1, 0); //
 
 		
 		

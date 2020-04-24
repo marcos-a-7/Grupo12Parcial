@@ -34,8 +34,8 @@ public class Empresa {
 	/**
 	 * Add contrato<br>
 	 * crea un contrato y lo agrega al array list<br>
-	 * <b>Pre: </b> el dni debe ser numero positivo<br>
-	 * <b>Post: </b> crea una persona, un domicilio, un paquete de servicios y un contrato y luego lo guarda en el arraylist, en caso de que el tipo de persona, el nombre, el medio de pago, la calle o el numero de calle sea invalido, lanzara una excepcion correspondiente con su mensaje correspondiente en cada caso especificando el error y lo mostrara por pantalla <br>
+	 * <b>Pre: </b> Se considera que la calle, el numero de calle son validos<br>
+	 * <b>Post: </b> crea una persona, un domicilio, un paquete de servicios y un contrato y luego lo guarda en el arraylist, en caso de que el tipo de persona, el nombre, el medio de pago, la calle o el numero de calle sea invalido, lanzara una excepcion correspondiente con su mensaje correspondiente en cada caso especificando el error y lo mostrara por pantalla. En caso de haber ingresado una cantidad de telefonos,celulares o cables negativa, se lo considerara como un cero  <br>
 	 * @param tipoPersona : puede ser juridica o fisica en la poscondicion aclara que pasa si no se ingresa una correcta
 	 * @param nombre : el nombre de la persona
 	 * @param dni : el dni de la persona
