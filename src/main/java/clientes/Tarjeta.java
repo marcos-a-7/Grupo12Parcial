@@ -1,8 +1,9 @@
 package clientes;
 
 /**
- * @author Grupo12 el medio de pago tarjeta devuelve la tasa correspondiente
- *         para todos los tipos de persona<br>
+ * @author Grupo12<br>
+ *         <b> el medio de pago tarjeta devuelve la tasa correspondiente para
+ *         todos los tipos de persona</b><br>
  */
 public class Tarjeta extends MedioPago {
 	@Override

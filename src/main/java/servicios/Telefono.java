@@ -1,11 +1,12 @@
 package servicios;
 
 /**
- * @author grupo12
- *<b>El servicio telefono Genera un numero, devuelve costo y un detalle del mismo</b>
+ * @author grupo12<br>
+ *         <b>El servicio telefono Genera un numero, devuelve costo y un detalle
+ *         del mismo</b>
  */
-public class Telefono implements IServicio{
-	
+public class Telefono implements IServicio {
+
 	public Telefono() {
 		this.numeroTelefono = generadorNum++;
 	}

@@ -1,8 +1,8 @@
 package clientes;
 
 /**
- * @author Grupo12
- *La persona fisica es siempre es clonable<br>
+ * @author Grupo12 <br>
+ *         <b>La persona fisica es siempre es clonable</b><br>
  */
 public class PersonaFisica extends Persona {
 
