@@ -12,7 +12,7 @@ public class PersonaJuridica extends Persona {
 	
 	@Override
 	public double getTasa() {
-		return medioPago.getTasaJuridica();
+		return this.medioPago.getTasaJuridica();
 	}
 	@Override
 	public String toString() {

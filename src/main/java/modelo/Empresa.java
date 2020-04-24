@@ -58,7 +58,7 @@ public class Empresa {
 			if(auxContrato == null)
 				this.contratos.add(ContratoFactory.getContrato(persona, domicilio, paqueteServicios));
 		} catch (TipoNoEncontradoException e) {
-			System.out.println(e.getMessage() + e.getTipo());
+			System.out.println(e.getMessage() +", tipo solicitado: " + e.getTipo());
 		} catch (ImposibleCrearPaqueteException e) {
 			System.out.println(e.getMessage());
 		} catch (MedioPagoInvalidoException e) {
@@ -88,7 +88,7 @@ public class Empresa {
 		boolean encontre = false;
 		Contrato contrato = null;
 		Iterator<Contrato> it = contratos.iterator();
-		while (it.hasNext() && encontre) {
+		while (it.hasNext() && !encontre) {
 			contrato = it.next();
 			if (id == contrato.getIdContrato())
 				encontre = true;
@@ -100,12 +100,13 @@ public class Empresa {
 
 	public Contrato buscaContrato(String calle, int numero) {
 		boolean encontre = false;
-		Domicilio domicilio = new Domicilio(calle, numero);
+		Domicilio domicilio = null;
 		Contrato contrato = null;
 		Iterator<Contrato> it = contratos.iterator();
-		while (it.hasNext() && encontre) {
+		while (it.hasNext() && !encontre) {
 			contrato = it.next();
-			if (contrato.getDomicilio().equals(domicilio))
+			domicilio = contrato.getDomicilio();
+			if (domicilio.getCalle().equals(calle) && (domicilio.getNumero()==numero))
 				encontre = true;
 		}
 		if (!encontre)
@@ -159,7 +160,7 @@ public class Empresa {
 			Iterator<Contrato> it = this.contratos.iterator();
 			while (it.hasNext()) {
 				aux = it.next();
-				sb.append(aux.getFactura().imprimeFactura());
+				sb.append(aux.getFactura().imprimeFactura() + "\n");
 			}
 		}
 		return sb.toString();
@@ -175,8 +176,8 @@ public class Empresa {
 			while (it.hasNext()) {
 				aux = it.next();
 				factura = aux.getFactura();
-				sb.append("Contrato: " + factura.getIdContrato() + "Costo total: "
-						+ factura.getPaqueteServicios().getCostoBase() + "\n");
+				sb.append("Contrato: " + factura.getIdContrato() + "   Costo total: "
+						+ factura.getCostoFinal() + "\n");
 			}
 		}
 		return sb.toString();
