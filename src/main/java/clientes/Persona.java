@@ -1,10 +1,11 @@
 package clientes;
 
 /**
- * @author Grupo12 La clase abstracta persona guarda el nombre, el medio con el
- *         que va a pagar y el DNI correspondiente al titular, implementa la
+ * @author Grupo12<br>
+ *         <b> La clase abstracta persona guarda el nombre, el medio con el que
+ *         va a pagar y el DNI correspondiente al titular, implementa la
  *         interfase cloneable y obliga a la clases hijas a implementar el
- *         metodo clone()<br>
+ *         metodo clone()</b><br>
  */
 public abstract class Persona implements Cloneable {
 	protected String nombre;
@@ -33,6 +34,10 @@ public abstract class Persona implements Cloneable {
 		this.medioPago = medioPago;
 	}
 
+	public void setNombre(String nombre) {
+		this.nombre = nombre;
+	}
+
 	@Override
 	public String toString() {
 		return "Persona ";
@@ -45,11 +50,12 @@ public abstract class Persona implements Cloneable {
 
 	public abstract double getTasa();
 
-	
 	/**
 	 * Cambia el medio de pago de la persona<br>
 	 * <b>Pre:</b>no tiene<br>
-	 * <b>Post:</b>Se cambiara el medio de pago por el ingresado y si no existe no hara nada<br>
+	 * <b>Post:</b>Se cambiara el medio de pago por el ingresado y si no existe no
+	 * hara nada<br>
+	 * 
 	 * @param medioPago: El medio de pago por el cual se cambiara
 	 */
 	public void cambiaMedioPago(String medioPago) {

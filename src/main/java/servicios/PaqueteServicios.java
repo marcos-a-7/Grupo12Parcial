@@ -4,8 +4,9 @@ import java.util.ArrayList;
 import java.util.Iterator;
 
 /**
- * @author Grupo12
- *Se encarga de manejar todas las combinaciones de servicios en un conjunto<br>
+ * @author Grupo12<br>
+ *         <b> Se encarga de manejar todas las combinaciones de servicios en un
+ *         conjunto</b><br>
  */
 public class PaqueteServicios {
 	Internet internet;
@@ -68,7 +69,9 @@ public class PaqueteServicios {
 	/**
 	 * Busca un celular segun un numero de celular<br>
 	 * <b>Pre:</b>No tiene<br>
-	 * <b>Post:</b>Devolvera un celular el cual tenga el numero ingresado en caso de no encontrarlo devolvera null<br>
+	 * <b>Post:</b>Devolvera un celular el cual tenga el numero ingresado en caso de
+	 * no encontrarlo devolvera null<br>
+	 * 
 	 * @param num : Numero de celular<br>
 	 * @return retorna celular o null<br>
 	 */
@@ -91,7 +94,9 @@ public class PaqueteServicios {
 	/**
 	 * Busca un celular segun un numero de celular y lo elimina<br>
 	 * <b>Pre:</b>No tiene<br>
-	 * <b>Post:</b>Eliminara un celular el cual tenga el numero ingresado en caso de no encontrarlo no realizara ninguna accion<br>
+	 * <b>Post:</b>Eliminara un celular el cual tenga el numero ingresado en caso de
+	 * no encontrarlo no realizara ninguna accion<br>
+	 * 
 	 * @param num : numero de celular<br>
 	 */
 	public void eliminaCelular(int num) {
@@ -102,9 +107,11 @@ public class PaqueteServicios {
 	}
 
 	/**
-	 *Busca un telefono segun un numero de telefono <br>
+	 * Busca un telefono segun un numero de telefono <br>
 	 * <b>Pre:</b>No tiene<br>
-	 * <b>Post:</b>Devolvera un telofno el cual tenga el numero ingresado en caso de no encontrarlo devolvera null<br>
+	 * <b>Post:</b>Devolvera un telofno el cual tenga el numero ingresado en caso de
+	 * no encontrarlo devolvera null<br>
+	 * 
 	 * @param num : Numero de telefono<br>
 	 * @return retorna Telefono o null<br>
 	 */
@@ -126,9 +133,11 @@ public class PaqueteServicios {
 	}
 
 	/**
-	 *Busca un celular segun un numero de telefono y lo elimina<br>
+	 * Busca un celular segun un numero de telefono y lo elimina<br>
 	 * <b>Pre:</b>No tiene<br>
-	 * <b>Post:</b>Eliminara un telefono el cual tenga el numero ingresado en caso de no encontrarlo no realizara ninguna accion<br>
+	 * <b>Post:</b>Eliminara un telefono el cual tenga el numero ingresado en caso
+	 * de no encontrarlo no realizara ninguna accion<br>
+	 * 
 	 * @param num : numero de telefono<br>
 	 */
 	public void eliminaTelefono(int num) {
@@ -167,7 +176,7 @@ public class PaqueteServicios {
 			costoBase += it3.next().getCosto();
 		}
 
-		return costoBase+internet.getCosto();
+		return costoBase + internet.getCosto();
 	}
 
 	/**

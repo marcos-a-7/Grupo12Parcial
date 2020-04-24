@@ -5,7 +5,8 @@ import excepciones.NumeroInvalidoException;
 import excepciones.TipoPersonaInvalidoException;
 
 /**
- * @author Grupo12 Se encarga de crear una persona segun su tipo<br>
+ * @author Grupo12 <br>
+ *         <b>Se encarga de crear una persona segun su tipo</b><br>
  *
  */
 public class PersonaFactory {

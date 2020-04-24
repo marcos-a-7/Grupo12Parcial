@@ -1,8 +1,9 @@
 package servicios;
 
 /**
- * @author grupo12
- *<b> devuelve el costo del cable y tambien puede devolver una descripcion</b>
+ * @author grupo12 <br>
+ *         <b> devuelve el costo del cable y tambien puede devolver una
+ *         descripcion</b>
  */
 public class Cable implements IServicio {
 
