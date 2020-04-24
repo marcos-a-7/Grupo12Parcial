@@ -77,18 +77,18 @@ public class Contrato {
 		for (i = 0; i < cantCables; i++)
 			this.paqueteServicios.addCable(new Cable());
 	}
-	public void eliminaCelulare(int numeroCelular) {
+	public void eliminaCelular(int numeroCelular) {
 		this.paqueteServicios.eliminaCelular(numeroCelular);
 	}
-	public void eliminaTelefonos(int numeroTelefono) {
+	public void eliminaTelefono(int numeroTelefono) {
 		this.paqueteServicios.eliminaTelefono(numeroTelefono);
 	}
 	public void eliminaCables(int cantCables) {
 		this.paqueteServicios.eliminaCable();
 	}
 	/**
-	 * <b>Pre:</b> el tipo de internet debe ser valido<br>
-	 * <b>Post:</b> cambiara el tipo de internet establecido al ingresado<br>
+	 * <b>Pre:</b> no tiene<br>
+	 * <b>Post:</b> cambiara el tipo de internet establecido al ingresado y si no existe no hara nada<br>
 	 * @param tipoInternet : El tipo de internet al cual se quiere cambiar<br>
 	 */
 	public void cambiaInternet(String tipoInternet) {

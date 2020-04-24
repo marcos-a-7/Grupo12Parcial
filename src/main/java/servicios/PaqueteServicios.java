@@ -167,7 +167,7 @@ public class PaqueteServicios {
 			costoBase += it3.next().getCosto();
 		}
 
-		return costoBase;
+		return costoBase+internet.getCosto();
 	}
 
 	/**
