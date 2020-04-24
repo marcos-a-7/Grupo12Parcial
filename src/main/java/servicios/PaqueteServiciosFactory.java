@@ -27,7 +27,7 @@ public class PaqueteServiciosFactory {
 			} else if (tipoInternet.equals("500")) {
 				paquete = new PaqueteServicios(Internet500.getInstance());
 			} else {
-				throw new TipoNoEncontradoException("No se pudo crear el paquete con el internet ", tipoInternet);
+				throw new TipoNoEncontradoException("El internet solicitado no se encontro", tipoInternet);
 			}
 			if (paquete != null) {
 				for (i = 0; i < cantCelu; i++)

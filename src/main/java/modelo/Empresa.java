@@ -59,7 +59,7 @@ public class Empresa {
 			if(auxContrato == null)
 				this.contratos.add(ContratoFactory.getContrato(persona, domicilio, paqueteServicios));
 		} catch (TipoNoEncontradoException e) {
-			System.out.println(e.getMessage() + e.getTipo());
+			System.out.println(e.getMessage() +", tipo solicitado: " + e.getTipo());
 		} catch (ImposibleCrearPaqueteException e) {
 			System.out.println(e.getMessage());
 		} catch (MedioPagoInvalidoException e) {
