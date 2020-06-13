@@ -1,6 +1,7 @@
 package modelo;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Iterator;
 
 import clientes.Domicilio;
@@ -11,6 +12,7 @@ import excepciones.MedioPagoInvalidoException;
 import excepciones.NumeroInvalidoException;
 import excepciones.TipoNoEncontradoException;
 import excepciones.TipoPersonaInvalidoException;
+import model.Libro;
 import servicios.PaqueteServicios;
 import servicios.PaqueteServiciosFactory;
 
@@ -26,13 +28,36 @@ import servicios.PaqueteServiciosFactory;
 
 public class Empresa {
 	String nombre;
-	ArrayList<Persona> personas = new ArrayList<Persona>();
+	//ArrayList<Persona>  = new ArrayList<Persona>();
+	HashMap<Integer,Persona> personas = new HashMap<Integer,Persona>();
 
 	public Empresa(String nombre) {
 		this.nombre = nombre;
 	}
-
-
+	
+	public void addPersona(String tipoPersona, String nombre, int identificador, String medioPago, String calle, int numeroCalle) {
+		try {
+			Persona persona = PersonaFactory.getPersona(tipoPersona, nombre, identificador, medioPago);
+			
+			this.personas.put(identificador, persona);
+		} catch (MedioPagoInvalidoException e) {
+			//RESOLVER
+		} catch (NumeroInvalidoException e) {
+			//RESOLVER
+		} catch (TipoPersonaInvalidoException e) {
+			//RESOLVER
+		}
+	}
+	public void removePersona(int identificador) {
+		this.personas.remove(identificador);
+	}
+	public void removePersona(int identificador, Persona persona) {
+		this.personas.remove(identificador, persona);
+	}
+	public Persona buscaPersona(int identificador) {
+		return this.personas.get(identificador);
+	}
+	
 	/**
 	 * Add contrato<br>
 	 * crea un contrato y lo agrega al array list<br>
@@ -56,11 +81,11 @@ public class Empresa {
 	 * @param cantTel      : La cantidad de telefonos a contratar
 	 * @param cantCable    : La cantidad de cable a contratar
 	 */
-	public void addContrato(String tipoPersona, String nombre, int dni, String medioPago, String calle, int numeroCalle,
+	public void addContrato(String tipoPersona, String nombre, int identificador, String medioPago, String calle, int numeroCalle,
 			String tipoInternet, int cantCelu, int cantTel, int cantCable) {
 		Contrato auxContrato;
 		try {
-			Persona persona = PersonaFactory.getPersona(tipoPersona, nombre, dni, medioPago);
+			Persona persona = PersonaFactory.getPersona(tipoPersona, nombre, identificador, medioPago);
 			Domicilio domicilio = new Domicilio(calle, numeroCalle);
 			PaqueteServicios paqueteServicios = PaqueteServiciosFactory.getPaqueteServicios(tipoInternet, cantCelu,
 					cantTel, cantCable);
@@ -72,7 +97,7 @@ public class Empresa {
 		} catch (ImposibleCrearPaqueteException e) {
 			System.out.println(e.getMessage());
 		} catch (MedioPagoInvalidoException e) {
-			this.addContrato(tipoPersona, nombre, dni, "Efectivo", calle, numeroCalle, tipoInternet, cantCelu, cantTel,
+			this.addContrato(tipoPersona, nombre, identificador, "Efectivo", calle, numeroCalle, tipoInternet, cantCelu, cantTel,
 					cantCable);
 			System.out.println(e.getMessage() + " se dejara por defecto en efectivo");
 		} catch (NumeroInvalidoException e) {
@@ -94,125 +119,6 @@ public class Empresa {
 		return personas;
 	}
 
-	/**
-	 * Busca un contrato a traves de un id<br>
-	 * <b>Pre: </b> no tiene<br>
-	 * <b>Post: </b> devolvera el contrato de dicho id ingresado, si no lo encuentra
-	 * devolvera null<br>
-	 * 
-	 * @param id : es el id el cual esta asociado a un contrato<br>
-	 * @return retorna un contrato o null <br>
-	 */
-	public Contrato buscaContrato(int id) {
-		boolean encontre = false;
-		Contrato contrato = null;
-		Iterator<Contrato> it = contratos.iterator();
-		while (it.hasNext() && !encontre) {
-			contrato = it.next();
-			if (id == contrato.getIdContrato())
-				encontre = true;
-		}
-		if (!encontre)
-			contrato = null;
-		return contrato;
-	}
-
-	/**
-	 * Busca un contrato a traves de una calle y el numero de direccion<br>
-	 * <b>Pre: </b> Debe ingresar una calle no nula<br>
-	 * <b>Post: </b> devolvera el contrato correspondiente a la calle y numero
-	 * ingresado, si no lo encuentra devolvera null<br>
-	 * 
-	 * @param calle  : La calle del domicilio de la persona
-	 * @param numero : El numero de la calle del domicilio de la persona
-	 * @return retorna un contrato o null<br>
-	 */
-	public Contrato buscaContrato(String calle, int numero) {
-		boolean encontre = false;
-		Domicilio domicilio = null;
-		Contrato contrato = null;
-		Iterator<Contrato> it = contratos.iterator();
-		while (it.hasNext() && !encontre) {
-			contrato = it.next();
-			domicilio = contrato.getDomicilio();
-			if (domicilio.getCalle().equals(calle) && (domicilio.getNumero() == numero))
-				encontre = true;
-		}
-		if (!encontre)
-			contrato = null;
-		return contrato;
-	}
-
-	/**
-	 * Busca un contrato a partir de un dni<br>
-	 * <b>Pre: </b> no tiene<br>
-	 * <b>Post: </b> Devolvera el contrato correspondiente al dni ingresado, si no
-	 * devolvera null<br>
-	 * 
-	 * @param dni : el dni del titular del contrato buscado
-	 * @return retorna un contrato o null
-	 */
-	public ArrayList<Contrato> buscaContratosTitular(int dni) {
-		ArrayList<Contrato> contratosTitular = new ArrayList<Contrato>();
-		Contrato contrato = null;
-		Iterator<Contrato> it = contratos.iterator();
-		while (it.hasNext()) {
-			contrato = it.next();
-			if (contrato.getTitular().getDni() == dni)
-				contratosTitular.add(contrato);
-		}
-		if (contratosTitular.isEmpty())
-			contratosTitular = null;
-		return contratosTitular;
-	}
-
-	/**
-	 * Elimina un contrato segun el id <b>Pre: </b> no tiene<br>
-	 * <b>Post: </b> remueve el contrato si el id corresponde a uno existente, de lo
-	 * contrario no realiza ninguna accion<br>
-	 * 
-	 * @param id el id del contrato a eliminar
-	 */
-	public void eliminaContrato(int id) {
-		Contrato contrato = this.buscaContrato(id);
-		if (contrato != null)
-			this.contratos.remove(contrato);
-	}
-
-
-	/**
-	 * Elimina un contrato segun la calle y el numero de domicilio <b>Pre: </b> no
-	 * tiene<br>
-	 * <b>Post: </b> remueve el contrato si la calle y el numero de la calle
-	 * corresponden a uno existente, de lo contrario no realiza ninguna accion<br>
-	 * 
-	 * @param calle  : la calle del domicilio del titular<br>
-	 * @param numero : el numero del domicilio del titular <br>
-	 */
-	public void eliminaContrato(String calle, int numero) {
-		Contrato contrato = this.buscaContrato(calle, numero);
-		if (contrato != null)
-			this.contratos.remove(contrato);
-	}
-
-	/**
-	 * Elimina un contrato segun el id del titular <b>Pre: </b> no tiene<br>
-	 * <b>Post: </b> remueve todos los contratos si el DNI corresponde a uno
-	 * existente, de lo contrario no realiza ninguna accion<br>
-	 * 
-	 * @param dni : DNI del titular correspondiente
-	 */
-	public void eliminaContratosTitular(int dni) {
-		Contrato contrato;
-		ArrayList<Contrato> contratosTitular = this.buscaContratosTitular(dni);
-		if (contratosTitular != null) {
-			Iterator<Contrato> it = contratosTitular.iterator();
-			while (it.hasNext()) {
-				contrato = it.next();
-				this.contratos.remove(contrato);
-			}
-		}
-	}
 
 	/**
 	 * Genera un reporte con todos los contratos

@@ -28,12 +28,12 @@ public class PersonaFactory {
 	 * @throws TipoPersonaInvalidoException : En caso que el tipo de persona sea
 	 *                                      invalido <br>
 	 */
-	public static Persona getPersona(String tipo, String nombre, int dni, String medioPago)
+	public static Persona getPersona(String tipo, String nombre, int identificador, String medioPago)
 			throws MedioPagoInvalidoException, NumeroInvalidoException, TipoPersonaInvalidoException {
 		Persona persona = null;
 		MedioPago auxMedioPago = null;
 
-		if (dni <= 0)
+		if (identificador <= 0)
 			throw new NumeroInvalidoException("El numero de dni es invalido, no puede ser negativo");
 
 		if (medioPago == null)
@@ -50,9 +50,9 @@ public class PersonaFactory {
 		if (tipo == null)
 			throw new TipoPersonaInvalidoException("No se ingreso ningun tipo de persona");
 		else if (tipo.equals("Fisica"))
-			persona = new PersonaFisica(nombre, dni, auxMedioPago);
+			persona = new PersonaFisica(nombre, identificador, auxMedioPago);
 		else if (tipo.equals("Juridica"))
-			persona = new PersonaJuridica(nombre, dni, auxMedioPago);
+			persona = new PersonaJuridica(nombre, identificador, auxMedioPago);
 		else
 			throw new TipoPersonaInvalidoException("Tipo de persona ingresado no valido");
 
