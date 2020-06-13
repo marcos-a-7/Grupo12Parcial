@@ -23,7 +23,7 @@ import servicios.PaqueteServiciosFactory;
 
 public class Empresa {
 	String nombre;
-	ArrayList<Contrato> contratos = new ArrayList<Contrato>();
+	ArrayList<Persona> personas = new ArrayList<Persona>();
 
 	public Empresa(String nombre) {
 		this.nombre = nombre;
@@ -86,8 +86,8 @@ public class Empresa {
 		return nombre;
 	}
 
-	public ArrayList<Contrato> getContratos() {
-		return contratos;
+	public ArrayList<Persona> getContratos() {
+		return personas;
 	}
 
 	/**

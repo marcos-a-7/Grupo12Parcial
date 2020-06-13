@@ -6,8 +6,15 @@ package clientes;
  */
 public class PersonaJuridica extends Persona {
 
-	public PersonaJuridica(String nombre, int dni, MedioPago medioPago) {
-		super(nombre, dni, medioPago);
+	int id;
+
+	public PersonaJuridica(String nombre, int id, MedioPago medioPago) {
+		super(nombre, medioPago);
+		this.id = id;
+	}
+
+	public int getId() {
+		return id;
 	}
 
 	@Override
@@ -17,7 +24,7 @@ public class PersonaJuridica extends Persona {
 
 	@Override
 	public String toString() {
-		return super.toString() + " Juridica - Nombre: " + this.nombre + " DNI: " + this.dni + "\n";
+		return super.toString() + " Juridica - Nombre: " + this.nombre + " ID: " + this.id + "\n";
 	}
 
 	@Override
