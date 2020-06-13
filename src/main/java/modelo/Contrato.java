@@ -17,27 +17,17 @@ import servicios.Telefono;
 public class Contrato {
 	private static int generadorIdContrato = 1;
 	private int idContrato;
-	private Persona titular;
 	private Domicilio domicilio;
 	private PaqueteServicios paqueteServicios;
 
-	public Contrato(Persona titular, Domicilio domicilio, PaqueteServicios paqueteServicios) {
+	public Contrato(Domicilio domicilio, PaqueteServicios paqueteServicios) {
 		this.idContrato = generadorIdContrato++;
-		this.titular = titular;
 		this.domicilio = domicilio;
 		this.paqueteServicios = paqueteServicios;
 	}
 
 	public int getIdContrato() {
 		return idContrato;
-	}
-
-	public Persona getTitular() {
-		return titular;
-	}
-
-	public void setTitular(Persona titular) {
-		this.titular = titular;
 	}
 
 	public Domicilio getDomicilio() {
@@ -64,7 +54,7 @@ public class Contrato {
 	 *
 	 * @return retorna una factura<br>
 	 */
-	public Factura getFactura() {
+	public Factura getFactura(Persona titular) {
 		Factura factura = null;
 		factura = new Factura(idContrato, titular, domicilio, paqueteServicios);
 		return factura;

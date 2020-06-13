@@ -6,8 +6,20 @@ package clientes;
  */
 public class PersonaFisica extends Persona {
 
+	protected int dni;
+	String estado = "Sin contrataciones";
+
 	public PersonaFisica(String nombre, int dni, MedioPago medioPago) {
-		super(nombre, dni, medioPago);
+		super(nombre, medioPago);
+		this.dni = dni;
+	}
+
+	public String getEstado() {
+		return estado;
+	}
+
+	public int getDni() {
+		return dni;
 	}
 
 	@Override

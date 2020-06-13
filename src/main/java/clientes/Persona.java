@@ -1,5 +1,13 @@
 package clientes;
 
+import java.util.ArrayList;
+import java.util.Iterator;
+
+import modelo.Contrato;
+import modelo.ContratoFactory;
+import modelo.Factura;
+import servicios.PaqueteServicios;
+
 /**
  * @author Grupo12<br>
  *         <b> La clase abstracta persona guarda el nombre, el medio con el que
@@ -10,20 +18,16 @@ package clientes;
 public abstract class Persona implements Cloneable {
 	protected String nombre;
 	protected MedioPago medioPago;
-	protected int dni;
+	ArrayList<Contrato> contratos = new ArrayList<Contrato>();
+	ArrayList<Factura> facturas = new ArrayList<Factura>();
 
-	public Persona(String nombre, int dni, MedioPago medioPago) {
+	public Persona(String nombre, MedioPago medioPago) {
 		this.nombre = nombre;
-		this.dni = dni;
 		this.medioPago = medioPago;
 	}
 
 	public String getNombre() {
 		return nombre;
-	}
-
-	public int getDni() {
-		return dni;
 	}
 
 	public MedioPago getMedioPago() {
@@ -38,6 +42,31 @@ public abstract class Persona implements Cloneable {
 		this.nombre = nombre;
 	}
 
+	public void agregaContrato(Domicilio domicilio, PaqueteServicios paqueteServicios) {
+		contratos.add(ContratoFactory.getContrato(domicilio, paqueteServicios));
+
+	}
+	
+	/* hacer funciones por domicilio y por id de contrato
+	public Contrato buscaContrato() {
+		//hacer
+		return null;
+	}
+	
+	public void borraContrato() {
+		//hacer
+	}
+	 */
+	
+	//esta funcion pasa una referencia a la persona para que la factura pueda cambiar en caso de que cambien los datos de la persona (ejemplo medio de pago)
+	public void facturar() {
+		Iterator<Contrato> it = contratos.iterator();
+		while(it.hasNext()) {
+			facturas.add(it.next().getFactura(this));
+		}
+		
+	}
+	
 	@Override
 	public String toString() {
 		return "Persona ";
