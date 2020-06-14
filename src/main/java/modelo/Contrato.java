@@ -54,9 +54,9 @@ public class Contrato {
 	 *
 	 * @return retorna una factura<br>
 	 */
-	public Factura getFactura(Persona titular) {
+	public Factura getFactura(Persona titular,int mes) {
 		Factura factura = null;
-		factura = new Factura(idContrato, titular, domicilio, paqueteServicios);
+		factura = new Factura(idContrato, titular, domicilio, paqueteServicios, mes);
 		return factura;
 	}
 

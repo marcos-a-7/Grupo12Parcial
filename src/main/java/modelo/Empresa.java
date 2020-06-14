@@ -3,6 +3,9 @@ package modelo;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.Observer;
+import java.util.Map.Entry;
+import java.util.Set;
 
 import clientes.Domicilio;
 import clientes.Persona;
@@ -12,7 +15,6 @@ import excepciones.MedioPagoInvalidoException;
 import excepciones.NumeroInvalidoException;
 import excepciones.TipoNoEncontradoException;
 import excepciones.TipoPersonaInvalidoException;
-import model.Libro;
 import servicios.PaqueteServicios;
 import servicios.PaqueteServiciosFactory;
 
@@ -34,8 +36,11 @@ public class Empresa {
 	public Empresa(String nombre) {
 		this.nombre = nombre;
 	}
-	
-	public void addPersona(String tipoPersona, String nombre, int identificador, String medioPago, String calle, int numeroCalle) {
+
+	public HashMap<Integer, Persona> getPersonas() {
+		return personas;
+	}
+	public void addPersona(String tipoPersona, String nombre, int identificador, String medioPago) {
 		try {
 			Persona persona = PersonaFactory.getPersona(tipoPersona, nombre, identificador, medioPago);
 			
@@ -57,7 +62,6 @@ public class Empresa {
 	public Persona buscaPersona(int identificador) {
 		return this.personas.get(identificador);
 	}
-	
 	/**
 	 * Add contrato<br>
 	 * crea un contrato y lo agrega al array list<br>
@@ -81,31 +85,37 @@ public class Empresa {
 	 * @param cantTel      : La cantidad de telefonos a contratar
 	 * @param cantCable    : La cantidad de cable a contratar
 	 */
-	public void addContrato(String tipoPersona, String nombre, int identificador, String medioPago, String calle, int numeroCalle,
-			String tipoInternet, int cantCelu, int cantTel, int cantCable) {
+	public void addContrato(Persona persona, String calle, int numeroCalle, String tipoInternet, int cantCelu, int cantTel, int cantCable) {
 		Contrato auxContrato;
-		try {
-			Persona persona = PersonaFactory.getPersona(tipoPersona, nombre, identificador, medioPago);
+		/*try {*/
 			Domicilio domicilio = new Domicilio(calle, numeroCalle);
-			PaqueteServicios paqueteServicios = PaqueteServiciosFactory.getPaqueteServicios(tipoInternet, cantCelu,
-					cantTel, cantCable);
-			auxContrato = this.buscaContrato(calle, numeroCalle);
-			if (auxContrato == null)
-				this.contratos.add(ContratoFactory.getContrato(persona, domicilio, paqueteServicios));
-		} catch (TipoNoEncontradoException e) {
-			System.out.println(e.getMessage() + ", tipo solicitado: " + e.getTipo());
-		} catch (ImposibleCrearPaqueteException e) {
-			System.out.println(e.getMessage());
-		} catch (MedioPagoInvalidoException e) {
-			this.addContrato(tipoPersona, nombre, identificador, "Efectivo", calle, numeroCalle, tipoInternet, cantCelu, cantTel,
-					cantCable);
-			System.out.println(e.getMessage() + " se dejara por defecto en efectivo");
-		} catch (NumeroInvalidoException e) {
-			System.out.println(e.getMessage());
-		} catch (TipoPersonaInvalidoException e) {
-			System.out.println(e.getMessage());
-		}
+			PaqueteServicios paqueteServicios;
+			try {
+				paqueteServicios = PaqueteServiciosFactory.getPaqueteServicios(tipoInternet, cantCelu,
+						cantTel, cantCable);
+				auxContrato = this.buscaContrato(calle, numeroCalle);
+				if (auxContrato == null)
+					persona.agregaContrato(domicilio, paqueteServicios);
+			} catch (TipoNoEncontradoException e) {
+				//RESOLVER
+			} catch (ImposibleCrearPaqueteException e) {
+				//RESOLVER
+			}
 	}
+
+	private Contrato buscaContrato(String calle, int numero) {
+		boolean encontre = false;
+		Contrato contrato = null;
+		Set<Entry<Integer, Persona>> entrySet = personas.entrySet();
+		Iterator<Entry<Integer, Persona>> it = entrySet.iterator();
+		while (it.hasNext() && !encontre) {
+			contrato = it.next().getValue().buscaContrato(calle, numero);
+		}
+		if (!encontre)
+			contrato = null;
+		return contrato;
+	}
+	
 
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
@@ -115,9 +125,6 @@ public class Empresa {
 		return nombre;
 	}
 
-	public ArrayList<Persona> getContratos() {
-		return personas;
-	}
 
 
 	/**
@@ -125,6 +132,7 @@ public class Empresa {
 	 * 
 	 * @return retorna un string con la impresion correspondiente a cada factura<br>
 	 */
+	//DELEGAR
 	public String enlistarFacturas() {
 		Contrato aux = null;
 		StringBuilder sb = null;
@@ -146,6 +154,7 @@ public class Empresa {
 	 * @return retorna un string con el id de contrato y el costo total final de
 	 *         cada uno de ellos<br>
 	 */
+	//DELEGAR
 	public String reporte() {
 		Contrato aux = null;
 		Factura factura = null;
@@ -161,4 +170,6 @@ public class Empresa {
 		}
 		return sb.toString();
 	}
+
+	
 }

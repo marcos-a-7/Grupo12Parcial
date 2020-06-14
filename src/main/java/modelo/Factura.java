@@ -11,36 +11,37 @@ import servicios.PaqueteServicios;
  *         clone()</b><br>
  */
 public class Factura implements Cloneable {
-	private int idContrato;
+	private int idContrato, mes;
 	private PaqueteServicios paqueteServicios;
 	private Persona persona;
 	private Domicilio domicilio;
 
-	public Factura(int idContrato, Persona persona, Domicilio domicilio, PaqueteServicios paqueteServicios) {
+	public Factura(int idContrato, Persona persona, Domicilio domicilio, PaqueteServicios paqueteServicios, int mes) {
 		this.idContrato = idContrato;
 		this.persona = persona;
 		this.domicilio = domicilio;
 		this.paqueteServicios = paqueteServicios;
+		this.mes = mes;
 	}
 
 	public int getIdContrato() {
 		return idContrato;
 	}
-
+	public int getMes() {
+		return mes;
+	}
 	public PaqueteServicios getPaqueteServicios() {
 		return paqueteServicios;
 	}
-
 	public Persona getPersona() {
 		return persona;
 	}
-
 	public Domicilio getDomicilio() {
 		return domicilio;
 	}
-
 	public double getCostoFinal() {
 		return this.paqueteServicios.getCostoBase() * this.persona.getTasa();
+		//MODIFICAR TASA DEPENDE DEL ESTADO
 	}
 
 	/**
@@ -50,11 +51,12 @@ public class Factura implements Cloneable {
 	 */
 	public String imprimeFactura() {
 		StringBuilder sb = new StringBuilder();
-		sb.append("Numero de contrato: " + this.idContrato + "\n");
+		sb.append("Numero de contrato: " + this.idContrato + " Mes: " + this.mes + "\n");
 		sb.append(persona.toString());
 		sb.append(this.paqueteServicios.detalle());
 		sb.append("Costo basico: " + this.paqueteServicios.getCostoBase() + "\n");
 		sb.append("Aplicando tasas (descuentos/impuestos) Costo Final: " + this.getCostoFinal() + "\n");
+		//MODIFICAR TASA DEPENDE DEL ESTADO
 		return sb.toString();
 	}
 

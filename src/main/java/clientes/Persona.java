@@ -2,9 +2,12 @@ package clientes;
 
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.Observable;
+import java.util.Observer;
 
 import modelo.Contrato;
 import modelo.ContratoFactory;
+import modelo.EmuladorPasoTiempo;
 import modelo.Factura;
 import servicios.PaqueteServicios;
 
@@ -15,15 +18,17 @@ import servicios.PaqueteServicios;
  *         interfase cloneable y obliga a la clases hijas a implementar el
  *         metodo clone()</b><br>
  */
-public abstract class Persona implements Cloneable {
+public abstract class Persona implements Cloneable, Observer {
 	protected String nombre;
 	protected MedioPago medioPago;
+	protected EmuladorPasoTiempo observado;
 	ArrayList<Contrato> contratos = new ArrayList<Contrato>();
 	ArrayList<Factura> facturas = new ArrayList<Factura>();
 
 	public Persona(String nombre, MedioPago medioPago) {
 		this.nombre = nombre;
 		this.medioPago = medioPago;
+		this.observado = EmuladorPasoTiempo.getInstance();
 	}
 
 	public String getNombre() {
@@ -44,7 +49,6 @@ public abstract class Persona implements Cloneable {
 
 	public void agregaContrato(Domicilio domicilio, PaqueteServicios paqueteServicios) {
 		contratos.add(ContratoFactory.getContrato(domicilio, paqueteServicios));
-
 	}
 	
 	/**
@@ -125,12 +129,14 @@ public abstract class Persona implements Cloneable {
 	}
 	
 	//esta funcion pasa una referencia a la persona para que la factura pueda cambiar en caso de que cambien los datos de la persona (ejemplo medio de pago)
-	public void facturar() {
+	public void facturar(int mes) {
 		Iterator<Contrato> it = contratos.iterator();
 		while(it.hasNext()) {
-			facturas.add(it.next().getFactura(this));
+			facturas.add(it.next().getFactura(this,mes));
 		}
-		
+	}
+	public void pagar(Factura factura) {
+		facturas.remove(factura);
 	}
 	
 	@Override
@@ -160,5 +166,9 @@ public abstract class Persona implements Cloneable {
 			this.setMedioPago(new Cheque());
 		else if (medioPago.equals("Efectivo"))
 			this.setMedioPago(new Efectivo());
+	}
+	
+	public void update(Observable o, Object arg) {
+		this.facturar((Integer) arg);
 	}
 }

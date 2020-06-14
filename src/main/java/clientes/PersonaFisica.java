@@ -1,5 +1,7 @@
 package clientes;
 
+import java.util.Observable;
+
 /**
  * @author Grupo12 <br>
  *         <b>La persona fisica es siempre es clonable</b><br>
@@ -21,7 +23,16 @@ public class PersonaFisica extends Persona {
 	public int getDni() {
 		return dni;
 	}
-
+	public void actualizaEstado() {
+		String estado = "Sin contrataciones";
+		if(!this.contratos.isEmpty()) {
+			estado = "Con contrataciones";
+		}
+		if(this.facturas.size()>2) {
+			estado = "Moroso";
+		}
+		this.estado = estado;
+	}
 	@Override
 	public double getTasa() {
 		return this.medioPago.getTasaFisica();
@@ -35,5 +46,10 @@ public class PersonaFisica extends Persona {
 	@Override
 	public PersonaFisica clone() throws CloneNotSupportedException {
 		return (PersonaFisica) super.clone();
+	}
+	@Override
+	public void update(Observable o, Object arg) {
+		super.update(o, arg);
+		this.actualizaEstado();
 	}
 }
