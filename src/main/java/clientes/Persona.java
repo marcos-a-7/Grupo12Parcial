@@ -1,19 +1,18 @@
 package clientes;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Iterator;
 
 import excepciones.ImposibleCrearContratoException;
 import excepciones.ImposibleCrearPaqueteException;
-import excepciones.MedioPagoInvalidoException;
+
 import excepciones.MorosoException;
 import excepciones.SinContratacionesException;
-import excepciones.TipoNoEncontradoException;
+
 import modelo.Contrato;
-import modelo.ContratoFactory;
+
 import modelo.Factura;
-import servicios.PaqueteServicios;
-import servicios.PaqueteServiciosFactory;
 
 /**
  * @author Grupo12<br>
@@ -22,7 +21,7 @@ import servicios.PaqueteServiciosFactory;
  *         interfase cloneable y obliga a la clases hijas a implementar el
  *         metodo clone()</b><br>
  */
-public abstract class Persona implements Cloneable {
+public abstract class Persona implements Cloneable, Serializable {
 	protected String nombre;
 	ArrayList<Contrato> contratos = new ArrayList<Contrato>();
 	ArrayList<Factura> facturas = new ArrayList<Factura>();
@@ -39,9 +38,8 @@ public abstract class Persona implements Cloneable {
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
 	}
-	
-	public abstract void actualizaEstado(); 
-	
+
+	public abstract void actualizaEstado();
 
 	public State getEstado() {
 		return estado;
@@ -59,7 +57,6 @@ public abstract class Persona implements Cloneable {
 			int cantCable, String medioPago) throws ImposibleCrearContratoException, ImposibleCrearPaqueteException {
 		estado.agregaContrato(calle, numeroCalle, tipoInternet, cantCelu, cantTel, cantCable, medioPago);
 	}
-	
 
 	/**
 	 * Busca un contrato a traves de un id<br>
@@ -116,8 +113,8 @@ public abstract class Persona implements Cloneable {
 	 * contrario no realiza ninguna accion<br>
 	 * 
 	 * @param id el id del contrato a eliminar
-	 * @throws SinContratacionesException 
-	 * @throws MorosoException 
+	 * @throws SinContratacionesException
+	 * @throws MorosoException
 	 */
 	public void eliminaContrato(int id) throws MorosoException, SinContratacionesException {
 		Contrato contrato = this.buscaContrato(id);
@@ -133,19 +130,18 @@ public abstract class Persona implements Cloneable {
 	 * 
 	 * @param calle  : la calle del domicilio del titular<br>
 	 * @param numero : el numero del domicilio del titular <br>
-	 * @throws SinContratacionesException 
-	 * @throws MorosoException 
+	 * @throws SinContratacionesException
+	 * @throws MorosoException
 	 */
 	public void eliminaContrato(String calle, int numero) throws MorosoException, SinContratacionesException {
 		Contrato contrato = this.buscaContrato(calle, numero);
 		if (contrato != null)
 			estado.eliminaContrato(contrato);
 	}
-	
+
 	public void eliminaContrato(Contrato contrato) throws MorosoException, SinContratacionesException {
 		estado.eliminaContrato(contrato);
 	}
-	
 
 	// esta funcion pasa una referencia a la persona para que la factura pueda
 	// cambiar en caso de que cambien los datos de la persona (ejemplo medio de
@@ -162,21 +158,22 @@ public abstract class Persona implements Cloneable {
 	}
 
 	public int cantidadFacturasDebidas() {
-		int cantidad=0;
+		int cantidad = 0;
 		Iterator<Factura> it = facturas.iterator();
 		while (it.hasNext()) {
 			if (!it.next().isPagada())
 				cantidad++;
-		}	
+		}
 		return cantidad;
 	}
-	
+
 	@Override
 	public String toString() {
 		return "Persona ";
 	}
 
-	@Override //////No se esta realizando clonacion profunda al estado porque por implementacion de patron state hay doble referencia con persona
+	@Override ////// No se esta realizando clonacion profunda al estado porque por
+				////// implementacion de patron state hay doble referencia con persona
 	public Persona clone() throws CloneNotSupportedException {
 		Persona aux = (Persona) super.clone();
 		aux.facturas = (ArrayList<Factura>) this.facturas.clone();
