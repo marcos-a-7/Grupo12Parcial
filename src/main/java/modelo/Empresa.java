@@ -1,5 +1,6 @@
 package modelo;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -25,7 +26,7 @@ import servicios.PaqueteServiciosFactory;
  *         empresa</b><br>
  */
 
-public class Empresa {
+public class Empresa implements Serializable {
 	String nombre;
 	// ArrayList<Persona> = new ArrayList<Persona>();
 	HashMap<Integer, Persona> personas = new HashMap<Integer, Persona>();
@@ -38,16 +39,10 @@ public class Empresa {
 		return personas;
 	}
 
-	public void addPersona(String tipoPersona, String nombre, int identificador) {
-		try {
-			Persona persona = PersonaFactory.getPersona(tipoPersona, nombre, identificador);
-
-			this.personas.put(identificador, persona);
-		} catch (NumeroInvalidoException e) {
-			// RESOLVER
-		} catch (TipoPersonaInvalidoException e) {
-			// RESOLVER
-		}
+	public synchronized void addPersona(String tipoPersona, String nombre, 
+			int identificador) throws NumeroInvalidoException, TipoPersonaInvalidoException {
+		Persona persona = PersonaFactory.getPersona(tipoPersona, nombre, identificador);
+		this.personas.put(identificador, persona);
 	}
 
 	public void removePersona(int identificador) {
@@ -62,9 +57,7 @@ public class Empresa {
 		return this.personas.get(identificador);
 	}
 
-
-
-	private Contrato buscaContrato(String calle, int numero) {
+	public Contrato buscaContrato(String calle, int numero) {
 		boolean encontre = false;
 		Contrato contrato = null;
 		Set<Entry<Integer, Persona>> entrySet = personas.entrySet();
@@ -90,47 +83,30 @@ public class Empresa {
 	 * 
 	 * @return retorna un string con la impresion correspondiente a cada factura<br>
 	 */
-	// DELEGAR
-	public String enlistarFacturas() {
-		Contrato aux = null;
-		StringBuilder sb = null;
-		if (contratos != null) {
-			sb = new StringBuilder();
-			Iterator<Contrato> it = this.contratos.iterator();
+	// REVISAR
+	public ArrayList<Factura> enlistarFacturas() {
+		ArrayList<Factura> facturas = new ArrayList<Factura>();
+		if(personas.isEmpty()) {
+			Set<Entry<Integer, Persona>> entrySet = personas.entrySet();
+			Iterator<Entry<Integer, Persona>> it = entrySet.iterator();
 			while (it.hasNext()) {
-				aux = it.next();
-				sb.append(aux.getFactura().imprimeFactura() + "\n");
+				Iterator<Factura> itfac = it.next().getValue().getFacturas().iterator();
+				while(itfac.hasNext()) {
+					try {
+						facturas.add(itfac.next().clone());
+					} catch (CloneNotSupportedException e) {
+						e.printStackTrace(); //siempre clonable
+					}
+				}
 			}
 		}
-		return sb.toString();
+		return facturas;
 	}
 
-	/**
-	 * Genera una lista de las facturas
-	 * 
-	 * @return retorna un string con el id de contrato y el costo total final de
-	 *         cada uno de ellos<br>
-	 */
-	// DELEGAR
-	public String reporte() {
-		Contrato aux = null;
-		Factura factura = null;
-		StringBuilder sb = null;
-		if (contratos != null) {
-			sb = new StringBuilder();
-			while (it.hasNext()) {
-				aux = it.next();
-				factura = aux.getFactura();
-				sb.append("Contrato: " + factura.getIdContrato() + "   Costo total: " + factura.getCostoFinal() + "\n");
-			}
-		}
-		return sb.toString();
-	}
+
 
 	public void facturacion(int mes) {
-
 		Persona persona;
-
 		Set<Entry<Integer, Persona>> entrySet = personas.entrySet();
 		Iterator<Entry<Integer, Persona>> it = entrySet.iterator();
 		while (it.hasNext()) {

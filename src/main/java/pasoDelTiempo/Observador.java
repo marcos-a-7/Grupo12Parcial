@@ -1,11 +1,12 @@
 package pasoDelTiempo;
 
+import java.io.Serializable;
 import java.util.Observable;
 import java.util.Observer;
 
 import modelo.Empresa;
 
-public class Observador implements Observer {
+public class Observador implements Observer, Serializable {
 	private Empresa empresa;
 	private EmuladorPasoTiempo observado;
 

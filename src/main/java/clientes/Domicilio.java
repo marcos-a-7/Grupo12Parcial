@@ -1,12 +1,14 @@
 package clientes;
 
+import java.io.Serializable;
+
 /**
  * @author Grupo12<br>
  *         <b>se guarda la calle y el numero, implementa la interfase cloneable
  *         y el metodo clone, sobreescribe el metodo tostring el cual devuelve
  *         los datos del domicilio</b>
  */
-public class Domicilio implements Cloneable {
+public class Domicilio implements Cloneable, Serializable {
 	private String calle;
 	private int numero;
 

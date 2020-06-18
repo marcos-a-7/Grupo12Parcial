@@ -1,12 +1,14 @@
 package clientes;
 
+import java.io.Serializable;
+
 import excepciones.ImposibleCrearContratoException;
 import excepciones.ImposibleCrearPaqueteException;
 import excepciones.MorosoException;
 import modelo.Contrato;
 import modelo.Factura;
 
-public class MorosoState implements State {
+public class MorosoState implements State, Serializable {
 	Persona persona;
 
 	public MorosoState(Persona persona) {

@@ -1,5 +1,7 @@
 package modelo;
 
+import java.io.Serializable;
+
 import clientes.Domicilio;
 import servicios.PaqueteServicios;
 
@@ -9,7 +11,7 @@ import servicios.PaqueteServicios;
  *         generar los datos de la factura e implementa el motodo
  *         clone()</b><br>
  */
-public class Factura implements Cloneable {
+public class Factura implements Cloneable, Serializable {
 	private int idContrato, mes;
 	private PaqueteServicios paqueteServicios;
 	private String nombrePersona;

@@ -1,5 +1,7 @@
 package modelo;
 
+import java.io.Serializable;
+
 import clientes.Cheque;
 import clientes.Domicilio;
 import clientes.Efectivo;
@@ -18,7 +20,7 @@ import servicios.Telefono;
  *         <b> la clase contrato guarda los datos de la persona y del paquete de
  *         servicio, tambien puede generar una factura</b>
  */
-public class Contrato implements Cloneable {
+public class Contrato implements Cloneable, Serializable {
 	private static int generadorIdContrato = 1;
 	private int idContrato;
 	private Domicilio domicilio;

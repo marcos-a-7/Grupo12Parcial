@@ -1,11 +1,13 @@
 package servicios;
 
+import java.io.Serializable;
+
 /**
  * @author grupo12 <br>
  *         <b>El servicio celular Genera un numero, devuelve costo y un detalle
  *         del mismo</b>
  */
-public class Celular implements IServicio, Cloneable {
+public class Celular implements IServicio, Cloneable, Serializable {
 
 	private static int generadorNum = 5000000;
 	private int numeroCelular;

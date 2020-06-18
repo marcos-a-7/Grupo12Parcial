@@ -1,8 +1,9 @@
 package pasoDelTiempo;
 
+import java.io.Serializable;
 import java.util.Observable;
 
-public class EmuladorPasoTiempo extends Observable {
+public class EmuladorPasoTiempo extends Observable implements Serializable {
 	private int mes = 0;
 	private static EmuladorPasoTiempo emuladorPasoTiempo;
 

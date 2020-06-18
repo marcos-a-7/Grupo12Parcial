@@ -1,11 +1,13 @@
 package servicios;
 
+import java.io.Serializable;
+
 /**
  * @author grupo12 <br>
  *         <b> devuelve el costo del cable y tambien puede devolver una
  *         descripcion</b>
  */
-public class Cable implements IServicio, Cloneable {
+public class Cable implements IServicio, Cloneable, Serializable {
 
 	public Cable() {
 	}

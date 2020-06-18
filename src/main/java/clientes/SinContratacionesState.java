@@ -1,5 +1,7 @@
 package clientes;
 
+import java.io.Serializable;
+
 import excepciones.DomicilioDuplicadoException;
 import excepciones.ImposibleCrearContratoException;
 import excepciones.ImposibleCrearPaqueteException;
@@ -10,7 +12,7 @@ import modelo.Factura;
 import servicios.PaqueteServicios;
 import servicios.PaqueteServiciosFactory;
 
-public class SinContratacionesState implements State {
+public class SinContratacionesState implements State, Serializable {
 	Persona persona;
 
 	public SinContratacionesState(Persona persona) {

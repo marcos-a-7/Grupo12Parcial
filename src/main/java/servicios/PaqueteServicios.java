@@ -1,5 +1,6 @@
 package servicios;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Iterator;
 
@@ -8,7 +9,7 @@ import java.util.Iterator;
  *         <b> Se encarga de manejar todas las combinaciones de servicios en un
  *         conjunto</b><br>
  */
-public class PaqueteServicios implements Cloneable{
+public class PaqueteServicios implements Cloneable, Serializable {
 	Internet internet;
 	ArrayList<Celular> celulares = new ArrayList<Celular>();
 	ArrayList<Telefono> telefonos = new ArrayList<Telefono>();
