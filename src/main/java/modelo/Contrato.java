@@ -71,7 +71,7 @@ public class Contrato implements Cloneable {
 	public Factura getFactura(Persona titular, int mes) {
 		Factura factura = null;
 		try {
-			factura = new Factura(idContrato, titular.getNombre(),titular.getIdentificador(),titular.getTasa(idContrato), domicilio.clone(), paqueteServicios.clone(), mes);
+			factura = new Factura(this.idContrato, titular.getNombre(),titular.getIdentificador(),titular.getTasa(this), this.domicilio.clone(), this.paqueteServicios.clone(), mes);
 		} catch (CloneNotSupportedException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

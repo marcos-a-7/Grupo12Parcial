@@ -184,7 +184,7 @@ public abstract class Persona implements Cloneable {
 		return aux;
 	}
 
-	public abstract double getTasa(int idContrato);
+	public abstract double getTasa(Contrato contrato);
 
 	public abstract int getIdentificador();
 

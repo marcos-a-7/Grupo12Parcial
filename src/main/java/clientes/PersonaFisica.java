@@ -23,13 +23,15 @@ public class PersonaFisica extends Persona {
 	}
 
 	public void actualizaEstado() {
-		String estado;
+		State estado;
 		if (this.isMoroso()) {
-			estado = "Moroso";
+			estado = new MorosoState(this);
 		} else {
-			estado = "Sin contrataciones";
 			if (!this.contratos.isEmpty()) {
-				estado = "Con contrataciones";
+				estado = new ConContratacionesState(this);
+			}
+			else {
+				estado = new SinContratacionesState(this);
 			}
 		}
 		this.estado = estado;
@@ -46,14 +48,8 @@ public class PersonaFisica extends Persona {
 	}
 
 	@Override
-	public double getTasa(int idContrato) {
-		double tasa = 0;
-		Contrato contrato;
-		contrato = this.buscaContrato(idContrato);
-		if (estado.equals("Moroso")) {
-			tasa = 0.3;
-		}
-		return contrato.getMedioPago().getTasaFisica() + tasa;
+	public double getTasa(Contrato contrato) {
+		return contrato.getMedioPago().getTasaFisica();
 	}
 
 	@Override

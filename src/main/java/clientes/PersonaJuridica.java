@@ -20,9 +20,7 @@ public class PersonaJuridica extends Persona {
 	}
 
 	@Override
-	public double getTasa(int idContrato) {
-		Contrato contrato;
-		contrato = this.buscaContrato(idContrato);
+	public double getTasa(Contrato contrato) {
 		return contrato.getMedioPago().getTasaJuridica();
 	}
 
@@ -38,11 +36,13 @@ public class PersonaJuridica extends Persona {
 
 	@Override
 	public void actualizaEstado() {
-
-		String estado = "Sin contrataciones";
+		State estado;
 		if (!this.contratos.isEmpty()) {
-			estado = "Con contrataciones";
+			estado = new ConContratacionesState(this);
+		} else {
+			estado = new SinContratacionesState(this);
 		}
+
 		this.estado = estado;
 
 	}
