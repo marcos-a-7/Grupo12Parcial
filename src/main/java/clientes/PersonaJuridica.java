@@ -46,4 +46,9 @@ public class PersonaJuridica extends Persona {
 		this.estado = estado;
 
 	}
+
+	@Override
+	public int getIdentificador() {
+		return id;
+	}
 }

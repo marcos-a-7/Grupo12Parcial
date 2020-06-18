@@ -5,7 +5,7 @@ package servicios;
  *         <b>El servicio celular Genera un numero, devuelve costo y un detalle
  *         del mismo</b>
  */
-public class Celular implements IServicio {
+public class Celular implements IServicio, Cloneable {
 
 	private static int generadorNum = 5000000;
 	private int numeroCelular;
@@ -25,5 +25,5 @@ public class Celular implements IServicio {
 	public int getNumeroCelular() {
 		return this.numeroCelular;
 	}
-
+	
 }

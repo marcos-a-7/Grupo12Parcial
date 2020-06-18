@@ -5,7 +5,7 @@ package servicios;
  *         <b> devuelve el costo del cable y tambien puede devolver una
  *         descripcion</b>
  */
-public class Cable implements IServicio {
+public class Cable implements IServicio, Cloneable {
 
 	public Cable() {
 	}

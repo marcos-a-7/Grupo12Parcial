@@ -25,9 +25,9 @@ public class PaqueteServiciosFactory {
 		int i;
 		if (tipoInternet != null) {
 			if (tipoInternet.equals("100")) {
-				paquete = new PaqueteServicios(Internet100.getInstance());
+				paquete = new PaqueteServicios(new Internet100());
 			} else if (tipoInternet.equals("500")) {
-				paquete = new PaqueteServicios(Internet500.getInstance());
+				paquete = new PaqueteServicios(new Internet500());
 			} else {
 				throw new TipoNoEncontradoException("El internet solicitado no se encontro", tipoInternet);
 			}

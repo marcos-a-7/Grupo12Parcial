@@ -3,11 +3,17 @@ package clientes;
 import java.util.ArrayList;
 import java.util.Iterator;
 
+import excepciones.ImposibleCrearContratoException;
+import excepciones.ImposibleCrearPaqueteException;
 import excepciones.MedioPagoInvalidoException;
+import excepciones.MorosoException;
+import excepciones.SinContratacionesException;
+import excepciones.TipoNoEncontradoException;
 import modelo.Contrato;
 import modelo.ContratoFactory;
 import modelo.Factura;
 import servicios.PaqueteServicios;
+import servicios.PaqueteServiciosFactory;
 
 /**
  * @author Grupo12<br>
@@ -20,7 +26,7 @@ public abstract class Persona implements Cloneable {
 	protected String nombre;
 	ArrayList<Contrato> contratos = new ArrayList<Contrato>();
 	ArrayList<Factura> facturas = new ArrayList<Factura>();
-	protected String estado = "Sin contrataciones";
+	protected State estado = new SinContratacionesState(this);
 
 	public Persona(String nombre) {
 		this.nombre = nombre;
@@ -36,17 +42,24 @@ public abstract class Persona implements Cloneable {
 	
 	public abstract void actualizaEstado(); 
 	
-	public String getEstado() {
+
+	public State getEstado() {
 		return estado;
 	}
 
-	public void agregaContrato(Domicilio domicilio, PaqueteServicios paqueteServicios, String medioPago) {
-		try {
-			contratos.add(ContratoFactory.getContrato(domicilio, paqueteServicios, medioPago));
-		} catch (MedioPagoInvalidoException e) {
-			//RESOLVER
-		}
+	public ArrayList<Contrato> getContratos() {
+		return contratos;
 	}
+
+	public ArrayList<Factura> getFacturas() {
+		return facturas;
+	}
+
+	public void agregaContrato(String calle, int numeroCalle, String tipoInternet, int cantCelu, int cantTel,
+			int cantCable, String medioPago) throws ImposibleCrearContratoException, ImposibleCrearPaqueteException {
+		estado.agregaContrato(calle, numeroCalle, tipoInternet, cantCelu, cantTel, cantCable, medioPago);
+	}
+	
 
 	/**
 	 * Busca un contrato a traves de un id<br>
@@ -103,11 +116,13 @@ public abstract class Persona implements Cloneable {
 	 * contrario no realiza ninguna accion<br>
 	 * 
 	 * @param id el id del contrato a eliminar
+	 * @throws SinContratacionesException 
+	 * @throws MorosoException 
 	 */
-	public void eliminaContrato(int id) {
+	public void eliminaContrato(int id) throws MorosoException, SinContratacionesException {
 		Contrato contrato = this.buscaContrato(id);
 		if (contrato != null)
-			this.contratos.remove(contrato);
+			estado.eliminaContrato(contrato);
 	}
 
 	/**
@@ -118,12 +133,19 @@ public abstract class Persona implements Cloneable {
 	 * 
 	 * @param calle  : la calle del domicilio del titular<br>
 	 * @param numero : el numero del domicilio del titular <br>
+	 * @throws SinContratacionesException 
+	 * @throws MorosoException 
 	 */
-	public void eliminaContrato(String calle, int numero) {
+	public void eliminaContrato(String calle, int numero) throws MorosoException, SinContratacionesException {
 		Contrato contrato = this.buscaContrato(calle, numero);
 		if (contrato != null)
-			this.contratos.remove(contrato);
+			estado.eliminaContrato(contrato);
 	}
+	
+	public void eliminaContrato(Contrato contrato) throws MorosoException, SinContratacionesException {
+		estado.eliminaContrato(contrato);
+	}
+	
 
 	// esta funcion pasa una referencia a la persona para que la factura pueda
 	// cambiar en caso de que cambien los datos de la persona (ejemplo medio de
@@ -135,8 +157,8 @@ public abstract class Persona implements Cloneable {
 		}
 	}
 
-	public void pagar(Factura factura) {
-		factura.pagar();
+	public double pagar(Factura factura) throws SinContratacionesException {
+		return estado.pagar(factura);
 	}
 
 	public int cantidadFacturasDebidas() {
@@ -154,11 +176,16 @@ public abstract class Persona implements Cloneable {
 		return "Persona ";
 	}
 
-	@Override //////corregir clonacion
+	@Override //////No se esta realizando clonacion profunda al estado porque por implementacion de patron state hay doble referencia con persona
 	public Persona clone() throws CloneNotSupportedException {
-		return (Persona) super.clone();
+		Persona aux = (Persona) super.clone();
+		aux.facturas = (ArrayList<Factura>) this.facturas.clone();
+		aux.contratos = (ArrayList<Contrato>) this.contratos.clone();
+		return aux;
 	}
 
 	public abstract double getTasa(int idContrato);
+
+	public abstract int getIdentificador();
 
 }

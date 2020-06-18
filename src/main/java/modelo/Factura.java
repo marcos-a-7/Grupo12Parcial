@@ -1,7 +1,6 @@
 package modelo;
 
 import clientes.Domicilio;
-import clientes.Persona;
 import servicios.PaqueteServicios;
 
 /**
@@ -13,13 +12,18 @@ import servicios.PaqueteServicios;
 public class Factura implements Cloneable {
 	private int idContrato, mes;
 	private PaqueteServicios paqueteServicios;
-	private Persona persona;
+	private String nombrePersona;
+	private int identificador;
+	private double tasa;
 	private Domicilio domicilio;
 	private boolean pagada = false;
 
-	public Factura(int idContrato, Persona persona, Domicilio domicilio, PaqueteServicios paqueteServicios, int mes) {
+	public Factura(int idContrato, String nombrePersona, int identificador, double tasa, Domicilio domicilio,
+			PaqueteServicios paqueteServicios, int mes) {
 		this.idContrato = idContrato;
-		this.persona = persona;
+		this.nombrePersona = nombrePersona;
+		this.identificador = identificador;
+		this.tasa = tasa;
 		this.domicilio = domicilio;
 		this.paqueteServicios = paqueteServicios;
 		this.mes = mes;
@@ -37,23 +41,19 @@ public class Factura implements Cloneable {
 		return paqueteServicios;
 	}
 
-	public Persona getPersona() {
-		return persona;
-	}
-
 	public Domicilio getDomicilio() {
 		return domicilio;
 	}
 
 	public double getCostoFinal() {
-		return this.paqueteServicios.getCostoBase() * this.persona.getTasa(this.idContrato);
+		return this.paqueteServicios.getCostoBase() * tasa;
 		// MODIFICAR TASA DEPENDE DEL ESTADO
 	}
 
 	public boolean isPagada() {
 		return pagada;
 	}
-	
+
 	public void pagar() {
 		this.pagada = true;
 	}
@@ -66,25 +66,21 @@ public class Factura implements Cloneable {
 	public String imprimeFactura() {
 		StringBuilder sb = new StringBuilder();
 		sb.append("Numero de contrato: " + this.idContrato + " Mes: " + this.mes + "\n");
-		sb.append(persona.toString());
+		sb.append("Titular: " + this.nombrePersona + " DNI/Identifcador: " + this.identificador);
 		sb.append(this.paqueteServicios.detalle());
 		sb.append("Costo basico: " + this.paqueteServicios.getCostoBase() + "\n");
 		sb.append("Aplicando tasas (descuentos/impuestos) Costo Final: " + this.getCostoFinal() + "\n");
-		// MODIFICAR TASA DEPENDE DEL ESTADO
 		return sb.toString();
 	}
 
-	@Override
-	public Factura clone() {
+	@Override // NO se que pasa cuando clonas un string si requiere llamada a clone
+	public Factura clone() throws CloneNotSupportedException {
 		Factura aux = null;
-		try {
-			aux = (Factura) super.clone();
-			aux.domicilio = this.domicilio.clone();
-			aux.persona = this.persona.clone();
-		} catch (CloneNotSupportedException e) {
-			System.out.println("No se pudo duplicar factura, debido a que es persona juridica\n");
-			aux = null;
-		}
+
+		aux = (Factura) super.clone();
+		aux.domicilio = this.domicilio.clone();
+		aux.paqueteServicios = (PaqueteServicios) this.paqueteServicios.clone();
+
 		return aux;
 	}
 }

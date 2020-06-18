@@ -5,15 +5,14 @@ package servicios;
  *         <b>El servicio telefono Genera un numero, devuelve costo y un detalle
  *         del mismo</b>
  */
-public class Telefono implements IServicio {
+public class Telefono implements IServicio, Cloneable {
+	private static int generadorNum = 4000000;
+	private int numeroTelefono;
 
 	public Telefono() {
 		this.numeroTelefono = generadorNum++;
 	}
-
-	private static int generadorNum = 4000000;
-	private int numeroTelefono;
-
+	
 	public double getCosto() {
 		return 200;
 	}

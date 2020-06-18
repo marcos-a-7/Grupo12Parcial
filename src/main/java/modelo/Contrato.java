@@ -18,7 +18,7 @@ import servicios.Telefono;
  *         <b> la clase contrato guarda los datos de la persona y del paquete de
  *         servicio, tambien puede generar una factura</b>
  */
-public class Contrato {
+public class Contrato implements Cloneable {
 	private static int generadorIdContrato = 1;
 	private int idContrato;
 	private Domicilio domicilio;
@@ -70,7 +70,12 @@ public class Contrato {
 	 */
 	public Factura getFactura(Persona titular, int mes) {
 		Factura factura = null;
-		factura = new Factura(idContrato, titular, domicilio, paqueteServicios, mes);
+		try {
+			factura = new Factura(idContrato, titular.getNombre(),titular.getIdentificador(),titular.getTasa(idContrato), domicilio.clone(), paqueteServicios.clone(), mes);
+		} catch (CloneNotSupportedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		return factura;
 	}
 
@@ -113,9 +118,9 @@ public class Contrato {
 	 */
 	public void cambiaInternet(String tipoInternet) {
 		if (tipoInternet.equals("100")) {
-			paqueteServicios.setInternet(Internet100.getInstance());
+			paqueteServicios.setInternet(new Internet100());
 		} else if (tipoInternet.equals("500")) {
-			paqueteServicios.setInternet(Internet500.getInstance());
+			paqueteServicios.setInternet(new Internet500());
 		}
 	}
 
@@ -135,4 +140,15 @@ public class Contrato {
 		else if (medioPago.equals("Efectivo"))
 			this.setMedioPago(new Efectivo());
 	}
+
+	@Override
+	protected Contrato clone() throws CloneNotSupportedException {
+		Contrato aux = (Contrato) super.clone();
+		aux.paqueteServicios = this.paqueteServicios.clone();
+		aux.medioPago = this.medioPago.clone();
+		aux.domicilio = this.domicilio.clone();
+		return aux;
+	}
+	
+	
 }

@@ -8,7 +8,7 @@ import java.util.Iterator;
  *         <b> Se encarga de manejar todas las combinaciones de servicios en un
  *         conjunto</b><br>
  */
-public class PaqueteServicios {
+public class PaqueteServicios implements Cloneable{
 	Internet internet;
 	ArrayList<Celular> celulares = new ArrayList<Celular>();
 	ArrayList<Telefono> telefonos = new ArrayList<Telefono>();
@@ -204,6 +204,16 @@ public class PaqueteServicios {
 		}
 
 		return sb.toString();
+	}
+
+	@Override
+	public PaqueteServicios clone() throws CloneNotSupportedException {
+		PaqueteServicios aux = (PaqueteServicios) super.clone();
+		aux.cables = (ArrayList<Cable>) this.cables.clone();
+		aux.celulares = (ArrayList<Celular>) this.celulares.clone();
+		aux.telefonos = (ArrayList<Telefono>) this.telefonos.clone();
+		aux.internet = this.internet.clone();
+		return aux;
 	}
 
 }

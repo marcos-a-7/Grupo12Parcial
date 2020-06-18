@@ -66,4 +66,9 @@ public class PersonaFisica extends Persona {
 		return (PersonaFisica) super.clone();
 	}
 
+	@Override
+	public int getIdentificador() {
+		return dni;
+	}
+
 }
