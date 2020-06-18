@@ -28,6 +28,12 @@ public class Prueba1 {
 		empresa.addContrato("Fisica", "Bruce wayne", -4050, "Cheque", "Colon", 3000, "100", 3, 1, 0); // caso de dni negativo
 		
 		empresa.addContrato("Juridica", "Juana Tester", 12345678, "Billete de Estanciero", "Formosa", 1, "500", 0, 0, 0); //Debe setear metodo de pago como efectivo solo
+
+		empresa.addContrato("", "Empty", 123, "Cheque", "Chaco", -5, "100", 0, 0, 0);
+		empresa.addContrato("Fisica", "Bruce wayne", -4050, "Cheque", "Colon", 3000, "100", 3, 1, 0); // caso de dni negativo
+		empresa.addContrato("Fisica", "Bruce wayne", 40906, "Cheque", "Colon", 3000, "100", 3, 1, 0); //
+
+
 		
 		//excepciones por tipo persona 
 		empresa.addContrato("Helicoptero", "Apache", 747, "Tarjeta", "Buenos Aires", 100, "500", 12, 0, 0); 
@@ -117,9 +123,9 @@ public class Prueba1 {
 		System.out.println("reporte final\n");
 		System.out.println("\n"+empresa.reporte());
 		System.out.println("-----------------------------------------------------------------------------------\n");
-		
 		System.out.println("Enlista facturas\n");
 		System.out.println("\n"+empresa.enlistarFacturas());
+
 		
 		
 		
