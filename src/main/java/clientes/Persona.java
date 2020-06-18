@@ -154,7 +154,7 @@ public abstract class Persona implements Cloneable {
 		return "Persona ";
 	}
 
-	@Override
+	@Override //////corregir clonacion
 	public Persona clone() throws CloneNotSupportedException {
 		return (Persona) super.clone();
 	}
