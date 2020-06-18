@@ -2,12 +2,10 @@ package clientes;
 
 import java.util.ArrayList;
 import java.util.Iterator;
-import java.util.Observable;
-import java.util.Observer;
 
+import excepciones.MedioPagoInvalidoException;
 import modelo.Contrato;
 import modelo.ContratoFactory;
-import modelo.EmuladorPasoTiempo;
 import modelo.Factura;
 import servicios.PaqueteServicios;
 
@@ -18,39 +16,38 @@ import servicios.PaqueteServicios;
  *         interfase cloneable y obliga a la clases hijas a implementar el
  *         metodo clone()</b><br>
  */
-public abstract class Persona implements Cloneable, Observer {
+public abstract class Persona implements Cloneable {
 	protected String nombre;
-	protected MedioPago medioPago;
-	protected EmuladorPasoTiempo observado;
 	ArrayList<Contrato> contratos = new ArrayList<Contrato>();
 	ArrayList<Factura> facturas = new ArrayList<Factura>();
+	protected String estado = "Sin contrataciones";
 
-	public Persona(String nombre, MedioPago medioPago) {
+	public Persona(String nombre) {
 		this.nombre = nombre;
-		this.medioPago = medioPago;
-		this.observado = EmuladorPasoTiempo.getInstance();
 	}
 
 	public String getNombre() {
 		return nombre;
 	}
 
-	public MedioPago getMedioPago() {
-		return medioPago;
-	}
-
-	private void setMedioPago(MedioPago medioPago) {
-		this.medioPago = medioPago;
-	}
-
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
 	}
-
-	public void agregaContrato(Domicilio domicilio, PaqueteServicios paqueteServicios) {
-		contratos.add(ContratoFactory.getContrato(domicilio, paqueteServicios));
-	}
 	
+	public abstract void actualizaEstado(); 
+	
+	public String getEstado() {
+		return estado;
+	}
+
+	public void agregaContrato(Domicilio domicilio, PaqueteServicios paqueteServicios, String medioPago) {
+		try {
+			contratos.add(ContratoFactory.getContrato(domicilio, paqueteServicios, medioPago));
+		} catch (MedioPagoInvalidoException e) {
+			//RESOLVER
+		}
+	}
+
 	/**
 	 * Busca un contrato a traves de un id<br>
 	 * <b>Pre: </b> no tiene<br>
@@ -99,7 +96,7 @@ public abstract class Persona implements Cloneable, Observer {
 			contrato = null;
 		return contrato;
 	}
-	
+
 	/**
 	 * Elimina un contrato segun el id <b>Pre: </b> no tiene<br>
 	 * <b>Post: </b> remueve el contrato si el id corresponde a uno existente, de lo
@@ -127,16 +124,29 @@ public abstract class Persona implements Cloneable, Observer {
 		if (contrato != null)
 			this.contratos.remove(contrato);
 	}
-	
-	//esta funcion pasa una referencia a la persona para que la factura pueda cambiar en caso de que cambien los datos de la persona (ejemplo medio de pago)
+
+	// esta funcion pasa una referencia a la persona para que la factura pueda
+	// cambiar en caso de que cambien los datos de la persona (ejemplo medio de
+	// pago)
 	public void facturar(int mes) {
 		Iterator<Contrato> it = contratos.iterator();
-		while(it.hasNext()) {
-			facturas.add(it.next().getFactura(this,mes));
+		while (it.hasNext()) {
+			facturas.add(it.next().getFactura(this, mes));
 		}
 	}
+
 	public void pagar(Factura factura) {
-		facturas.remove(factura);
+		factura.pagar();
+	}
+
+	public int cantidadFacturasDebidas() {
+		int cantidad=0;
+		Iterator<Factura> it = facturas.iterator();
+		while (it.hasNext()) {
+			if (!it.next().isPagada())
+				cantidad++;
+		}	
+		return cantidad;
 	}
 	
 	@Override
@@ -149,26 +159,6 @@ public abstract class Persona implements Cloneable, Observer {
 		return (Persona) super.clone();
 	}
 
-	public abstract double getTasa();
+	public abstract double getTasa(int idContrato);
 
-	/**
-	 * Cambia el medio de pago de la persona<br>
-	 * <b>Pre:</b>no tiene<br>
-	 * <b>Post:</b>Se cambiara el medio de pago por el ingresado y si no existe no
-	 * hara nada<br>
-	 * 
-	 * @param medioPago: El medio de pago por el cual se cambiara
-	 */
-	public void cambiaMedioPago(String medioPago) {
-		if (medioPago.equals("Tarjeta"))
-			this.setMedioPago(new Tarjeta());
-		else if (medioPago.equals("Cheque"))
-			this.setMedioPago(new Cheque());
-		else if (medioPago.equals("Efectivo"))
-			this.setMedioPago(new Efectivo());
-	}
-	
-	public void update(Observable o, Object arg) {
-		this.facturar((Integer) arg);
-	}
 }

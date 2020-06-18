@@ -1,7 +1,11 @@
 package modelo;
 
+import clientes.Cheque;
 import clientes.Domicilio;
+import clientes.Efectivo;
+import clientes.MedioPago;
 import clientes.Persona;
+import clientes.Tarjeta;
 import servicios.Cable;
 import servicios.Celular;
 import servicios.Internet100;
@@ -19,11 +23,21 @@ public class Contrato {
 	private int idContrato;
 	private Domicilio domicilio;
 	private PaqueteServicios paqueteServicios;
+	private MedioPago medioPago;
 
-	public Contrato(Domicilio domicilio, PaqueteServicios paqueteServicios) {
+	public Contrato(Domicilio domicilio, PaqueteServicios paqueteServicios, MedioPago medioPago) {
 		this.idContrato = generadorIdContrato++;
 		this.domicilio = domicilio;
 		this.paqueteServicios = paqueteServicios;
+		this.medioPago = medioPago;
+	}
+
+	public MedioPago getMedioPago() {
+		return medioPago;
+	}
+
+	private void setMedioPago(MedioPago medioPago) {
+		this.medioPago = medioPago;
 	}
 
 	public int getIdContrato() {
@@ -54,7 +68,7 @@ public class Contrato {
 	 *
 	 * @return retorna una factura<br>
 	 */
-	public Factura getFactura(Persona titular,int mes) {
+	public Factura getFactura(Persona titular, int mes) {
 		Factura factura = null;
 		factura = new Factura(idContrato, titular, domicilio, paqueteServicios, mes);
 		return factura;
@@ -103,5 +117,22 @@ public class Contrato {
 		} else if (tipoInternet.equals("500")) {
 			paqueteServicios.setInternet(Internet500.getInstance());
 		}
+	}
+
+	/**
+	 * Cambia el medio de pago de la persona<br>
+	 * <b>Pre:</b>no tiene<br>
+	 * <b>Post:</b>Se cambiara el medio de pago por el ingresado y si no existe no
+	 * hara nada<br>
+	 * 
+	 * @param medioPago: El medio de pago por el cual se cambiara
+	 */
+	public void cambiaMedioPago(String medioPago) {
+		if (medioPago.equals("Tarjeta"))
+			this.setMedioPago(new Tarjeta());
+		else if (medioPago.equals("Cheque"))
+			this.setMedioPago(new Cheque());
+		else if (medioPago.equals("Efectivo"))
+			this.setMedioPago(new Efectivo());
 	}
 }

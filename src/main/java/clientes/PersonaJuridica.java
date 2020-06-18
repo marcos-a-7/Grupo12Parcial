@@ -1,5 +1,7 @@
 package clientes;
 
+import modelo.Contrato;
+
 /**
  * @author Grupo12 <br>
  *         <b>La persona Juridica no puede ser clonada</b><br>
@@ -9,7 +11,7 @@ public class PersonaJuridica extends Persona {
 	int id;
 
 	public PersonaJuridica(String nombre, int id, MedioPago medioPago) {
-		super(nombre, medioPago);
+		super(nombre);
 		this.id = id;
 	}
 
@@ -18,8 +20,10 @@ public class PersonaJuridica extends Persona {
 	}
 
 	@Override
-	public double getTasa() {
-		return this.medioPago.getTasaJuridica();
+	public double getTasa(int idContrato) {
+		Contrato contrato;
+		contrato = this.buscaContrato(idContrato);
+		return contrato.getMedioPago().getTasaJuridica();
 	}
 
 	@Override
@@ -30,5 +34,16 @@ public class PersonaJuridica extends Persona {
 	@Override
 	public PersonaJuridica clone() throws CloneNotSupportedException {
 		throw new CloneNotSupportedException();
+	}
+
+	@Override
+	public void actualizaEstado() {
+
+		String estado = "Sin contrataciones";
+		if (!this.contratos.isEmpty()) {
+			estado = "Con contrataciones";
+		}
+		this.estado = estado;
+
 	}
 }

@@ -15,6 +15,7 @@ public class Factura implements Cloneable {
 	private PaqueteServicios paqueteServicios;
 	private Persona persona;
 	private Domicilio domicilio;
+	private boolean pagada = false;
 
 	public Factura(int idContrato, Persona persona, Domicilio domicilio, PaqueteServicios paqueteServicios, int mes) {
 		this.idContrato = idContrato;
@@ -27,21 +28,34 @@ public class Factura implements Cloneable {
 	public int getIdContrato() {
 		return idContrato;
 	}
+
 	public int getMes() {
 		return mes;
 	}
+
 	public PaqueteServicios getPaqueteServicios() {
 		return paqueteServicios;
 	}
+
 	public Persona getPersona() {
 		return persona;
 	}
+
 	public Domicilio getDomicilio() {
 		return domicilio;
 	}
+
 	public double getCostoFinal() {
-		return this.paqueteServicios.getCostoBase() * this.persona.getTasa();
-		//MODIFICAR TASA DEPENDE DEL ESTADO
+		return this.paqueteServicios.getCostoBase() * this.persona.getTasa(this.idContrato);
+		// MODIFICAR TASA DEPENDE DEL ESTADO
+	}
+
+	public boolean isPagada() {
+		return pagada;
+	}
+	
+	public void pagar() {
+		this.pagada = true;
 	}
 
 	/**
@@ -56,7 +70,7 @@ public class Factura implements Cloneable {
 		sb.append(this.paqueteServicios.detalle());
 		sb.append("Costo basico: " + this.paqueteServicios.getCostoBase() + "\n");
 		sb.append("Aplicando tasas (descuentos/impuestos) Costo Final: " + this.getCostoFinal() + "\n");
-		//MODIFICAR TASA DEPENDE DEL ESTADO
+		// MODIFICAR TASA DEPENDE DEL ESTADO
 		return sb.toString();
 	}
 

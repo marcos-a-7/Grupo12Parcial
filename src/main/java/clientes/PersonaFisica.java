@@ -1,6 +1,9 @@
 package clientes;
 
-import java.util.Observable;
+import java.util.Iterator;
+
+import modelo.Contrato;
+import modelo.Factura;
 
 /**
  * @author Grupo12 <br>
@@ -9,33 +12,48 @@ import java.util.Observable;
 public class PersonaFisica extends Persona {
 
 	protected int dni;
-	String estado = "Sin contrataciones";
 
 	public PersonaFisica(String nombre, int dni, MedioPago medioPago) {
-		super(nombre, medioPago);
+		super(nombre);
 		this.dni = dni;
-	}
-
-	public String getEstado() {
-		return estado;
 	}
 
 	public int getDni() {
 		return dni;
 	}
+
 	public void actualizaEstado() {
-		String estado = "Sin contrataciones";
-		if(!this.contratos.isEmpty()) {
-			estado = "Con contrataciones";
-		}
-		if(this.facturas.size()>2) {
+		String estado;
+		if (this.isMoroso()) {
 			estado = "Moroso";
+		} else {
+			estado = "Sin contrataciones";
+			if (!this.contratos.isEmpty()) {
+				estado = "Con contrataciones";
+			}
 		}
 		this.estado = estado;
 	}
+
+	private boolean isMoroso() {
+		int cantidad = 0;
+		Iterator<Factura> it = facturas.iterator();
+		while (it.hasNext() && cantidad < 3) {
+			if (!it.next().isPagada())
+				cantidad++;
+		}
+		return cantidad > 2;
+	}
+
 	@Override
-	public double getTasa() {
-		return this.medioPago.getTasaFisica();
+	public double getTasa(int idContrato) {
+		double tasa = 0;
+		Contrato contrato;
+		contrato = this.buscaContrato(idContrato);
+		if (estado.equals("Moroso")) {
+			tasa = 0.3;
+		}
+		return contrato.getMedioPago().getTasaFisica() + tasa;
 	}
 
 	@Override
@@ -47,9 +65,5 @@ public class PersonaFisica extends Persona {
 	public PersonaFisica clone() throws CloneNotSupportedException {
 		return (PersonaFisica) super.clone();
 	}
-	@Override
-	public void update(Observable o, Object arg) {
-		super.update(o, arg);
-		this.actualizaEstado();
-	}
+
 }

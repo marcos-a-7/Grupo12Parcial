@@ -1,4 +1,4 @@
-package modelo;
+package pasoDelTiempo;
 
 import java.util.Observable;
 
@@ -20,6 +20,7 @@ public class EmuladorPasoTiempo extends Observable {
 	}
 	public void avanzarMes() {
 		this.mes++;
+		setChanged();
 		notifyObservers(mes);
 	}
 }
