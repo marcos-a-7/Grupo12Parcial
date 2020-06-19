@@ -89,7 +89,7 @@ public class MContrato_Menu {
 	private JLabel Label_Nombre;
 	private JPanel panel_33;
 	private JPanel panel_34;
-	private JLabel lblNewLabel;
+	private JLabel lblNewLabel_CantCables;
 	private JLabel lblDni;
 
 	/**
@@ -183,8 +183,8 @@ public class MContrato_Menu {
 		this.panel_34 = new JPanel();
 		this.panel_10.add(this.panel_34);
 		
-		this.lblNewLabel = new JLabel("Cantidad de Cables :");
-		this.panel_34.add(this.lblNewLabel);
+		this.lblNewLabel_CantCables = new JLabel("Cantidad de Cables :");
+		this.panel_34.add(this.lblNewLabel_CantCables);
 		
 		this.panel_8 = new JPanel();
 		this.panel_6.add(this.panel_8);
