@@ -26,7 +26,6 @@ public class Interfaz {
 	private JPanel panel_2;
 	private JPanel panel_3;
 	private JPanel panel_ListaPersonas;
-	private JPanel panel_5;
 	private JPanel panel_6;
 	private JPanel panel_7;
 	private JPanel panel_8;
@@ -39,11 +38,9 @@ public class Interfaz {
 	private JButton btn_DarBaja;
 	private JPanel panel_12;
 	private JScrollPane scrollPane;
-	private JTextArea textArea;
+	private JTextArea textArea_Eventos;
 	private JScrollPane scrollPane_1;
-	private JScrollPane scrollPane_2;
-	private JList list;
-	private JList list_1;
+	private JList list_Personas;
 
 	/**
 	 * Launch the application.
@@ -82,7 +79,7 @@ public class Interfaz {
 		
 		this.panel_1 = new JPanel();
 		this.panel.add(this.panel_1, BorderLayout.CENTER);
-		this.panel_1.setLayout(new GridLayout(0, 3, 0, 0));
+		this.panel_1.setLayout(new GridLayout(0, 2, 0, 0));
 		
 		this.panel_3 = new JPanel();
 		this.panel_1.add(this.panel_3);
@@ -126,19 +123,8 @@ public class Interfaz {
 		this.scrollPane_1 = new JScrollPane();
 		this.panel_ListaPersonas.add(this.scrollPane_1, BorderLayout.CENTER);
 		
-		this.list = new JList();
-		this.scrollPane_1.setViewportView(this.list);
-		
-		this.panel_5 = new JPanel();
-		this.panel_5.setBorder(new TitledBorder(new LineBorder(new Color(64, 64, 64), 3, true), "Listado de Contratos", TitledBorder.LEADING, TitledBorder.TOP, null, Color.DARK_GRAY));
-		this.panel_1.add(this.panel_5);
-		this.panel_5.setLayout(new BorderLayout(0, 0));
-		
-		this.scrollPane_2 = new JScrollPane();
-		this.panel_5.add(this.scrollPane_2, BorderLayout.CENTER);
-		
-		this.list_1 = new JList();
-		this.scrollPane_2.setViewportView(this.list_1);
+		this.list_Personas = new JList();
+		this.scrollPane_1.setViewportView(this.list_Personas);
 		
 		this.panel_2 = new JPanel();
 		this.panel.add(this.panel_2, BorderLayout.SOUTH);
@@ -153,8 +139,8 @@ public class Interfaz {
 		this.scrollPane = new JScrollPane();
 		this.panel_12.add(this.scrollPane);
 		
-		this.textArea = new JTextArea();
-		this.scrollPane.setViewportView(this.textArea);
+		this.textArea_Eventos = new JTextArea();
+		this.scrollPane.setViewportView(this.textArea_Eventos);
 		
 		
 	}

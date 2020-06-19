@@ -11,6 +11,7 @@ import javax.swing.JList;
 import javax.swing.border.TitledBorder;
 import javax.swing.border.LineBorder;
 import java.awt.Color;
+import javax.swing.JTextArea;
 
 public class Ventana_Afip {
 
@@ -21,11 +22,11 @@ public class Ventana_Afip {
 	private JPanel panel_3;
 	private JPanel panel_4;
 	private JScrollPane scrollPane;
-	private JList list;
+	private JList list_Factura;
 	private JScrollPane scrollPane_1;
-	private JList list_1;
 	private JScrollPane scrollPane_2;
-	private JList list_2;
+	private JTextArea textArea_Detalle;
+	private JTextArea textArea_Reporte;
 
 	/**
 	 * Launch the application.
@@ -70,8 +71,8 @@ public class Ventana_Afip {
 		this.scrollPane_2 = new JScrollPane();
 		this.panel_1.add(this.scrollPane_2, BorderLayout.CENTER);
 		
-		this.list_2 = new JList();
-		this.scrollPane_2.setViewportView(this.list_2);
+		this.textArea_Reporte = new JTextArea();
+		this.scrollPane_2.setViewportView(this.textArea_Reporte);
 		
 		this.panel_2 = new JPanel();
 		this.panel.add(this.panel_2);
@@ -85,8 +86,8 @@ public class Ventana_Afip {
 		this.scrollPane = new JScrollPane();
 		this.panel_3.add(this.scrollPane, BorderLayout.CENTER);
 		
-		this.list = new JList();
-		this.scrollPane.setViewportView(this.list);
+		this.list_Factura = new JList();
+		this.scrollPane.setViewportView(this.list_Factura);
 		
 		this.panel_4 = new JPanel();
 		this.panel_4.setBorder(new TitledBorder(new LineBorder(new Color(30, 144, 255), 3, true), "Detalles", TitledBorder.LEADING, TitledBorder.TOP, null, null));
@@ -96,8 +97,8 @@ public class Ventana_Afip {
 		this.scrollPane_1 = new JScrollPane();
 		this.panel_4.add(this.scrollPane_1, BorderLayout.CENTER);
 		
-		this.list_1 = new JList();
-		this.scrollPane_1.setViewportView(this.list_1);
+		this.textArea_Detalle = new JTextArea();
+		this.scrollPane_1.setViewportView(this.textArea_Detalle);
 	}
 
 }

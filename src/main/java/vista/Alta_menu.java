@@ -12,8 +12,11 @@ import java.awt.Color;
 import javax.swing.JTextField;
 import javax.swing.JButton;
 import javax.swing.SwingConstants;
+import javax.swing.ButtonGroup;
+import java.awt.event.KeyListener;
+import java.awt.event.KeyEvent;
 
-public class Alta_menu {
+public class Alta_menu implements KeyListener {
 
 	private JFrame frame;
 	private JPanel panel;
@@ -59,6 +62,8 @@ public class Alta_menu {
 	private JLabel lblNewLabel;
 	private JRadioButton rdbtnNewRadioButton_Fisica_1;
 	private JRadioButton rdbtnNewRadioButton_Juridica_1;
+	private final ButtonGroup buttonGroup = new ButtonGroup();
+	private final ButtonGroup buttonGroup_1 = new ButtonGroup();
 
 	/**
 	 * Launch the application.
@@ -119,9 +124,12 @@ public class Alta_menu {
 		this.panel_27.add(this.lblNewLabel);
 		
 		this.rdbtnNewRadioButton_Juridica_1 = new JRadioButton("Juridica");
+		buttonGroup.add(this.rdbtnNewRadioButton_Juridica_1);
 		this.panel_5.add(this.rdbtnNewRadioButton_Juridica_1);
 		
 		this.rdbtnNewRadioButton_Fisica_1 = new JRadioButton("Fisica");
+		this.rdbtnNewRadioButton_Fisica_1.setSelected(true);
+		buttonGroup.add(this.rdbtnNewRadioButton_Fisica_1);
 		this.panel_5.add(this.rdbtnNewRadioButton_Fisica_1);
 		
 		this.panel_30 = new JPanel();
@@ -147,6 +155,7 @@ public class Alta_menu {
 		this.panel_25.add(this.lblNewLabel_2);
 		
 		this.textField_Nombre = new JTextField();
+		this.textField_Nombre.addKeyListener(this);
 		this.panel_25.add(this.textField_Nombre);
 		this.textField_Nombre.setColumns(10);
 		
@@ -157,6 +166,7 @@ public class Alta_menu {
 		this.panel_26.add(this.lblNewLabel_1);
 		
 		this.textField_DNI = new JTextField();
+		this.textField_DNI.addKeyListener(this);
 		this.textField_DNI.setText("");
 		this.panel_26.add(this.textField_DNI);
 		this.textField_DNI.setColumns(10);
@@ -187,18 +197,22 @@ public class Alta_menu {
 		this.panel_11.add(this.panel_22);
 		
 		this.rdbtnNewRadioButton_Cheque = new JRadioButton("Cheque");
+		buttonGroup_1.add(this.rdbtnNewRadioButton_Cheque);
 		this.panel_22.add(this.rdbtnNewRadioButton_Cheque);
 		
 		this.panel_23 = new JPanel();
 		this.panel_11.add(this.panel_23);
 		
 		this.rdbtnNewRadioButton_Efectivo = new JRadioButton("Efectivo");
+		this.rdbtnNewRadioButton_Efectivo.setSelected(true);
+		buttonGroup_1.add(this.rdbtnNewRadioButton_Efectivo);
 		this.panel_23.add(this.rdbtnNewRadioButton_Efectivo);
 		
 		this.panel_24 = new JPanel();
 		this.panel_11.add(this.panel_24);
 		
 		this.rdbtnNewRadioButton_Tarjeta = new JRadioButton("Tarjeta");
+		buttonGroup_1.add(this.rdbtnNewRadioButton_Tarjeta);
 		this.panel_24.add(this.rdbtnNewRadioButton_Tarjeta);
 		
 		this.panel_12 = new JPanel();
@@ -223,10 +237,28 @@ public class Alta_menu {
 		this.panel.add(this.panel_17);
 		
 		this.btnNewButton_DarAlta = new JButton("Dar de Alta");
+		this.btnNewButton_DarAlta.setEnabled(false);
 		this.panel_17.add(this.btnNewButton_DarAlta);
 		
 		this.panel_18 = new JPanel();
 		this.panel.add(this.panel_18);
 	}
 
+	public void keyPressed(KeyEvent arg0) {
+	}
+	public void keyReleased(KeyEvent arg0) {
+		int dni = 0;
+		String nombre = this.textField_Nombre.getText(); 
+		try {
+			dni = Integer.parseInt(this.textField_DNI.getText());
+			
+		} catch (NumberFormatException e) {
+		}
+
+		boolean condicion = dni > 0 && !nombre.isEmpty();
+		this.btnNewButton_DarAlta.setEnabled(condicion);
+		
+	}
+	public void keyTyped(KeyEvent arg0) {
+	}
 }
