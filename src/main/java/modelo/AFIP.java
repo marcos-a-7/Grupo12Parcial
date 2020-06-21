@@ -3,10 +3,11 @@ package modelo;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.Observable;
 
 import util.Util;
 
-public class AFIP extends Thread implements Serializable {
+public class AFIP extends Observable implements Serializable, Runnable {
 	Empresa empresa;
 	ArrayList<Factura> facturas;
 	
@@ -47,7 +48,7 @@ public class AFIP extends Thread implements Serializable {
 		sb.append("Ganancias: " + ganancias + "\n");
 		return sb.toString();
 	}
-	@Override
+	
 	public void run() {
 		//CONDICION DE LA VENTANA
 		Util.espera(60000); //1 minuto

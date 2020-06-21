@@ -12,11 +12,15 @@ import java.awt.Color;
 import javax.swing.JTextField;
 import javax.swing.JButton;
 import javax.swing.SwingConstants;
+import javax.swing.WindowConstants;
 import javax.swing.ButtonGroup;
 import java.awt.event.KeyListener;
+import java.awt.event.WindowEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
+import java.awt.event.ActionEvent;
 
-public class Alta_menu implements KeyListener {
+public class VistaAltas extends JFrame implements KeyListener {
 
 	private JFrame frame;
 	private JPanel panel;
@@ -64,6 +68,7 @@ public class Alta_menu implements KeyListener {
 	private JRadioButton rdbtnNewRadioButton_Juridica_1;
 	private final ButtonGroup buttonGroup = new ButtonGroup();
 	private final ButtonGroup buttonGroup_1 = new ButtonGroup();
+	private ActionListener actionListener;
 
 	/**
 	 * Launch the application.
@@ -72,7 +77,7 @@ public class Alta_menu implements KeyListener {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					Alta_menu window = new Alta_menu();
+					VistaAltas window = new VistaAltas();
 					window.frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -84,7 +89,7 @@ public class Alta_menu implements KeyListener {
 	/**
 	 * Create the application.
 	 */
-	public Alta_menu() {
+	public VistaAltas() {
 		initialize();
 	}
 
@@ -231,20 +236,33 @@ public class Alta_menu implements KeyListener {
 		this.panel.add(this.panel_16);
 		
 		this.btnNewButton_Atras = new JButton("Atras");
+		this.btnNewButton_Atras.setActionCommand("ATRAS");
 		this.panel_16.add(this.btnNewButton_Atras);
 		
 		this.panel_17 = new JPanel();
 		this.panel.add(this.panel_17);
 		
-		this.btnNewButton_DarAlta = new JButton("Dar de Alta");
+		this.btnNewButton_DarAlta = new JButton("Confirmar");
+		this.btnNewButton_DarAlta.setActionCommand("CONFIRMAR");
 		this.btnNewButton_DarAlta.setEnabled(false);
 		this.panel_17.add(this.btnNewButton_DarAlta);
 		
 		this.panel_18 = new JPanel();
 		this.panel.add(this.panel_18);
+		
+		
+		this.frame.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
+		this.frame.setVisible(true);
+	}
+	
+	public void setActionListener(ActionListener actionListener) {
+		this.btnNewButton_DarAlta.addActionListener(actionListener);
+		this.btnNewButton_Atras.addActionListener(actionListener);
+		this.actionListener = actionListener;
 	}
 
 	public void keyPressed(KeyEvent arg0) {
+		
 	}
 	public void keyReleased(KeyEvent arg0) {
 		int dni = 0;
@@ -259,6 +277,11 @@ public class Alta_menu implements KeyListener {
 		this.btnNewButton_DarAlta.setEnabled(condicion);
 		
 	}
+	
 	public void keyTyped(KeyEvent arg0) {
+	}
+	
+	public void cerrar() {
+		this.frame.dispose();
 	}
 }

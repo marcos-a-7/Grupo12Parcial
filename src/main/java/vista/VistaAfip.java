@@ -12,8 +12,9 @@ import javax.swing.border.TitledBorder;
 import javax.swing.border.LineBorder;
 import java.awt.Color;
 import javax.swing.JTextArea;
+import javax.swing.WindowConstants;
 
-public class Ventana_Afip {
+public class VistaAfip extends JFrame{
 
 	private JFrame frame;
 	private JPanel panel;
@@ -35,7 +36,7 @@ public class Ventana_Afip {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					Ventana_Afip window = new Ventana_Afip();
+					VistaAfip window = new VistaAfip();
 					window.frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -47,7 +48,7 @@ public class Ventana_Afip {
 	/**
 	 * Create the application.
 	 */
-	public Ventana_Afip() {
+	public VistaAfip() {
 		initialize();
 	}
 
@@ -99,6 +100,9 @@ public class Ventana_Afip {
 		
 		this.textArea_Detalle = new JTextArea();
 		this.scrollPane_1.setViewportView(this.textArea_Detalle);
+		
+		this.frame.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
+		this.frame.setVisible(true);
 	}
 
 }

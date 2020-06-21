@@ -15,14 +15,17 @@ import javax.swing.border.LineBorder;
 import java.awt.Color;
 import javax.swing.JButton;
 import javax.swing.JTextField;
+import javax.swing.WindowConstants;
 import javax.swing.JRadioButton;
 import javax.swing.ButtonGroup;
 import java.awt.event.KeyListener;
+import java.awt.event.WindowEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.event.ListSelectionEvent;
 
-public class MContrato_Menu implements KeyListener, ListSelectionListener {
+public class VistaContrato extends JFrame implements KeyListener, ListSelectionListener {
 
 	private JFrame frame;
 	private JPanel panel;
@@ -101,6 +104,7 @@ public class MContrato_Menu implements KeyListener, ListSelectionListener {
 	private JButton btnElimCable;
 	private JLabel lblNewLabel;
 	private JTextField textField_CantCableElim;
+	private ActionListener actionListener;
 
 	/**
 	 * Launch the application.
@@ -109,7 +113,7 @@ public class MContrato_Menu implements KeyListener, ListSelectionListener {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					MContrato_Menu window = new MContrato_Menu();
+					VistaContrato window = new VistaContrato();
 					window.frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -121,7 +125,7 @@ public class MContrato_Menu implements KeyListener, ListSelectionListener {
 	/**
 	 * Create the application.
 	 */
-	public MContrato_Menu() {
+	public VistaContrato() {
 		initialize();
 	}
 
@@ -206,18 +210,21 @@ public class MContrato_Menu implements KeyListener, ListSelectionListener {
 		this.panel_8.add(this.panel_12);
 
 		this.btnNewButton_EliCelu = new JButton("Eliminar Celular");
+		this.btnNewButton_EliCelu.setActionCommand("ELIMCELULAR");
 		this.panel_12.add(this.btnNewButton_EliCelu);
 
 		this.panel_13 = new JPanel();
 		this.panel_8.add(this.panel_13);
 
 		this.btn_ElTelef = new JButton("Eliminar Telefono");
+		this.btn_ElTelef.setActionCommand("ELIMTELEFONO");
 		this.panel_13.add(this.btn_ElTelef);
 
 		this.panel_14 = new JPanel();
 		this.panel_8.add(this.panel_14);
 
 		this.btnNewButton_EliContrato = new JButton("Eliminar Contrato");
+		this.btnNewButton_EliContrato.setActionCommand("ELIMCONTRATO");
 		this.panel_14.add(this.btnNewButton_EliContrato);
 
 		this.panel_15 = new JPanel();
@@ -228,6 +235,7 @@ public class MContrato_Menu implements KeyListener, ListSelectionListener {
 		this.panel_15.add(this.panel_36);
 
 		this.btnElimCable = new JButton("Eliminar Cable");
+		this.btnElimCable.setActionCommand("ELIMCABLE");
 		this.btnElimCable.setEnabled(false);
 		this.panel_36.add(this.btnElimCable);
 
@@ -308,9 +316,11 @@ public class MContrato_Menu implements KeyListener, ListSelectionListener {
 		this.panel_16.add(this.panel_19);
 
 		this.btnNewButton_Atras = new JButton("Atras");
+		this.btnNewButton_Atras.setActionCommand("ATRAS");
 		this.panel_19.add(this.btnNewButton_Atras);
 
 		this.btnNewButton_Crear = new JButton("Crear Contrato");
+		this.btnNewButton_Crear.setActionCommand("CREARCONTRATO");
 		this.btnNewButton_Crear.setEnabled(false);
 		this.panel_19.add(this.btnNewButton_Crear);
 
@@ -354,6 +364,7 @@ public class MContrato_Menu implements KeyListener, ListSelectionListener {
 		this.panel_17.add(this.panel_23);
 
 		this.btnNewButton_Modificar = new JButton("Modificar");
+		this.btnNewButton_Modificar.setActionCommand("MODIFICAR");
 		this.panel_23.add(this.btnNewButton_Modificar);
 
 		this.panel_18 = new JPanel();
@@ -403,8 +414,24 @@ public class MContrato_Menu implements KeyListener, ListSelectionListener {
 		this.panel_18.add(this.panel_28);
 
 		this.btnNewButton_Agregar = new JButton("Agregar");
+		this.btnNewButton_Agregar.setActionCommand("AGREGAR");
 		this.btnNewButton_Agregar.setEnabled(false);
 		this.panel_28.add(this.btnNewButton_Agregar);
+		
+		this.frame.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
+		this.frame.setVisible(true);
+	}
+	
+	public void setActionListener(ActionListener actionListener) {
+		this.btn_ElTelef.addActionListener(actionListener);
+		this.btnElimCable.addActionListener(actionListener);
+		this.btnNewButton_Agregar.addActionListener(actionListener);
+		this.btnNewButton_Atras.addActionListener(actionListener);
+		this.btnNewButton_Crear.addActionListener(actionListener);
+		this.btnNewButton_EliCelu.addActionListener(actionListener);
+		this.btnNewButton_EliContrato.addActionListener(actionListener);
+		this.btnNewButton_Modificar.addActionListener(actionListener);
+		this.actionListener = actionListener;
 	}
 
 	public void keyPressed(KeyEvent arg0) {
@@ -461,5 +488,9 @@ public class MContrato_Menu implements KeyListener, ListSelectionListener {
 
 	public void valueChanged(ListSelectionEvent arg0) {
 
+	}
+	
+	public void cerrar() {
+		this.frame.dispose();
 	}
 }
