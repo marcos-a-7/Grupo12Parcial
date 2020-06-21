@@ -20,4 +20,9 @@ public class Cable implements IServicio, Cloneable, Serializable {
 		return "Tv Cable: $" + this.getCosto() + "\n";
 	}
 
+	@Override
+	public Cable clone() throws CloneNotSupportedException {
+		return (Cable) super.clone();
+	}
+	
 }

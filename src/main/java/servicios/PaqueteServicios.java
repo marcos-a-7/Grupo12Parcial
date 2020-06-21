@@ -209,11 +209,26 @@ public class PaqueteServicios implements Cloneable, Serializable {
 
 	@Override
 	public PaqueteServicios clone() throws CloneNotSupportedException {
+		Iterator<Cable> itcable = this.cables.iterator();
+		Iterator<Celular> itcelular = this.celulares.iterator();
+		Iterator<Telefono> ittelefono = this.telefonos.iterator();
 		PaqueteServicios aux = (PaqueteServicios) super.clone();
 		aux.cables = (ArrayList<Cable>) this.cables.clone();
 		aux.celulares = (ArrayList<Celular>) this.celulares.clone();
 		aux.telefonos = (ArrayList<Telefono>) this.telefonos.clone();
 		aux.internet = this.internet.clone();
+		aux.cables.clear();
+		aux.celulares.clear();
+		aux.telefonos.clear();
+		while(itcable.hasNext()) {
+			aux.cables.add(itcable.next());
+		}
+		while(itcelular.hasNext()) {
+			aux.celulares.add(itcelular.next());
+		}
+		while(ittelefono.hasNext()) {
+			aux.telefonos.add(ittelefono.next());
+		}
 		return aux;
 	}
 

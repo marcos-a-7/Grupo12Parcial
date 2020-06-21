@@ -27,5 +27,8 @@ public class Celular implements IServicio, Cloneable, Serializable {
 	public int getNumeroCelular() {
 		return this.numeroCelular;
 	}
-	
+	@Override
+	protected Celular clone() throws CloneNotSupportedException {
+		return (Celular) super.clone();
+	}
 }

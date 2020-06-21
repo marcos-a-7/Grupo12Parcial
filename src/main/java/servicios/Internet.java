@@ -21,6 +21,4 @@ public abstract class Internet implements IServicio, Cloneable, Serializable {
 		
 		return (Internet) super.clone();
 	}
-	
-	
 }
