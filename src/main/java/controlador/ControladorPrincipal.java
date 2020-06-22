@@ -18,7 +18,7 @@ public class ControladorPrincipal implements ActionListener {
 		super();
 		this.empresa = empresa;
 		ept = EmuladorPasoTiempo.getInstance();
-		ventana = new VistaPrincipal();
+		ventana = new VistaPrincipal(empresa.getNombre());
 		ventana.setActionListener(this);
 		this.actualizaListaPersonas();
 	}
@@ -41,7 +41,8 @@ public class ControladorPrincipal implements ActionListener {
 		} else if (comando.equals("MODIFICACONTRATO")) {
 			new ControladorContrato(ventana.getPersona(),this);
 		} else if (comando.equals("DARBAJA")) {
-			
+			empresa.removePersona(ventana.getPersona());
+			this.actualizaListaPersonas();
 		}
 		
 	}

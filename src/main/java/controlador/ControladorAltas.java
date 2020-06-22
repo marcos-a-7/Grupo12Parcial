@@ -22,7 +22,9 @@ public class ControladorAltas implements ActionListener {
 	public void actionPerformed(ActionEvent arg0) {
 		String comando = arg0.getActionCommand();
 		if (comando.equals("CONFIRMAR")) {
-
+			
+			
+			ventana.cerrar();
 		} else if (comando.equals("ATRAS")) {
 			ventana.cerrar();
 		}

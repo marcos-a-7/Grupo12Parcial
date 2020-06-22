@@ -65,8 +65,8 @@ public class VistaPrincipal extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					VistaPrincipal window = new VistaPrincipal();
-					window.frame.setVisible(true);
+					//VistaPrincipal window = new VistaPrincipal();
+					//window.frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -77,15 +77,15 @@ public class VistaPrincipal extends JFrame {
 	/**
 	 * Create the application.
 	 */
-	public VistaPrincipal() {
-		initialize();
+	public VistaPrincipal(String nombre) {
+		initialize(nombre);
 	}
 
 	/**
 	 * Initialize the contents of the frame.
 	 */
-	private void initialize() {
-		this.frame = new JFrame();
+	private void initialize(String nombre) {
+		this.frame = new JFrame(nombre);
 		this.frame.setBounds(100, 100, 1100, 552);
 		this.frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
@@ -187,5 +187,7 @@ public class VistaPrincipal extends JFrame {
 			this.listaPersonas.addElement(it.next().getValue());
 		this.repaint();
 	}
+	
+	
 
 }
