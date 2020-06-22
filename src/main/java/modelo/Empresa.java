@@ -14,6 +14,7 @@ import clientes.PersonaFactory;
 import excepciones.ImposibleCrearPaqueteException;
 import excepciones.MedioPagoInvalidoException;
 import excepciones.NumeroInvalidoException;
+import excepciones.PersonaRepetidaException;
 import excepciones.TipoNoEncontradoException;
 import excepciones.TipoPersonaInvalidoException;
 import servicios.PaqueteServicios;
@@ -40,9 +41,14 @@ public class Empresa implements Serializable {
 	}
 
 	public synchronized void addPersona(String tipoPersona, String nombre, int identificador)
-			throws NumeroInvalidoException, TipoPersonaInvalidoException {
+			throws NumeroInvalidoException, TipoPersonaInvalidoException, PersonaRepetidaException {
 		Persona persona = PersonaFactory.getPersona(tipoPersona, nombre, identificador);
-		this.personas.put(identificador, persona);
+		if (this.buscaPersona(persona) == -1) {
+			this.personas.put(identificador, persona);
+		} else {
+			throw new PersonaRepetidaException(
+					"Ya existe una persona registrada bajo el DNI/ID: " + persona.getIdentificador());
+		}
 	}
 
 	public void removePersona(int identificador) {
@@ -65,7 +71,7 @@ public class Empresa implements Serializable {
 	}
 
 	// retorna -1 si no lo encontro
-	public int buscaPersona(Persona persona) {
+	private int buscaPersona(Persona persona) {
 		boolean encontre = false;
 		Entry<Integer, Persona> entry;
 		int id = -1;

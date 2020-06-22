@@ -8,16 +8,12 @@ import modelo.Contrato;
  */
 public class PersonaJuridica extends Persona {
 
-	int id;
+	
 
 	public PersonaJuridica(String nombre, int id, MedioPago medioPago) {
-		super(nombre);
-		this.id = id;
+		super(nombre,id);
 	}
 
-	public int getId() {
-		return id;
-	}
 
 	@Override
 	public double getTasa(Contrato contrato) {
@@ -26,7 +22,7 @@ public class PersonaJuridica extends Persona {
 
 	@Override
 	public String toString() {
-		return super.toString() + " Juridica - Nombre: " + this.nombre + " ID: " + this.id + "\n";
+		return super.toString() + " Juridica - Nombre: " + this.nombre + " ID: " + this.getIdentificador() + "\n";
 	}
 
 	@Override
@@ -47,8 +43,5 @@ public class PersonaJuridica extends Persona {
 
 	}
 
-	@Override
-	public int getIdentificador() {
-		return id;
-	}
+
 }

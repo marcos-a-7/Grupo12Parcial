@@ -188,6 +188,8 @@ public class VistaPrincipal extends JFrame {
 		this.repaint();
 	}
 	
-	
+	public void imprimeEvento(String evento) {
+		this.textArea_Eventos.setText(this.textArea_Eventos.getText() + "\n" + evento);
+	}
 
 }

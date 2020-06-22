@@ -23,12 +23,14 @@ import modelo.Factura;
  */
 public abstract class Persona implements Cloneable, Serializable {
 	protected String nombre;
+	protected int identificador;
 	ArrayList<Contrato> contratos = new ArrayList<Contrato>();
 	ArrayList<Factura> facturas = new ArrayList<Factura>();
 	protected State estado = new SinContratacionesState(this);
 
-	public Persona(String nombre) {
+	public Persona(String nombre,int identificador) {
 		this.nombre = nombre;
+		this.identificador = identificador;
 	}
 
 	public String getNombre() {
@@ -183,6 +185,30 @@ public abstract class Persona implements Cloneable, Serializable {
 
 	public abstract double getTasa(Contrato contrato);
 
-	public abstract int getIdentificador();
+	public int getIdentificador() {
+		return identificador;
+	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + identificador;
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (!(obj instanceof Persona))
+			return false;
+		Persona other = (Persona) obj;
+		if (identificador != other.identificador)
+			return false;
+		return true;
+	}
+	
+	
 
 }

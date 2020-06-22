@@ -23,9 +23,9 @@ public class ControladorContrato implements ActionListener {
 		String comando = arg0.getActionCommand();
 		
 		if (comando.equals("ELIMCELULAR")) {
-
+			
 		} else if (comando.equals("ELIMTELEFONO")) {
-
+			
 		} else if (comando.equals("ELIMCONTRATO")) {
 
 		} else if (comando.equals("ELIMCABLE")) {

@@ -46,6 +46,11 @@ public class ControladorPrincipal implements ActionListener {
 		}
 		
 	}
+
+
+	public void imprimeEvento(String evento) {
+		ventana.imprimeEvento(evento);
+	}
 	
 	
 	
