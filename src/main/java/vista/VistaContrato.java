@@ -9,6 +9,7 @@ import java.awt.Dimension;
 import java.awt.GridLayout;
 import javax.swing.JScrollPane;
 import javax.swing.JList;
+import javax.swing.JOptionPane;
 import javax.swing.JLabel;
 import javax.swing.border.TitledBorder;
 import javax.swing.border.LineBorder;
@@ -18,14 +19,28 @@ import javax.swing.JTextField;
 import javax.swing.WindowConstants;
 import javax.swing.JRadioButton;
 import javax.swing.ButtonGroup;
+import javax.swing.DefaultListModel;
+
 import java.awt.event.KeyListener;
 import java.awt.event.WindowEvent;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Set;
+import java.util.Map.Entry;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import javax.swing.event.ListSelectionListener;
+
+import clientes.Persona;
+import controlador.ControladorContrato;
+import modelo.Contrato;
+import servicios.Celular;
+import servicios.Telefono;
+
 import javax.swing.event.ListSelectionEvent;
 
-public class VistaContrato extends JFrame implements KeyListener, ListSelectionListener {
+public class VistaContrato extends JFrame implements KeyListener {
 
 	private JFrame frame;
 	private JPanel panel;
@@ -37,11 +52,11 @@ public class VistaContrato extends JFrame implements KeyListener, ListSelectionL
 	private JPanel panel_6;
 	private JPanel panel_7;
 	private JScrollPane scrollPane;
-	private JList list_Celulares;
+	private JList<Celular> list_Celulares;
 	private JScrollPane scrollPane_1;
-	private JList list_Telefonos;
+	private JList<Telefono> list_Telefonos;
 	private JScrollPane scrollPane_2;
-	private JList list_Contratos;
+	private JList<Contrato> list_Contratos;
 	private JPanel panel_8;
 	private JPanel panel_9;
 	private JPanel panel_10;
@@ -70,11 +85,11 @@ public class VistaContrato extends JFrame implements KeyListener, ListSelectionL
 	private JPanel panel_25;
 	private JLabel lblNewLabel_3;
 	private JRadioButton rdbtnNewRadioButton_Cheque;
-	private JRadioButton rdbtnNewRadioButton_Cheque_Efectivo;
-	private JRadioButton rdbtnNewRadioButton_Cheque_Tarjeta;
+	private JRadioButton rdbtnNewRadioButton_Efectivo;
+	private JRadioButton rdbtnNewRadioButton_Tarjeta;
 	private JLabel lblNewLabel_4;
-	private JRadioButton rdbtnNewRadioButton_Cheque_Internet100;
-	private JRadioButton rdbtnNewRadioButton_Cheque_Internet500;
+	private JRadioButton rdbtnNewRadioButton_Internet100;
+	private JRadioButton rdbtnNewRadioButton_Internet500;
 	private JButton btnNewButton_Modificar;
 	private JButton btnNewButton_Atras;
 	private JPanel panel_26;
@@ -105,6 +120,9 @@ public class VistaContrato extends JFrame implements KeyListener, ListSelectionL
 	private JLabel lblNewLabel;
 	private JTextField textField_CantCableElim;
 	private ActionListener actionListener;
+	private DefaultListModel<Celular> modeloListaCelulares;
+	private DefaultListModel<Contrato> modeloListaContratos;
+	private DefaultListModel<Telefono> modeloListaTelefonos;
 
 	/**
 	 * Launch the application.
@@ -113,7 +131,7 @@ public class VistaContrato extends JFrame implements KeyListener, ListSelectionL
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					VistaContrato window = new VistaContrato();
+					VistaContrato window = new VistaContrato("");
 					window.frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -125,15 +143,15 @@ public class VistaContrato extends JFrame implements KeyListener, ListSelectionL
 	/**
 	 * Create the application.
 	 */
-	public VistaContrato() {
-		initialize();
+	public VistaContrato(String nombre) {
+		initialize(nombre);
 	}
 
 	/**
 	 * Initialize the contents of the frame.
 	 */
-	private void initialize() {
-		this.frame = new JFrame();
+	private void initialize(String nombre) {
+		this.frame = new JFrame(nombre);
 		this.frame.setBounds(100, 100, 1141, 609);
 		this.frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
@@ -158,8 +176,9 @@ public class VistaContrato extends JFrame implements KeyListener, ListSelectionL
 		this.scrollPane_2 = new JScrollPane();
 		this.panel_7.add(this.scrollPane_2, BorderLayout.CENTER);
 
-		this.list_Contratos = new JList();
-		this.list_Contratos.addListSelectionListener(this);
+		this.list_Contratos = new JList<Contrato>();
+		this.modeloListaContratos = new DefaultListModel<Contrato>();
+		this.list_Contratos.setModel(modeloListaContratos);
 		this.scrollPane_2.setViewportView(this.list_Contratos);
 
 		this.panel_6 = new JPanel();
@@ -259,8 +278,9 @@ public class VistaContrato extends JFrame implements KeyListener, ListSelectionL
 		this.scrollPane = new JScrollPane();
 		this.panel_4.add(this.scrollPane, BorderLayout.CENTER);
 
-		this.list_Celulares = new JList();
-		this.list_Celulares.addListSelectionListener(this);
+		this.list_Celulares = new JList<Celular>();
+		this.modeloListaCelulares = new DefaultListModel<Celular>();
+		this.list_Celulares.setModel(modeloListaCelulares);
 		this.scrollPane.setViewportView(this.list_Celulares);
 
 		this.panel_5 = new JPanel();
@@ -272,8 +292,9 @@ public class VistaContrato extends JFrame implements KeyListener, ListSelectionL
 		this.scrollPane_1 = new JScrollPane();
 		this.panel_5.add(this.scrollPane_1, BorderLayout.CENTER);
 
-		this.list_Telefonos = new JList();
-		this.list_Telefonos.addListSelectionListener(this);
+		this.list_Telefonos = new JList<Telefono>();
+		this.modeloListaTelefonos = new DefaultListModel<Telefono>();
+		this.list_Telefonos.setModel(modeloListaTelefonos);
 		this.scrollPane_1.setViewportView(this.list_Telefonos);
 
 		this.panel_2 = new JPanel();
@@ -338,13 +359,14 @@ public class VistaContrato extends JFrame implements KeyListener, ListSelectionL
 		buttonGroup.add(this.rdbtnNewRadioButton_Cheque);
 		this.panel_24.add(this.rdbtnNewRadioButton_Cheque);
 
-		this.rdbtnNewRadioButton_Cheque_Efectivo = new JRadioButton("Efectivo");
-		buttonGroup.add(this.rdbtnNewRadioButton_Cheque_Efectivo);
-		this.panel_24.add(this.rdbtnNewRadioButton_Cheque_Efectivo);
+		this.rdbtnNewRadioButton_Efectivo = new JRadioButton("Efectivo");
+		this.rdbtnNewRadioButton_Efectivo.setSelected(true);
+		buttonGroup.add(this.rdbtnNewRadioButton_Efectivo);
+		this.panel_24.add(this.rdbtnNewRadioButton_Efectivo);
 
-		this.rdbtnNewRadioButton_Cheque_Tarjeta = new JRadioButton("Tarjeta");
-		buttonGroup.add(this.rdbtnNewRadioButton_Cheque_Tarjeta);
-		this.panel_24.add(this.rdbtnNewRadioButton_Cheque_Tarjeta);
+		this.rdbtnNewRadioButton_Tarjeta = new JRadioButton("Tarjeta");
+		buttonGroup.add(this.rdbtnNewRadioButton_Tarjeta);
+		this.panel_24.add(this.rdbtnNewRadioButton_Tarjeta);
 
 		this.panel_25 = new JPanel();
 		this.panel_17.add(this.panel_25);
@@ -352,13 +374,14 @@ public class VistaContrato extends JFrame implements KeyListener, ListSelectionL
 		this.lblNewLabel_4 = new JLabel("Internet :");
 		this.panel_25.add(this.lblNewLabel_4);
 
-		this.rdbtnNewRadioButton_Cheque_Internet100 = new JRadioButton("100");
-		buttonGroup_1.add(this.rdbtnNewRadioButton_Cheque_Internet100);
-		this.panel_25.add(this.rdbtnNewRadioButton_Cheque_Internet100);
+		this.rdbtnNewRadioButton_Internet100 = new JRadioButton("100");
+		this.rdbtnNewRadioButton_Internet100.setSelected(true);
+		buttonGroup_1.add(this.rdbtnNewRadioButton_Internet100);
+		this.panel_25.add(this.rdbtnNewRadioButton_Internet100);
 
-		this.rdbtnNewRadioButton_Cheque_Internet500 = new JRadioButton("500");
-		buttonGroup_1.add(this.rdbtnNewRadioButton_Cheque_Internet500);
-		this.panel_25.add(this.rdbtnNewRadioButton_Cheque_Internet500);
+		this.rdbtnNewRadioButton_Internet500 = new JRadioButton("500");
+		buttonGroup_1.add(this.rdbtnNewRadioButton_Internet500);
+		this.panel_25.add(this.rdbtnNewRadioButton_Internet500);
 
 		this.panel_23 = new JPanel();
 		this.panel_17.add(this.panel_23);
@@ -486,11 +509,125 @@ public class VistaContrato extends JFrame implements KeyListener, ListSelectionL
 	public void keyTyped(KeyEvent arg0) {
 	}
 
-	public void valueChanged(ListSelectionEvent arg0) {
+	
+	public Contrato getContrato() {
+		return (Contrato) this.list_Contratos.getSelectedValue();
+	}
 
+	public void actualizaListaContratos(ArrayList<Contrato> contratos) {
+		this.modeloListaContratos.clear();
+		Iterator<Contrato> it = contratos.iterator();
+		while (it.hasNext())
+			this.modeloListaContratos.addElement(it.next());
+		this.repaint();
+	}
+	
+	public Telefono getTelefono() {
+		return (Telefono) this.list_Telefonos.getSelectedValue();
+	}
+
+	public void actualizaListaTelefonos(ArrayList<Telefono> telefonos) {
+		this.modeloListaTelefonos.clear();
+		Iterator<Telefono> it = telefonos.iterator();
+		while (it.hasNext())
+			this.modeloListaTelefonos.addElement(it.next());
+		this.repaint();
+	}
+	
+	public Celular getCelular() {
+		return (Celular) this.list_Celulares.getSelectedValue();
+	}
+
+	public void actualizaListaCelulares(ArrayList<Celular> celulares) {
+		this.modeloListaCelulares.clear();
+		Iterator<Celular> it = celulares.iterator();
+		while (it.hasNext())
+			this.modeloListaCelulares.addElement(it.next());
+		this.repaint();
 	}
 	
 	public void cerrar() {
 		this.frame.dispose();
+	}
+	
+	public String getCalle() {
+		String calle = this.textField_Calle.getText();
+		return calle;
+	}
+	
+	public void selectMedioPago(String medioPago) {
+		if (medioPago.equals("Efectivo")) {
+			this.rdbtnNewRadioButton_Efectivo.setSelected(true);
+		} else if (medioPago.equals("Tarjeta")) {
+			this.rdbtnNewRadioButton_Tarjeta.setSelected(true);
+		} else if (medioPago.equals("Efectivo")) {
+			this.rdbtnNewRadioButton_Cheque.setSelected(true);
+		}
+	}
+	
+	public void selectTipoInternet(String internet) {
+		if (internet.equals("100")) {
+			this.rdbtnNewRadioButton_Internet100.setSelected(true);
+		} else if (internet.equals("500")) {
+			this.rdbtnNewRadioButton_Internet500.setSelected(true);
+		}
+	}
+	
+	public int getNumero() {
+		int numero = Integer.parseInt(this.textField_Numero.getText());
+		return numero;
+	}
+
+	public int getCantCelulares() {
+		int cant = Integer.parseInt(this.textField_Celulares.getText());
+		return cant;
+	}
+	
+	public int getCantTelefonos() {
+		int cant = Integer.parseInt(this.textField_Telefonos.getText());
+		return cant;
+	}
+	
+	public int getCantCables() {
+		int cant = Integer.parseInt(this.textField_Cable.getText());
+		return cant;
+	}
+	
+	public String getTipoInternet() {
+		String internet = "";
+		if (this.rdbtnNewRadioButton_Internet100.isSelected()) {
+			internet = "100";
+		} else if (this.rdbtnNewRadioButton_Internet500.isSelected()) {
+			internet = "500";
+		}
+		return internet;
+	}
+	
+	public String getMedioPago() {
+		String medioPago = "";
+		if (this.rdbtnNewRadioButton_Cheque.isSelected()) {
+			medioPago = "Cheque";
+		} else if (this.rdbtnNewRadioButton_Tarjeta.isSelected()) {
+			medioPago = "Tarjeta";
+		}
+		else if (this.rdbtnNewRadioButton_Efectivo.isSelected()) {
+			medioPago = "Efectivo";
+		}
+		return medioPago;
+	}
+	
+	public int getCantCablesElim() {
+		int cant = Integer.parseInt(this.textField_CantCableElim.getText());
+		return cant;
+	}
+	
+	public void setListSelectionListener(ListSelectionListener listSelectionListener) {
+		this.list_Contratos.addListSelectionListener(listSelectionListener);
+		this.list_Celulares.addListSelectionListener(listSelectionListener);
+		this.list_Telefonos.addListSelectionListener(listSelectionListener);
+	}
+	
+	public void imprimeMensaje(String mensaje) {
+		JOptionPane.showMessageDialog(this,mensaje);
 	}
 }

@@ -7,6 +7,7 @@ import javax.swing.JPanel;
 import java.awt.BorderLayout;
 import java.awt.GridLayout;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JRadioButton;
 import java.awt.Color;
 import javax.swing.JTextField;
@@ -66,8 +67,8 @@ public class VistaAltas extends JFrame implements KeyListener {
 	private JLabel lblNewLabel;
 	private JRadioButton rdbtnNewRadioButton_Fisica_1;
 	private JRadioButton rdbtnNewRadioButton_Juridica_1;
-	private final ButtonGroup buttonGroup = new ButtonGroup();
-	private final ButtonGroup buttonGroup_1 = new ButtonGroup();
+	private final ButtonGroup buttonGroupTipo = new ButtonGroup();
+	private final ButtonGroup buttonGroupMedioPago = new ButtonGroup();
 	private ActionListener actionListener;
 
 	/**
@@ -97,164 +98,170 @@ public class VistaAltas extends JFrame implements KeyListener {
 	 * Initialize the contents of the frame.
 	 */
 	private void initialize() {
-		this.frame = new JFrame();
+		this.frame = new JFrame("Alta de Persona");
 		this.frame.setBounds(100, 100, 881, 390);
 		this.frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		
+
 		this.panel = new JPanel();
 		this.frame.getContentPane().add(this.panel, BorderLayout.CENTER);
 		this.panel.setLayout(new GridLayout(6, 3, 0, 0));
-		
+
 		this.panel_1 = new JPanel();
 		this.panel.add(this.panel_1);
-		
+
 		this.panel_2 = new JPanel();
 		this.panel.add(this.panel_2);
-		
+
 		this.panel_3 = new JPanel();
 		this.panel.add(this.panel_3);
-		
+
 		this.panel_4 = new JPanel();
 		this.panel.add(this.panel_4);
-		
+
 		this.panel_5 = new JPanel();
 		this.panel.add(this.panel_5);
 		this.panel_5.setLayout(new GridLayout(2, 3, 0, 0));
-		
+
 		this.panel_27 = new JPanel();
 		this.panel_5.add(this.panel_27);
 		this.panel_27.setLayout(new GridLayout(0, 1, 0, 0));
-		
+
 		this.lblNewLabel = new JLabel("Tipo :");
 		this.panel_27.add(this.lblNewLabel);
-		
+
 		this.rdbtnNewRadioButton_Juridica_1 = new JRadioButton("Juridica");
-		buttonGroup.add(this.rdbtnNewRadioButton_Juridica_1);
+		buttonGroupTipo.add(this.rdbtnNewRadioButton_Juridica_1);
 		this.panel_5.add(this.rdbtnNewRadioButton_Juridica_1);
-		
+
 		this.rdbtnNewRadioButton_Fisica_1 = new JRadioButton("Fisica");
 		this.rdbtnNewRadioButton_Fisica_1.setSelected(true);
-		buttonGroup.add(this.rdbtnNewRadioButton_Fisica_1);
+		buttonGroupTipo.add(this.rdbtnNewRadioButton_Fisica_1);
 		this.panel_5.add(this.rdbtnNewRadioButton_Fisica_1);
-		
+
 		this.panel_30 = new JPanel();
 		this.panel_5.add(this.panel_30);
-		
+
 		this.panel_29 = new JPanel();
 		this.panel_5.add(this.panel_29);
-		
+
 		this.panel_6 = new JPanel();
 		this.panel.add(this.panel_6);
-		
+
 		this.panel_7 = new JPanel();
 		this.panel.add(this.panel_7);
-		
+
 		this.panel_8 = new JPanel();
 		this.panel.add(this.panel_8);
 		this.panel_8.setLayout(new GridLayout(1, 2, 0, 0));
-		
+
 		this.panel_25 = new JPanel();
 		this.panel_8.add(this.panel_25);
-		
+
 		this.lblNewLabel_2 = new JLabel("Nombre :");
 		this.panel_25.add(this.lblNewLabel_2);
-		
+
 		this.textField_Nombre = new JTextField();
 		this.textField_Nombre.addKeyListener(this);
 		this.panel_25.add(this.textField_Nombre);
 		this.textField_Nombre.setColumns(10);
-		
+
 		this.panel_26 = new JPanel();
 		this.panel_8.add(this.panel_26);
-		
+
 		this.lblNewLabel_1 = new JLabel("DNI :");
 		this.panel_26.add(this.lblNewLabel_1);
-		
+
 		this.textField_DNI = new JTextField();
 		this.textField_DNI.addKeyListener(this);
 		this.textField_DNI.setText("");
 		this.panel_26.add(this.textField_DNI);
 		this.textField_DNI.setColumns(10);
-		
+
 		this.panel_9 = new JPanel();
 		this.panel.add(this.panel_9);
-		
+
 		this.panel_10 = new JPanel();
 		this.panel.add(this.panel_10);
-		
+
 		this.panel_11 = new JPanel();
 		this.panel.add(this.panel_11);
 		this.panel_11.setLayout(new GridLayout(2, 3, 0, 0));
-		
+
 		this.panel_20 = new JPanel();
 		this.panel_11.add(this.panel_20);
-		
+
 		this.lblNewLabel_3 = new JLabel("Medio de Pago:");
+		this.lblNewLabel_3.setVisible(false);
 		this.panel_20.add(this.lblNewLabel_3);
-		
+
 		this.panel_19 = new JPanel();
 		this.panel_11.add(this.panel_19);
-		
+
 		this.panel_21 = new JPanel();
 		this.panel_11.add(this.panel_21);
-		
+
 		this.panel_22 = new JPanel();
 		this.panel_11.add(this.panel_22);
-		
+
 		this.rdbtnNewRadioButton_Cheque = new JRadioButton("Cheque");
-		buttonGroup_1.add(this.rdbtnNewRadioButton_Cheque);
+		this.rdbtnNewRadioButton_Cheque.setVisible(false);
+		this.rdbtnNewRadioButton_Cheque.setActionCommand("CHEQUE");
+		buttonGroupMedioPago.add(this.rdbtnNewRadioButton_Cheque);
 		this.panel_22.add(this.rdbtnNewRadioButton_Cheque);
-		
+
 		this.panel_23 = new JPanel();
 		this.panel_11.add(this.panel_23);
-		
+
 		this.rdbtnNewRadioButton_Efectivo = new JRadioButton("Efectivo");
+		this.rdbtnNewRadioButton_Efectivo.setVisible(false);
+		this.rdbtnNewRadioButton_Efectivo.setActionCommand("EFECTIVO");
 		this.rdbtnNewRadioButton_Efectivo.setSelected(true);
-		buttonGroup_1.add(this.rdbtnNewRadioButton_Efectivo);
+		buttonGroupMedioPago.add(this.rdbtnNewRadioButton_Efectivo);
 		this.panel_23.add(this.rdbtnNewRadioButton_Efectivo);
-		
+
 		this.panel_24 = new JPanel();
 		this.panel_11.add(this.panel_24);
-		
+
 		this.rdbtnNewRadioButton_Tarjeta = new JRadioButton("Tarjeta");
-		buttonGroup_1.add(this.rdbtnNewRadioButton_Tarjeta);
+		this.rdbtnNewRadioButton_Tarjeta.setVisible(false);
+		this.rdbtnNewRadioButton_Tarjeta.setActionCommand("TARJETA");
+		buttonGroupMedioPago.add(this.rdbtnNewRadioButton_Tarjeta);
 		this.panel_24.add(this.rdbtnNewRadioButton_Tarjeta);
-		
+
 		this.panel_12 = new JPanel();
 		this.panel.add(this.panel_12);
-		
+
 		this.panel_13 = new JPanel();
 		this.panel.add(this.panel_13);
-		
+
 		this.panel_14 = new JPanel();
 		this.panel.add(this.panel_14);
-		
+
 		this.panel_15 = new JPanel();
 		this.panel.add(this.panel_15);
-		
+
 		this.panel_16 = new JPanel();
 		this.panel.add(this.panel_16);
-		
+
 		this.btnNewButton_Atras = new JButton("Atras");
 		this.btnNewButton_Atras.setActionCommand("ATRAS");
 		this.panel_16.add(this.btnNewButton_Atras);
-		
+
 		this.panel_17 = new JPanel();
 		this.panel.add(this.panel_17);
-		
+
 		this.btnNewButton_DarAlta = new JButton("Confirmar");
 		this.btnNewButton_DarAlta.setActionCommand("CONFIRMAR");
 		this.btnNewButton_DarAlta.setEnabled(false);
 		this.panel_17.add(this.btnNewButton_DarAlta);
-		
+
 		this.panel_18 = new JPanel();
 		this.panel.add(this.panel_18);
-		
-		
+
 		this.frame.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
 		this.frame.setVisible(true);
 	}
-	
+
 	public void setActionListener(ActionListener actionListener) {
 		this.btnNewButton_DarAlta.addActionListener(actionListener);
 		this.btnNewButton_Atras.addActionListener(actionListener);
@@ -262,23 +269,48 @@ public class VistaAltas extends JFrame implements KeyListener {
 	}
 
 	public void keyPressed(KeyEvent arg0) {
-		
+
 	}
+
 	public void keyReleased(KeyEvent arg0) {
 		int dni = 0;
-		String nombre = this.textField_Nombre.getText(); 
+		String nombre = this.textField_Nombre.getText();
 		try {
 			dni = Integer.parseInt(this.textField_DNI.getText());
-			
+
 		} catch (NumberFormatException e) {
 		}
 
 		boolean condicion = dni > 0 && !nombre.isEmpty();
 		this.btnNewButton_DarAlta.setEnabled(condicion);
+
+	}
+
+	public void keyTyped(KeyEvent arg0) {
+	}
+
+	public String getNombre() {
+		return this.textField_Nombre.getText();
+	}
+
+	public int getIdentificador() {
+		return Integer.parseInt(this.textField_DNI.getText());
+	}
+
+	public String getTipo() {
+		String tipo ="";
 		
+		if (this.rdbtnNewRadioButton_Fisica_1.isSelected()) {
+			tipo = "Fisica";
+		} else if(this.rdbtnNewRadioButton_Juridica_1.isSelected()) {
+			tipo = "Juridica";
+		}
+		
+		return tipo;
 	}
 	
-	public void keyTyped(KeyEvent arg0) {
+	public void imprimeMensaje(String mensaje) {
+		JOptionPane.showMessageDialog(this,mensaje);
 	}
 	
 	public void cerrar() {

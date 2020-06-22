@@ -2,6 +2,7 @@ package main;
 
 import controlador.ControladorPrincipal;
 import excepciones.NumeroInvalidoException;
+import excepciones.PersonaRepetidaException;
 import excepciones.TipoPersonaInvalidoException;
 import modelo.Empresa;
 
@@ -17,6 +18,9 @@ public class Main {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (TipoPersonaInvalidoException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (PersonaRepetidaException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}

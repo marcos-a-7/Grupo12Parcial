@@ -15,7 +15,7 @@ import modelo.Factura;
  */
 public class Prueba1 {
 
-	public static void main(String[] args) throws CloneNotSupportedException {
+	/*public static void main(String[] args) throws CloneNotSupportedException {
 		Empresa empresa = new Empresa("Telefonica");
 		Contrato contrato;
 		ArrayList<Contrato> contratos = new ArrayList<Contrato>();
@@ -131,6 +131,6 @@ public class Prueba1 {
 		
 
 
-	}
+	}*/
 
 }

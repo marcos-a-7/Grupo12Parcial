@@ -18,7 +18,7 @@ public class ControladorPrincipal implements ActionListener {
 		super();
 		this.empresa = empresa;
 		ept = EmuladorPasoTiempo.getInstance();
-		ventana = new VistaPrincipal();
+		ventana = new VistaPrincipal(empresa.getNombre());
 		ventana.setActionListener(this);
 		this.actualizaListaPersonas();
 	}
@@ -36,14 +36,21 @@ public class ControladorPrincipal implements ActionListener {
 		String comando = arg0.getActionCommand();
 		if (comando.equals("ACTUALIZARMES")) {
 			ept.avanzarMes();
+			this.imprimeEvento("Paso un mes, el mes actual es: "+ept.getMes());
 		} else if (comando.equals("DARALTA")) {
 			new ControladorAltas(empresa,this);
 		} else if (comando.equals("MODIFICACONTRATO")) {
 			new ControladorContrato(ventana.getPersona(),this);
 		} else if (comando.equals("DARBAJA")) {
-			
+			empresa.removePersona(ventana.getPersona());
+			this.actualizaListaPersonas();
 		}
 		
+	}
+
+
+	public void imprimeEvento(String evento) {
+		ventana.imprimeEvento(evento + "\n");
 	}
 	
 	

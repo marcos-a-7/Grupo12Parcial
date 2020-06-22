@@ -11,16 +11,13 @@ import modelo.Factura;
  */
 public class PersonaFisica extends Persona {
 
-	protected int dni;
+	
 
 	public PersonaFisica(String nombre, int dni, MedioPago medioPago) {
-		super(nombre);
-		this.dni = dni;
+		super(nombre,dni);
 	}
 
-	public int getDni() {
-		return dni;
-	}
+
 
 	public void actualizaEstado() {
 		State estado;
@@ -54,7 +51,7 @@ public class PersonaFisica extends Persona {
 
 	@Override
 	public String toString() {
-		return super.toString() + " Fisica - Nombre: " + this.nombre + " DNI: " + this.dni + "\n";
+		return super.toString() + " Fisica - Nombre: " + this.nombre + " DNI: " + this.getIdentificador() + "\n";
 	}
 
 	@Override
@@ -62,9 +59,6 @@ public class PersonaFisica extends Persona {
 		return (PersonaFisica) super.clone();
 	}
 
-	@Override
-	public int getIdentificador() {
-		return dni;
-	}
+	
 
 }
