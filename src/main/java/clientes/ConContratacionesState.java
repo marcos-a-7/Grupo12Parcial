@@ -69,9 +69,8 @@ public class ConContratacionesState implements State, Serializable {
 			throw new DomicilioDuplicadoException(domicilio.toString() + " no se pudo agregar, esta duplicado");
 	}
 
-	public void modificaContrato(Contrato contrato) {
-		// TODO Auto-generated method stub
-
+	public boolean modificaContrato() {
+		return true;
 	}
 
 }

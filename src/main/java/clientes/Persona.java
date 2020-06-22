@@ -59,6 +59,10 @@ public abstract class Persona implements Cloneable, Serializable {
 			int cantCable, String medioPago) throws ImposibleCrearContratoException, ImposibleCrearPaqueteException {
 		estado.agregaContrato(calle, numeroCalle, tipoInternet, cantCelu, cantTel, cantCable, medioPago);
 	}
+	
+	public boolean modificaContrato() throws MorosoException, SinContratacionesException {
+		return this.estado.modificaContrato();
+	}
 
 	/**
 	 * Busca un contrato a traves de un id<br>
@@ -156,7 +160,9 @@ public abstract class Persona implements Cloneable, Serializable {
 	}
 
 	public double pagar(Factura factura) throws SinContratacionesException {
-		return estado.pagar(factura);
+		double monto = estado.pagar(factura);
+		this.actualizaEstado();
+		return monto;
 	}
 
 	public int cantidadFacturasDebidas() {

@@ -18,6 +18,7 @@ public class Observador implements Observer, Serializable {
 	public Observador(Empresa empresa, EmuladorPasoTiempo observado) {
 		super();
 		this.empresa = empresa;
+		observado.addObserver(this);
 		this.observado = observado;
 	}
 

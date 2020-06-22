@@ -24,11 +24,13 @@ import javax.swing.border.MatteBorder;
 import java.awt.Color;
 import javax.swing.border.BevelBorder;
 import javax.swing.JList;
+import javax.swing.JOptionPane;
 import javax.swing.border.TitledBorder;
 import javax.swing.border.LineBorder;
 import javax.swing.event.ListSelectionListener;
 
 import clientes.Persona;
+import modelo.Factura;
 
 import javax.swing.event.ListSelectionEvent;
 
@@ -57,6 +59,15 @@ public class VistaPrincipal extends JFrame {
 	private JList<Persona> list_Personas;
 	private ActionListener actionListener;
 	private DefaultListModel<Persona> listaPersonas;
+	private JPanel panel_ListaFacturas;
+	private JScrollPane scrollPane_2;
+	private JList<Factura> list_Facturas;
+	private JButton btn_PagarFactura;
+	private JPanel panel_4;
+	private JButton btn_VisitaAfip;
+	private JPanel panel_5;
+	private DefaultListModel<Factura> listaFacturas;
+	private JButton btn_Persistir;
 
 	/**
 	 * Launch the application.
@@ -95,11 +106,11 @@ public class VistaPrincipal extends JFrame {
 
 		this.panel_1 = new JPanel();
 		this.panel.add(this.panel_1, BorderLayout.CENTER);
-		this.panel_1.setLayout(new GridLayout(0, 2, 0, 0));
+		this.panel_1.setLayout(new GridLayout(0, 3, 0, 0));
 
 		this.panel_3 = new JPanel();
 		this.panel_1.add(this.panel_3);
-		this.panel_3.setLayout(new GridLayout(6, 0, 0, 0));
+		this.panel_3.setLayout(new GridLayout(9, 0, 0, 0));
 
 		this.panel_7 = new JPanel();
 		this.panel_3.add(this.panel_7);
@@ -134,6 +145,24 @@ public class VistaPrincipal extends JFrame {
 
 		this.panel_11 = new JPanel();
 		this.panel_3.add(this.panel_11);
+		
+		this.btn_PagarFactura = new JButton("Pagar Factura");
+		this.btn_PagarFactura.setActionCommand("PAGAR");
+		this.panel_11.add(this.btn_PagarFactura);
+		
+		this.panel_4 = new JPanel();
+		this.panel_3.add(this.panel_4);
+		
+		this.btn_VisitaAfip = new JButton("Visita Afip");
+		this.btn_VisitaAfip.setActionCommand("AFIP");
+		this.panel_4.add(this.btn_VisitaAfip);
+		
+		this.panel_5 = new JPanel();
+		this.panel_3.add(this.panel_5);
+		
+		this.btn_Persistir = new JButton("Guardar\r\n");
+		this.btn_Persistir.setActionCommand("PERSISTIR");
+		this.panel_5.add(this.btn_Persistir);
 
 		this.panel_ListaPersonas = new JPanel();
 		this.panel_ListaPersonas.setBorder(new TitledBorder(new LineBorder(new Color(64, 64, 64), 3, true),
@@ -148,6 +177,19 @@ public class VistaPrincipal extends JFrame {
 		this.scrollPane_1.setViewportView(this.list_Personas);
 		this.listaPersonas = new DefaultListModel<Persona>();
 		this.list_Personas.setModel(listaPersonas);
+		
+		this.panel_ListaFacturas = new JPanel();
+		this.panel_ListaFacturas.setBorder(new TitledBorder(new LineBorder(new Color(64, 64, 64), 3, true), "Listado de Facturas", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 0)));
+		this.panel_1.add(this.panel_ListaFacturas);
+		this.panel_ListaFacturas.setLayout(new BorderLayout(0, 0));
+		
+		this.scrollPane_2 = new JScrollPane();
+		this.panel_ListaFacturas.add(this.scrollPane_2, BorderLayout.CENTER);
+		
+		this.list_Facturas = new JList<Factura>();
+		this.scrollPane_2.setViewportView(this.list_Facturas);
+		this.listaFacturas = new DefaultListModel<Factura>();
+		this.list_Facturas.setModel(listaFacturas);
 
 		this.panel_2 = new JPanel();
 		this.panel.add(this.panel_2, BorderLayout.SOUTH);
@@ -172,11 +214,18 @@ public class VistaPrincipal extends JFrame {
 		this.btn_DarAlta.addActionListener(actionListener);
 		this.btn_DarBaja.addActionListener(actionListener);
 		this.btn_ModiContra.addActionListener(actionListener);
+		this.btn_PagarFactura.addActionListener(actionListener);
+		this.btn_VisitaAfip.addActionListener(actionListener);
+		this.btn_Persistir.addActionListener(actionListener);
 		this.actionListener = actionListener;
+	}
+	
+	public void setListSelectionListener(ListSelectionListener listSelectionListener) {
+		this.list_Personas.addListSelectionListener(listSelectionListener);
 	}
 
 	public Persona getPersona() {
-		return (Persona) this.list_Personas.getSelectedValue();
+		return this.list_Personas.getSelectedValue();
 	}
 
 	public void actualizaListaPersonas(HashMap<Integer, Persona> personas) {
@@ -191,5 +240,22 @@ public class VistaPrincipal extends JFrame {
 	public void imprimeEvento(String evento) {
 		this.textArea_Eventos.setText(this.textArea_Eventos.getText() + evento);
 	}
+
+	public void actualizaListaFacturas(ArrayList<Factura> facturas) {
+		this.listaFacturas.clear();
+		Iterator<Factura> it = facturas.iterator();
+		while (it.hasNext())
+			this.listaFacturas.addElement(it.next());
+		this.repaint();
+	}
+
+	public Factura getFactura() {
+		return this.list_Facturas.getSelectedValue();
+	}
+	
+	public void imprimeMensaje(String mensaje) {
+		JOptionPane.showMessageDialog(this,mensaje);
+	}
+	
 
 }

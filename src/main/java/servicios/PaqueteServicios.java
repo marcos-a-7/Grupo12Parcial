@@ -220,16 +220,24 @@ public class PaqueteServicios implements Cloneable, Serializable {
 		aux.cables.clear();
 		aux.celulares.clear();
 		aux.telefonos.clear();
-		while(itcable.hasNext()) {
+		while (itcable.hasNext()) {
 			aux.cables.add(itcable.next());
 		}
-		while(itcelular.hasNext()) {
+		while (itcelular.hasNext()) {
 			aux.celulares.add(itcelular.next());
 		}
-		while(ittelefono.hasNext()) {
+		while (ittelefono.hasNext()) {
 			aux.telefonos.add(ittelefono.next());
 		}
 		return aux;
+	}
+
+	public void eliminaCables(int cantCables) {
+		while (this.cantidadCables()>=0 && cantCables>0) {
+			this.eliminaCable();
+			cantCables--;
+		}
+		
 	}
 
 }

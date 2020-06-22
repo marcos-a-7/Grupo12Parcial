@@ -108,7 +108,7 @@ public class Contrato implements Cloneable, Serializable {
 	}
 
 	public void eliminaCables(int cantCables) {
-		this.paqueteServicios.eliminaCable();
+		this.paqueteServicios.eliminaCables( cantCables);
 	}
 
 	/**
@@ -150,6 +150,11 @@ public class Contrato implements Cloneable, Serializable {
 		aux.medioPago = this.medioPago.clone();
 		aux.domicilio = this.domicilio.clone();
 		return aux;
+	}
+
+	@Override
+	public String toString() {
+		return "ID: " + this.idContrato +" "+ this.domicilio.toString();
 	}
 	
 	

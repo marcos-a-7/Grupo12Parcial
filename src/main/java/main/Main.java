@@ -1,31 +1,42 @@
 package main;
 
+import java.io.IOException;
+
 import controlador.ControladorPrincipal;
 import excepciones.NumeroInvalidoException;
 import excepciones.PersonaRepetidaException;
 import excepciones.TipoPersonaInvalidoException;
 import modelo.Empresa;
+import pasoDelTiempo.EmuladorPasoTiempo;
+import pasoDelTiempo.Observador;
+import persistencia.IPersistencia;
+import persistencia.PersistenciaBIN;
 
 public class Main {
 
 	public static void main(String[] args) {
-		
-		Empresa empresa = new Empresa("MobiEstar");
+
+		IPersistencia persistencia = new PersistenciaBIN();
+		Empresa empresa;
+		EmuladorPasoTiempo ept;
 		try {
-			empresa.addPersona("Fisica", "Marcos", 456164);
-			empresa.addPersona("Juridica", "que se yo", 7894843);
-		} catch (NumeroInvalidoException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (TipoPersonaInvalidoException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (PersonaRepetidaException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			persistencia.abrirInput("Empresa.bin");
+			empresa = (Empresa) persistencia.leer();
+			persistencia.cerrarInput();
+			persistencia.abrirInput("Mes.bin");
+			ept = (EmuladorPasoTiempo)persistencia.leer();
+			persistencia.cerrarInput();
+
+		} catch (IOException e) {
+			empresa = new Empresa("MobiEstar");
+			ept = new EmuladorPasoTiempo();
+		} catch (ClassNotFoundException e) {
+			empresa = new Empresa("MobiEstar");
+			ept = new EmuladorPasoTiempo();
 		}
-		
-		ControladorPrincipal controlador = new ControladorPrincipal(empresa);
+
+		Observador obs = new Observador(empresa,ept);
+		ControladorPrincipal controlador = new ControladorPrincipal(empresa,ept);
 
 	}
 

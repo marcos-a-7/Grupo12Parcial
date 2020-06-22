@@ -31,4 +31,10 @@ public class Celular implements IServicio, Cloneable, Serializable {
 	protected Celular clone() throws CloneNotSupportedException {
 		return (Celular) super.clone();
 	}
+
+	@Override
+	public String toString() {
+		return "Celular [numero=" + numeroCelular + "]";
+	}
+	
 }

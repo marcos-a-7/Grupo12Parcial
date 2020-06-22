@@ -85,4 +85,14 @@ public class Factura implements Cloneable, Serializable {
 
 		return aux;
 	}
+
+	@Override
+	public String toString() {
+		if (isPagada()) {
+			return domicilio.toString() + " mes: " + mes + " pagada";
+		} else {
+			return domicilio.toString() + " mes: " + mes + " debida";
+		}
+	}
+
 }

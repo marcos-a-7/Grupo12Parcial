@@ -29,9 +29,8 @@ public class MorosoState implements State, Serializable {
 
 	}
 
-	public void modificaContrato(Contrato contrato) throws MorosoException {
+	public boolean modificaContrato() throws MorosoException {
 		throw new MorosoException(persona.getNombre() + " es morosa y no se puede modificar el contrato");
-
 	}
 
 	public void agregaContrato(String calle, int numeroCalle, String tipoInternet, int cantCelu, int cantTel,

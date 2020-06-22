@@ -58,13 +58,15 @@ public class SinContratacionesState implements State, Serializable {
 		PaqueteServicios paqueteServicios;
 		paqueteServicios = PaqueteServiciosFactory.getPaqueteServicios(tipoInternet, cantCelu, cantTel, cantCable);
 		auxContrato = persona.buscaContrato(calle, numeroCalle);
-		if (auxContrato == null)
+		if (auxContrato == null) {
 			persona.getContratos().add(ContratoFactory.getContrato(domicilio, paqueteServicios, medioPago));
+			persona.actualizaEstado();
+		}
 		else
 			throw new DomicilioDuplicadoException(domicilio.toString() + " no se pudo agregar, esta duplicado");
 	}
 
-	public void modificaContrato(Contrato contrato) throws SinContratacionesException {
+	public boolean modificaContrato() throws SinContratacionesException {
 		throw new SinContratacionesException(persona.getNombre() + " no tiene contrataciones para modificar");
 	}
 

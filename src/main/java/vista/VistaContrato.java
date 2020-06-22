@@ -107,11 +107,9 @@ public class VistaContrato extends JFrame implements KeyListener {
 	private JPanel panel_31;
 	private JPanel panel_32;
 	private JLabel Label_Domicilio;
-	private JLabel Label_Nombre;
 	private JPanel panel_33;
 	private JPanel panel_34;
 	private JLabel lblNewLabel_CantCables;
-	private JLabel lblDni;
 	private final ButtonGroup buttonGroup = new ButtonGroup();
 	private final ButtonGroup buttonGroup_1 = new ButtonGroup();
 	private JPanel panel_35;
@@ -202,9 +200,6 @@ public class VistaContrato extends JFrame implements KeyListener {
 		this.panel_31 = new JPanel();
 		this.panel_11.add(this.panel_31);
 
-		this.Label_Nombre = new JLabel("Nombre :");
-		this.panel_31.add(this.Label_Nombre);
-
 		this.panel_10 = new JPanel();
 		this.panel_9.add(this.panel_10);
 		this.panel_10.setLayout(new GridLayout(2, 0, 0, 0));
@@ -212,14 +207,11 @@ public class VistaContrato extends JFrame implements KeyListener {
 		this.panel_33 = new JPanel();
 		this.panel_10.add(this.panel_33);
 
-		this.lblDni = new JLabel("DNI :");
-		this.panel_33.add(this.lblDni);
+		this.lblNewLabel_CantCables = new JLabel("Cantidad de Cables :");
+		this.panel_33.add(this.lblNewLabel_CantCables);
 
 		this.panel_34 = new JPanel();
 		this.panel_10.add(this.panel_34);
-
-		this.lblNewLabel_CantCables = new JLabel("Cantidad de Cables :");
-		this.panel_34.add(this.lblNewLabel_CantCables);
 
 		this.panel_8 = new JPanel();
 		this.panel_6.add(this.panel_8);
@@ -440,11 +432,11 @@ public class VistaContrato extends JFrame implements KeyListener {
 		this.btnNewButton_Agregar.setActionCommand("AGREGAR");
 		this.btnNewButton_Agregar.setEnabled(false);
 		this.panel_28.add(this.btnNewButton_Agregar);
-		
+
 		this.frame.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
 		this.frame.setVisible(true);
 	}
-	
+
 	public void setActionListener(ActionListener actionListener) {
 		this.btn_ElTelef.addActionListener(actionListener);
 		this.btnElimCable.addActionListener(actionListener);
@@ -474,33 +466,27 @@ public class VistaContrato extends JFrame implements KeyListener {
 		}
 		try {
 			celulares = Integer.parseInt(this.textField_Celulares.getText());
-		}
-		catch (NumberFormatException e){
+		} catch (NumberFormatException e) {
 		}
 		try {
 			cables = Integer.parseInt(this.textField_Cable.getText());
-		}
-		catch (NumberFormatException e){
+		} catch (NumberFormatException e) {
 		}
 		try {
 			telefonos = Integer.parseInt(this.textField_Telefonos.getText());
-		}
-		catch (NumberFormatException e){
+		} catch (NumberFormatException e) {
 		}
 		try {
 			cantidad = Integer.parseInt(this.textField_CantCableElim.getText());
+		} catch (NumberFormatException e) {
 		}
-		catch (NumberFormatException e){
-		}
-		
-		
+
 		boolean condicion = numeroCalle > 0 && !calle.isEmpty();
 		this.btnNewButton_Crear.setEnabled(condicion);
 
-		condicion = (celulares > 0 || cables > 0 || telefonos > 0)
-				&& (celulares >= 0 && cables >= 0 && telefonos >= 0);
+		condicion = (celulares > 0 || cables > 0 || telefonos > 0) && (celulares >= 0 && cables >= 0 && telefonos >= 0);
 		this.btnNewButton_Agregar.setEnabled(condicion);
-		
+
 		condicion = cantidad > 0;
 		this.btnElimCable.setEnabled(condicion);
 
@@ -509,7 +495,6 @@ public class VistaContrato extends JFrame implements KeyListener {
 	public void keyTyped(KeyEvent arg0) {
 	}
 
-	
 	public Contrato getContrato() {
 		return (Contrato) this.list_Contratos.getSelectedValue();
 	}
@@ -521,7 +506,7 @@ public class VistaContrato extends JFrame implements KeyListener {
 			this.modeloListaContratos.addElement(it.next());
 		this.repaint();
 	}
-	
+
 	public Telefono getTelefono() {
 		return (Telefono) this.list_Telefonos.getSelectedValue();
 	}
@@ -533,7 +518,7 @@ public class VistaContrato extends JFrame implements KeyListener {
 			this.modeloListaTelefonos.addElement(it.next());
 		this.repaint();
 	}
-	
+
 	public Celular getCelular() {
 		return (Celular) this.list_Celulares.getSelectedValue();
 	}
@@ -545,16 +530,16 @@ public class VistaContrato extends JFrame implements KeyListener {
 			this.modeloListaCelulares.addElement(it.next());
 		this.repaint();
 	}
-	
+
 	public void cerrar() {
 		this.frame.dispose();
 	}
-	
+
 	public String getCalle() {
 		String calle = this.textField_Calle.getText();
 		return calle;
 	}
-	
+
 	public void selectMedioPago(String medioPago) {
 		if (medioPago.equals("Efectivo")) {
 			this.rdbtnNewRadioButton_Efectivo.setSelected(true);
@@ -564,7 +549,7 @@ public class VistaContrato extends JFrame implements KeyListener {
 			this.rdbtnNewRadioButton_Cheque.setSelected(true);
 		}
 	}
-	
+
 	public void selectTipoInternet(String internet) {
 		if (internet.equals("100")) {
 			this.rdbtnNewRadioButton_Internet100.setSelected(true);
@@ -572,27 +557,42 @@ public class VistaContrato extends JFrame implements KeyListener {
 			this.rdbtnNewRadioButton_Internet500.setSelected(true);
 		}
 	}
-	
+
 	public int getNumero() {
 		int numero = Integer.parseInt(this.textField_Numero.getText());
 		return numero;
 	}
 
 	public int getCantCelulares() {
-		int cant = Integer.parseInt(this.textField_Celulares.getText());
+		int cant;
+		try {
+			cant = Integer.parseInt(this.textField_Celulares.getText());
+		} catch (NumberFormatException e) {
+			cant = 0;
+		}
 		return cant;
 	}
-	
+
 	public int getCantTelefonos() {
-		int cant = Integer.parseInt(this.textField_Telefonos.getText());
+		int cant;
+		try {
+			cant = Integer.parseInt(this.textField_Telefonos.getText());
+		} catch (NumberFormatException e) {
+			cant = 0;
+		}
 		return cant;
 	}
-	
+
 	public int getCantCables() {
-		int cant = Integer.parseInt(this.textField_Cable.getText());
+		int cant;
+		try {
+			cant = Integer.parseInt(this.textField_Cable.getText());
+		} catch (NumberFormatException e) {
+			cant = 0;
+		}
 		return cant;
 	}
-	
+
 	public String getTipoInternet() {
 		String internet = "";
 		if (this.rdbtnNewRadioButton_Internet100.isSelected()) {
@@ -602,32 +602,75 @@ public class VistaContrato extends JFrame implements KeyListener {
 		}
 		return internet;
 	}
-	
+
 	public String getMedioPago() {
 		String medioPago = "";
 		if (this.rdbtnNewRadioButton_Cheque.isSelected()) {
 			medioPago = "Cheque";
 		} else if (this.rdbtnNewRadioButton_Tarjeta.isSelected()) {
 			medioPago = "Tarjeta";
-		}
-		else if (this.rdbtnNewRadioButton_Efectivo.isSelected()) {
+		} else if (this.rdbtnNewRadioButton_Efectivo.isSelected()) {
 			medioPago = "Efectivo";
 		}
 		return medioPago;
 	}
-	
+
+	public void setTipoInternet(String tipoInternet) {
+		if (tipoInternet.equals("100")) {
+			this.rdbtnNewRadioButton_Internet100.setSelected(true);
+		} else if (tipoInternet.equals("500")) {
+			this.rdbtnNewRadioButton_Internet500.setSelected(true);
+		}
+	}
+
+	public void setMedioPago(String medioPago) {
+		if (medioPago.equals("Cheque")) {
+			this.rdbtnNewRadioButton_Cheque.setSelected(true);
+		} else if (medioPago.equals("Tarjeta")) {
+			this.rdbtnNewRadioButton_Tarjeta.setSelected(true);
+		} else if (medioPago.equals("Efectivo")) {
+			this.rdbtnNewRadioButton_Efectivo.setSelected(true);
+		}
+	}
+
 	public int getCantCablesElim() {
 		int cant = Integer.parseInt(this.textField_CantCableElim.getText());
 		return cant;
 	}
-	
-	public void setListSelectionListener(ListSelectionListener listSelectionListener) {
+
+	public void setListSelectionListenerContratos(ListSelectionListener listSelectionListener) {
 		this.list_Contratos.addListSelectionListener(listSelectionListener);
-		this.list_Celulares.addListSelectionListener(listSelectionListener);
-		this.list_Telefonos.addListSelectionListener(listSelectionListener);
+	}
+
+	public void imprimeMensaje(String mensaje) {
+		JOptionPane.showMessageDialog(this, mensaje);
+	}
+
+	public void actualizaCables(int cant) {
+		this.lblNewLabel_CantCables.setText("Cantidad de Cables: " + cant);
+	}
+
+	public void actualizaDomicilio(int numero, String calle) {
+		this.Label_Domicilio.setText("Domicilio: " + calle + " " + numero);
+	}
+
+	public void limpiaListaCelulares() {
+		this.modeloListaCelulares.clear();
+	}
+
+	public void limpiaListaTelefonos() {
+		this.modeloListaTelefonos.clear();
 	}
 	
-	public void imprimeMensaje(String mensaje) {
-		JOptionPane.showMessageDialog(this,mensaje);
+	public void vaciarTextFields() {
+		this.textField_Cable.setText("");
+		this.textField_Celulares.setText("");
+		this.textField_Telefonos.setText("");
+		this.textField_Numero.setText("");
+		this.textField_Calle.setText("");
+		this.textField_CantCableElim.setText("");
+		this.btnElimCable.setEnabled(false);
+		this.btnNewButton_Agregar.setEnabled(false);
+		this.btnNewButton_Crear.setEnabled(false);
 	}
 }

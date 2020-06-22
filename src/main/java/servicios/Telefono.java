@@ -26,4 +26,10 @@ public class Telefono implements IServicio, Cloneable, Serializable {
 	public int getNumeroTelefono() {
 		return this.numeroTelefono;
 	}
+
+	@Override
+	public String toString() {
+		return "Telefono [numero=" + numeroTelefono + "]";
+	}
+	
 }
