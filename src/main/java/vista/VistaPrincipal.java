@@ -65,8 +65,8 @@ public class VistaPrincipal extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					//VistaPrincipal window = new VistaPrincipal();
-					//window.frame.setVisible(true);
+					VistaPrincipal window = new VistaPrincipal("");
+					window.frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -189,7 +189,7 @@ public class VistaPrincipal extends JFrame {
 	}
 	
 	public void imprimeEvento(String evento) {
-		this.textArea_Eventos.setText(this.textArea_Eventos.getText() + "\n" + evento);
+		this.textArea_Eventos.setText(this.textArea_Eventos.getText() + evento);
 	}
 
 }

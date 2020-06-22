@@ -9,6 +9,9 @@ import java.awt.GridLayout;
 import javax.swing.JScrollPane;
 import javax.swing.JList;
 import javax.swing.border.TitledBorder;
+
+import modelo.Factura;
+
 import javax.swing.border.LineBorder;
 import java.awt.Color;
 import javax.swing.JTextArea;
@@ -23,7 +26,7 @@ public class VistaAfip extends JFrame{
 	private JPanel panel_3;
 	private JPanel panel_4;
 	private JScrollPane scrollPane;
-	private JList list_Factura;
+	private JList<Factura> list_Factura;
 	private JScrollPane scrollPane_1;
 	private JScrollPane scrollPane_2;
 	private JTextArea textArea_Detalle;

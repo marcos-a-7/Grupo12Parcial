@@ -36,6 +36,7 @@ public class ControladorPrincipal implements ActionListener {
 		String comando = arg0.getActionCommand();
 		if (comando.equals("ACTUALIZARMES")) {
 			ept.avanzarMes();
+			this.imprimeEvento("Paso un mes, el mes actual es: "+ept.getMes());
 		} else if (comando.equals("DARALTA")) {
 			new ControladorAltas(empresa,this);
 		} else if (comando.equals("MODIFICACONTRATO")) {
@@ -49,7 +50,7 @@ public class ControladorPrincipal implements ActionListener {
 
 
 	public void imprimeEvento(String evento) {
-		ventana.imprimeEvento(evento);
+		ventana.imprimeEvento(evento + "\n");
 	}
 	
 	
