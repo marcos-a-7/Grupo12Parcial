@@ -452,6 +452,11 @@ public class VistaContrato extends JFrame implements KeyListener {
 	public void keyPressed(KeyEvent arg0) {
 	}
 
+	/**
+	 * kerReleased<br>
+	 * controla que botones se encuentran habilitados de acuerdo al contenido de la
+	 * ventana<br>
+	 */
 	public void keyReleased(KeyEvent arg0) {
 		String calle = this.textField_Calle.getText();
 		int numeroCalle = 0;
@@ -499,6 +504,12 @@ public class VistaContrato extends JFrame implements KeyListener {
 		return (Contrato) this.list_Contratos.getSelectedValue();
 	}
 
+	/**
+	 * actualizaListaContratos<br>
+	 * actualiza la lista de contratos y la reescribe<br>
+	 * 
+	 * @param contratos : lista de contratos a escribir
+	 */
 	public void actualizaListaContratos(ArrayList<Contrato> contratos) {
 		this.modeloListaContratos.clear();
 		Iterator<Contrato> it = contratos.iterator();
@@ -511,6 +522,12 @@ public class VistaContrato extends JFrame implements KeyListener {
 		return (Telefono) this.list_Telefonos.getSelectedValue();
 	}
 
+	/**
+	 * actualizaListaTelefonos<br>
+	 * actualiza la lista de telefonos y la reescribe<br>
+	 * 
+	 * @param telefonos : lista de telefonos a escribir
+	 */
 	public void actualizaListaTelefonos(ArrayList<Telefono> telefonos) {
 		this.modeloListaTelefonos.clear();
 		Iterator<Telefono> it = telefonos.iterator();
@@ -523,6 +540,12 @@ public class VistaContrato extends JFrame implements KeyListener {
 		return (Celular) this.list_Celulares.getSelectedValue();
 	}
 
+	/**
+	 * actualizaListaCelulares<br>
+	 * actualiza la lista de celulares y la reescribe<br>
+	 * 
+	 * @param celulares : lista de celulares a escribir
+	 */
 	public void actualizaListaCelulares(ArrayList<Celular> celulares) {
 		this.modeloListaCelulares.clear();
 		Iterator<Celular> it = celulares.iterator();
@@ -540,6 +563,12 @@ public class VistaContrato extends JFrame implements KeyListener {
 		return calle;
 	}
 
+	/**
+	 * selectMedioPago<br>
+	 * selecciona el medio de pago en los radio button<br>
+	 * 
+	 * @param medioPago : medio de pago a seleccionar
+	 */
 	public void selectMedioPago(String medioPago) {
 		if (medioPago.equals("Efectivo")) {
 			this.rdbtnNewRadioButton_Efectivo.setSelected(true);
@@ -550,6 +579,12 @@ public class VistaContrato extends JFrame implements KeyListener {
 		}
 	}
 
+	/**
+	 * selectTipoInternet<br>
+	 * selecciona el tipo de internet en los radio button<br>
+	 * 
+	 * @param internet : internet a seleccionar
+	 */
 	public void selectTipoInternet(String internet) {
 		if (internet.equals("100")) {
 			this.rdbtnNewRadioButton_Internet100.setSelected(true);
@@ -642,26 +677,57 @@ public class VistaContrato extends JFrame implements KeyListener {
 		this.list_Contratos.addListSelectionListener(listSelectionListener);
 	}
 
+	/**
+	 * imprimeMensaje<br>
+	 * imprime un mensaje en una ventana emergente pasado por paramentro<br>
+	 * 
+	 * @param mensaje : mensaje a imprimir
+	 */
 	public void imprimeMensaje(String mensaje) {
 		JOptionPane.showMessageDialog(this, mensaje);
 	}
 
+	/**
+	 * actualizaCables<br>
+	 * actualiza el Label con la cantidad de cables<br>
+	 * 
+	 * @param cant : cantidad de cables a escribir
+	 */
 	public void actualizaCables(int cant) {
 		this.lblNewLabel_CantCables.setText("Cantidad de Cables: " + cant);
 	}
 
+	/**
+	 * actualizaDomicilio<br>
+	 * actualiza el Label con el domicilio<br>
+	 * 
+	 * @param numero : numero a escribir
+	 * @param calle  : calle a escribir
+	 */
 	public void actualizaDomicilio(int numero, String calle) {
 		this.Label_Domicilio.setText("Domicilio: " + calle + " " + numero);
 	}
 
+	/**
+	 * limpiaListaCelulares<br>
+	 * vacia la lista de celulares<br>
+	 */
 	public void limpiaListaCelulares() {
 		this.modeloListaCelulares.clear();
 	}
 
+	/**
+	 * limpiaListaTelefonos<br>
+	 * vacia la lista de telefonos<br>
+	 */
 	public void limpiaListaTelefonos() {
 		this.modeloListaTelefonos.clear();
 	}
-	
+
+	/**
+	 * vaciarTextFieldes<br>
+	 * borra el contenido de todos los textFields<br>
+	 */
 	public void vaciarTextFields() {
 		this.textField_Cable.setText("");
 		this.textField_Celulares.setText("");

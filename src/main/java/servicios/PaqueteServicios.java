@@ -232,12 +232,19 @@ public class PaqueteServicios implements Cloneable, Serializable {
 		return aux;
 	}
 
+	/**
+	 * eliminaCables<br>
+	 * elimina una cantidad de cables del paquete de servicios pasada por
+	 * paramtre<br>
+	 * 
+	 * @param cantCables : cantidad de calbes a eliminar
+	 */
 	public void eliminaCables(int cantCables) {
-		while (this.cantidadCables()>=0 && cantCables>0) {
+		while (this.cantidadCables() >= 0 && cantCables > 0) {
 			this.eliminaCable();
 			cantCables--;
 		}
-		
+
 	}
 
 }

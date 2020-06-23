@@ -273,6 +273,10 @@ public class VistaAltas extends JFrame implements KeyListener {
 
 	}
 
+	/**
+	 * kerReleased<br>
+	 *controla que botones se encuentran habilitados de acuerdo al contenido de la ventana<br>
+	 */
 	public void keyReleased(KeyEvent arg0) {
 		int dni = 0;
 		String nombre = this.textField_Nombre.getText();

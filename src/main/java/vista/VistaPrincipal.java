@@ -146,21 +146,21 @@ public class VistaPrincipal extends JFrame {
 
 		this.panel_11 = new JPanel();
 		this.panel_3.add(this.panel_11);
-		
+
 		this.btn_PagarFactura = new JButton("Pagar Factura");
 		this.btn_PagarFactura.setActionCommand("PAGAR");
 		this.panel_11.add(this.btn_PagarFactura);
-		
+
 		this.panel_4 = new JPanel();
 		this.panel_3.add(this.panel_4);
-		
+
 		this.btn_VisitaAfip = new JButton("Visita Afip");
 		this.btn_VisitaAfip.setActionCommand("AFIP");
 		this.panel_4.add(this.btn_VisitaAfip);
-		
+
 		this.panel_5 = new JPanel();
 		this.panel_3.add(this.panel_5);
-		
+
 		this.btn_Persistir = new JButton("Guardar\r\n");
 		this.btn_Persistir.setActionCommand("PERSISTIR");
 		this.panel_5.add(this.btn_Persistir);
@@ -178,15 +178,16 @@ public class VistaPrincipal extends JFrame {
 		this.scrollPane_1.setViewportView(this.list_Personas);
 		this.listaPersonas = new DefaultListModel<Persona>();
 		this.list_Personas.setModel(listaPersonas);
-		
+
 		this.panel_ListaFacturas = new JPanel();
-		this.panel_ListaFacturas.setBorder(new TitledBorder(new LineBorder(new Color(64, 64, 64), 3, true), "Listado de Facturas", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 0)));
+		this.panel_ListaFacturas.setBorder(new TitledBorder(new LineBorder(new Color(64, 64, 64), 3, true),
+				"Listado de Facturas", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 0)));
 		this.panel_1.add(this.panel_ListaFacturas);
 		this.panel_ListaFacturas.setLayout(new BorderLayout(0, 0));
-		
+
 		this.scrollPane_2 = new JScrollPane();
 		this.panel_ListaFacturas.add(this.scrollPane_2, BorderLayout.CENTER);
-		
+
 		this.list_Facturas = new JList<Factura>();
 		this.scrollPane_2.setViewportView(this.list_Facturas);
 		this.listaFacturas = new DefaultListModel<Factura>();
@@ -221,11 +222,11 @@ public class VistaPrincipal extends JFrame {
 		this.btn_Persistir.addActionListener(actionListener);
 		this.actionListener = actionListener;
 	}
-	
+
 	public void setWindowListener(WindowListener windowListener) {
 		this.frame.addWindowListener(windowListener);
 	}
-	
+
 	public void setListSelectionListener(ListSelectionListener listSelectionListener) {
 		this.list_Personas.addListSelectionListener(listSelectionListener);
 	}
@@ -234,6 +235,12 @@ public class VistaPrincipal extends JFrame {
 		return this.list_Personas.getSelectedValue();
 	}
 
+	/**
+	 * actualizaListaPersonas<br>
+	 * actualiza la lista de personas y la reescribe<br>
+	 * 
+	 * @param personas : lista de personas a escribir
+	 */
 	public void actualizaListaPersonas(HashMap<Integer, Persona> personas) {
 		this.listaPersonas.clear();
 		Set<Entry<Integer, Persona>> entrySet = personas.entrySet();
@@ -242,11 +249,23 @@ public class VistaPrincipal extends JFrame {
 			this.listaPersonas.addElement(it.next().getValue());
 		this.repaint();
 	}
-	
+
+	/**
+	 * imprimeEvento<br>
+	 * imprime un evento en el textArea de eventos<br>
+	 * 
+	 * @param evento
+	 */
 	public void imprimeEvento(String evento) {
 		this.textArea_Eventos.setText(this.textArea_Eventos.getText() + evento);
 	}
 
+	/**
+	 * actualizaListaFacturas<br>
+	 * actualiza la lista de facturas y la reescribe<br>
+	 * 
+	 * @param facturas : lista de facturas a escribir
+	 */
 	public void actualizaListaFacturas(ArrayList<Factura> facturas) {
 		this.listaFacturas.clear();
 		Iterator<Factura> it = facturas.iterator();
@@ -258,10 +277,15 @@ public class VistaPrincipal extends JFrame {
 	public Factura getFactura() {
 		return this.list_Facturas.getSelectedValue();
 	}
-	
+
+	/**
+	 * imprimeMensaje<br>
+	 * imprime un mensaje pasado por parametro en una ventana emergente<br>
+	 * 
+	 * @param mensaje : mensaje a imprimir
+	 */
 	public void imprimeMensaje(String mensaje) {
-		JOptionPane.showMessageDialog(this,mensaje);
+		JOptionPane.showMessageDialog(this, mensaje);
 	}
-	
 
 }
