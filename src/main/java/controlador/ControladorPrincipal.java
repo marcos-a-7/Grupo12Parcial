@@ -80,7 +80,7 @@ public class ControladorPrincipal implements ActionListener, ListSelectionListen
 			Persona persona = ventana.getPersona();
 			Factura factura = ventana.getFactura();
 			double monto;
-			if (persona != null) {
+			if (persona != null && factura!=null) {
 				try {
 					monto = persona.pagar(factura);
 					if (monto == 0) {
@@ -89,6 +89,7 @@ public class ControladorPrincipal implements ActionListener, ListSelectionListen
 						this.imprimeEvento(persona.getNombre() + " abono la factura del mes " + factura.getMes()
 								+ " pagando un total de " + monto);
 						this.actualizaListaFacturas(persona.getFacturas());
+						this.imprimeMensaje(factura.imprimeFactura());
 					}
 				} catch (SinContratacionesException e) {
 					e.printStackTrace();

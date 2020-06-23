@@ -28,7 +28,7 @@ public abstract class Persona implements Cloneable, Serializable {
 	ArrayList<Factura> facturas = new ArrayList<Factura>();
 	protected State estado = new SinContratacionesState(this);
 
-	public Persona(String nombre,int identificador) {
+	public Persona(String nombre, int identificador) {
 		this.nombre = nombre;
 		this.identificador = identificador;
 	}
@@ -41,6 +41,10 @@ public abstract class Persona implements Cloneable, Serializable {
 		this.nombre = nombre;
 	}
 
+	/**
+	 * actualizaEstado <br>
+	 * esta funcion debe encargarse de actualizar el estado de la persona <br>
+	 */
 	public abstract void actualizaEstado();
 
 	public State getEstado() {
@@ -55,11 +59,42 @@ public abstract class Persona implements Cloneable, Serializable {
 		return facturas;
 	}
 
+	/**
+	 * agregaContrato<br>
+	 * esta funcion delega el agregado de contrato de la persona al estado de la
+	 * misma<br>
+	 * <b>Pre: </b> la calle y el numero de calle deben ser validos<br>
+	 * <b>Post: </b> delega al estado el agregado del contrato, puede lanzar
+	 * excepciones<br>
+	 * 
+	 * @param calle:        calle del domicilio
+	 * @param numeroCalle:  numero del domicilio
+	 * @param tipoInternet: tipo de internet 500 o 100
+	 * @param cantCelu:     cantidad de celulares a contratar
+	 * @param cantTel:      cantidad de telefonos a contratar
+	 * @param cantCable:    cantidad de cables a contratar
+	 * @param medioPago:    por que medio va a pagar si por cheque efectivo o
+	 *                      tarjeta
+	 * @throws ImposibleCrearContratoException
+	 * @throws ImposibleCrearPaqueteException
+	 */
 	public void agregaContrato(String calle, int numeroCalle, String tipoInternet, int cantCelu, int cantTel,
 			int cantCable, String medioPago) throws ImposibleCrearContratoException, ImposibleCrearPaqueteException {
 		estado.agregaContrato(calle, numeroCalle, tipoInternet, cantCelu, cantTel, cantCable, medioPago);
 	}
-	
+
+	/**
+	 * modificaContrato<br>
+	 * delega al estado la pregunta de si puede modificar contrato<br>
+	 * <b>pre:</b> no tiene<br>
+	 * <b>post:</b> si el estado permite modificar contrato devuelve true, puede
+	 * lanzar excepciones<br>
+	 * 
+	 * @return devuelve true si se pueden realizar modificaciones de contrato o
+	 *         false si no
+	 * @throws MorosoException
+	 * @throws SinContratacionesException
+	 */
 	public boolean modificaContrato() throws MorosoException, SinContratacionesException {
 		return this.estado.modificaContrato();
 	}
@@ -149,9 +184,12 @@ public abstract class Persona implements Cloneable, Serializable {
 		estado.eliminaContrato(contrato);
 	}
 
-	// esta funcion pasa una referencia a la persona para que la factura pueda
-	// cambiar en caso de que cambien los datos de la persona (ejemplo medio de
-	// pago)
+	/**
+	 * facturar<br>
+	 * emite las facturas correspondientes al mes para la persona<br>
+	 * 
+	 * @param mes : mes a facturar
+	 */
 	public void facturar(int mes) {
 		Iterator<Contrato> it = contratos.iterator();
 		while (it.hasNext()) {
@@ -159,12 +197,29 @@ public abstract class Persona implements Cloneable, Serializable {
 		}
 	}
 
+	/**
+	 * pagar<br>
+	 * funcion que permite pagar una factura<br>
+	 * pre: no tiene<br>
+	 * post: puede lanzar excepciones, devuelve el monto abonado<br>
+	 * 
+	 * @param factura : factura a pagar
+	 * @return devuelve el monto abonado
+	 * @throws SinContratacionesException
+	 */
 	public double pagar(Factura factura) throws SinContratacionesException {
 		double monto = estado.pagar(factura);
 		this.actualizaEstado();
 		return monto;
 	}
 
+	/**
+	 * cantFacturasDebidas<br>
+	 * funcion que calcula la cantidad de facturas no abonadas que tiene la
+	 * persona<br>
+	 * 
+	 * @return devuelve la cantidad de facturas debidas
+	 */
 	public int cantidadFacturasDebidas() {
 		int cantidad = 0;
 		Iterator<Factura> it = facturas.iterator();
@@ -214,7 +269,5 @@ public abstract class Persona implements Cloneable, Serializable {
 			return false;
 		return true;
 	}
-	
-	
 
 }

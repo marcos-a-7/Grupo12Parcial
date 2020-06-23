@@ -16,10 +16,9 @@ public class PersonaFactory {
 	 * <b>Post</b> Devolvera una persona en caso de no poder lanzara una excepcion
 	 * correspondiente a cada error <br>
 	 * 
-	 * @param tipo      : El tipo de la persona (juridica o Fisica) <br>
-	 * @param nombre    : El nombre del titular <br>
-	 * @param dni       : El DNI del titular<br>
-	 * @param medioPago : El medio por el cual va a pagar el titular <br>
+	 * @param tipo          : El tipo de la persona (juridica o Fisica) <br>
+	 * @param nombre        : El nombre del titular <br>
+	 * @param identificador : El DNI/ID del titular<br>
 	 * @return Retorna una persona o arrojara una excepcion<br>
 	 * @throws MedioPagoInvalidoException   : en caso de que el medio de pago sea
 	 *                                      invalido<br>

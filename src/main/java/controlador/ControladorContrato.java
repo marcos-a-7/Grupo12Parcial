@@ -4,8 +4,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
-
-
 import clientes.Cheque;
 import clientes.Domicilio;
 import clientes.Efectivo;
@@ -34,7 +32,7 @@ public class ControladorContrato implements ActionListener {
 		this.controladorPrincipal = controladorPrincipal;
 		ventana = new VistaContrato(persona.getNombre() + " | " + persona.getIdentificador());
 		ventana.setActionListener(this);
-		ventana.setListSelectionListenerContratos(new ControladorListaContratos(this,ventana));
+		ventana.setListSelectionListenerContratos(new ControladorListaContratos(this, ventana));
 		this.actualizaListaContratos(persona.getContratos());
 	}
 
@@ -96,10 +94,12 @@ public class ControladorContrato implements ActionListener {
 			}
 			ventana.vaciarTextFields();
 		} else if (comando.equals("ELIMCABLE")) {
-			ventana.getContrato().eliminaCables(ventana.getCantCablesElim());
-			this.actualizaCantCables(ventana.getContrato().getPaqueteServicios().cantidadCables());
-			ventana.vaciarTextFields();
-			controladorPrincipal.imprimeEvento(persona.getNombre() + " modifico un contrato");
+			if (ventana.getContrato() != null) {
+				ventana.getContrato().eliminaCables(ventana.getCantCablesElim());
+				this.actualizaCantCables(ventana.getContrato().getPaqueteServicios().cantidadCables());
+				ventana.vaciarTextFields();
+				controladorPrincipal.imprimeEvento(persona.getNombre() + " modifico un contrato");
+			}
 		} else if (comando.equals("CREARCONTRATO")) {
 			String calle = ventana.getCalle();
 			int numeroCalle = ventana.getNumero();
@@ -125,7 +125,7 @@ public class ControladorContrato implements ActionListener {
 			String tipoInternet = ventana.getTipoInternet();
 			Contrato contrato = ventana.getContrato();
 			try {
-				if (persona.modificaContrato()) {
+				if (persona.modificaContrato() && contrato!=null) {
 					contrato.cambiaInternet(tipoInternet);
 					contrato.cambiaMedioPago(medioPago);
 					controladorPrincipal.imprimeEvento(persona.getNombre() + " modifico un contrato");
@@ -165,7 +165,7 @@ public class ControladorContrato implements ActionListener {
 
 	private void actualizaListaContratos(ArrayList<Contrato> contratos) {
 		ventana.actualizaListaContratos(contratos);
-		
+
 	}
 
 	public void actualizaCantCables(int cant) {
@@ -184,26 +184,26 @@ public class ControladorContrato implements ActionListener {
 	public void actualizaDomicilio(Domicilio domicilio) {
 		ventana.actualizaDomicilio(domicilio.getNumero(), domicilio.getCalle());
 	}
-	
+
 	public void actualizaMedioPago() {
 		Contrato contrato = ventana.getContrato();
-		if (contrato!=null) {
-			if (contrato.getMedioPago() instanceof Cheque ) {
+		if (contrato != null) {
+			if (contrato.getMedioPago() instanceof Cheque) {
 				ventana.setMedioPago("Cheque");
-			} else if (contrato.getMedioPago() instanceof Efectivo ) {
+			} else if (contrato.getMedioPago() instanceof Efectivo) {
 				ventana.setMedioPago("Efectivo");
-			} else if (contrato.getMedioPago() instanceof Tarjeta ) {
+			} else if (contrato.getMedioPago() instanceof Tarjeta) {
 				ventana.setMedioPago("Tarjeta");
 			}
 		}
 	}
-	
+
 	public void actualizaTipoInternet() {
 		Contrato contrato = ventana.getContrato();
-		if (contrato!=null) {
-			if (contrato.getPaqueteServicios().getInternet() instanceof Internet100 ) {
+		if (contrato != null) {
+			if (contrato.getPaqueteServicios().getInternet() instanceof Internet100) {
 				ventana.setTipoInternet("100");
-			} else if (contrato.getPaqueteServicios().getInternet() instanceof Internet500 ) {
+			} else if (contrato.getPaqueteServicios().getInternet() instanceof Internet500) {
 				ventana.setTipoInternet("500");
 			}
 		}
