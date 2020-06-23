@@ -17,8 +17,8 @@ import servicios.Telefono;
 
 /**
  * @author grupo12<br>
- *         <b> la clase contrato guarda los datos de la persona y del paquete de
- *         servicio, tambien puede generar una factura</b>
+ *         <b> la clase contrato guarda los datos del paquete de
+ *         servicio, domicilio, medio de pago y tambien puede generar una factura</b>
  */
 public class Contrato implements Cloneable, Serializable {
 	private static int generadorIdContrato = 1;

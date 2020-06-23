@@ -50,6 +50,7 @@ public class ControladorAltas implements ActionListener, WindowListener {
 			try {
 				empresa.addPersona(tipo, nombre, id);
 				controladorPrincipal.actualizaListaPersonas();
+				recursoCompartido.terminarAlta(this);
 				ventana.cerrar();
 				controladorPrincipal.imprimeEvento(nombre + " | " + id + " se agrego corectamente al sistema");
 			} catch (NumeroInvalidoException e) {
