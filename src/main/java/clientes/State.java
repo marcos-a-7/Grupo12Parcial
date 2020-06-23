@@ -16,6 +16,6 @@ public interface State {
 	public void agregaContrato(String calle, int numeroCalle, String tipoInternet, int cantCelu, int cantTel,
 			int cantCable, String medioPago) throws ImposibleCrearContratoException, ImposibleCrearPaqueteException;
 
-	public void modificaContrato(Contrato contrato) throws MorosoException, SinContratacionesException;
+	public boolean modificaContrato() throws MorosoException, SinContratacionesException;
 
 }

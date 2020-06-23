@@ -2,6 +2,7 @@ package modelo;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Observer;
@@ -40,7 +41,20 @@ public class Empresa implements Serializable {
 		return personas;
 	}
 
-	public synchronized void addPersona(String tipoPersona, String nombre, int identificador)
+	/**
+	 * addPersona<br>
+	 * este metodo agrega una persona utilizando el persona factory, puede lanzar
+	 * excepciones<br>
+	 * 
+	 * @param tipoPersona   : tipo de persona Fisica o Juridica
+	 * @param nombre        : nombre de la persona
+	 * @param identificador : DNI/ID de la persona
+	 * @throws NumeroInvalidoException      : lanzada por persona factory
+	 * @throws TipoPersonaInvalidoException : lanzada por persona factory
+	 * @throws PersonaRepetidaException     : se lanza cuando ya existe una persona
+	 *                                      con ese identificador en la empresa
+	 */
+	public void addPersona(String tipoPersona, String nombre, int identificador)
 			throws NumeroInvalidoException, TipoPersonaInvalidoException, PersonaRepetidaException {
 		Persona persona = PersonaFactory.getPersona(tipoPersona, nombre, identificador);
 		if (this.buscaPersona(persona) == -1) {
@@ -51,10 +65,23 @@ public class Empresa implements Serializable {
 		}
 	}
 
+	/**
+	 * removePersona<br>
+	 * este metodo elimina a una persona de la empresa<br>
+	 * 
+	 * @param identificador : identificador en el hashmap de la persona a eliminar
+	 */
 	public void removePersona(int identificador) {
 		this.personas.remove(identificador);
 	}
 
+	/**
+	 * removePersona<br>
+	 * este metodo elimina a una persona de la empresa<br>
+	 * 
+	 * @param identificador : identificador en el hashmap de la persona a eliminar
+	 * @param persona       : persona a eliminar
+	 */
 	public void removePersona(int identificador, Persona persona) {
 		this.personas.remove(identificador, persona);
 	}
@@ -66,11 +93,25 @@ public class Empresa implements Serializable {
 		}
 	}
 
+	/**
+	 * buscaPersona<br>
+	 * este metodo busca a una persona y la retorna<br>
+	 * 
+	 * @param identificador : identificador en el hashmap de la persona buscada
+	 * @return persona buscada
+	 */
 	public Persona buscaPersona(int identificador) {
 		return this.personas.get(identificador);
 	}
 
-	// retorna -1 si no lo encontro
+	/**
+	 * buscaPersona busca si una persona se encuentra en la empresa y retorna el id
+	 * del hash map, es un metodo privado asi que solo lo utilizaremos para otros
+	 * metodos de la clase empresa<br>
+	 * 
+	 * @param persona
+	 * @return
+	 */
 	private int buscaPersona(Persona persona) {
 		boolean encontre = false;
 		Entry<Integer, Persona> entry;
@@ -86,6 +127,15 @@ public class Empresa implements Serializable {
 		return id;
 	}
 
+	/**
+	 * buscaContrato<br>
+	 * este metodo busca un contrato por calle y numero en todas las personas de la
+	 * empresa y lo devuelve si esta en la misma<br>
+	 * 
+	 * @param calle  : nombre de la calle
+	 * @param numero : numero del domicilio
+	 * @return retorna un contrato
+	 */
 	public Contrato buscaContrato(String calle, int numero) {
 		boolean encontre = false;
 		Contrato contrato = null;
@@ -118,23 +168,27 @@ public class Empresa implements Serializable {
 	// REVISAR
 	public ArrayList<Factura> enlistarFacturas() {
 		ArrayList<Factura> facturas = new ArrayList<Factura>();
-		if (personas.isEmpty()) {
-			Set<Entry<Integer, Persona>> entrySet = personas.entrySet();
-			Iterator<Entry<Integer, Persona>> it = entrySet.iterator();
-			while (it.hasNext()) {
-				Iterator<Factura> itfac = it.next().getValue().getFacturas().iterator();
-				while (itfac.hasNext()) {
-					try {
-						facturas.add(itfac.next().clone());
-					} catch (CloneNotSupportedException e) {
-						e.printStackTrace(); // siempre clonable
-					}
+		Set<Entry<Integer, Persona>> entrySet = personas.entrySet();
+		Iterator<Entry<Integer, Persona>> it = entrySet.iterator();
+		while (it.hasNext()) {
+			Iterator<Factura> itfac = it.next().getValue().getFacturas().iterator();
+			while (itfac.hasNext()) {
+				try {
+					facturas.add(itfac.next().clone());
+				} catch (CloneNotSupportedException e) {
+					e.printStackTrace(); // siempre clonable
 				}
 			}
 		}
 		return facturas;
 	}
 
+	/**
+	 * facturacion<br>
+	 * este metodo realiza la facturacion de todas las personas de la empresa<br>
+	 * 
+	 * @param mes : mes a facturar
+	 */
 	public void facturacion(int mes) {
 		Persona persona;
 		Set<Entry<Integer, Persona>> entrySet = personas.entrySet();

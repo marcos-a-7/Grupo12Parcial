@@ -11,14 +11,14 @@ import modelo.Factura;
  */
 public class PersonaFisica extends Persona {
 
-	
-
 	public PersonaFisica(String nombre, int dni, MedioPago medioPago) {
-		super(nombre,dni);
+		super(nombre, dni);
 	}
 
-
-
+	/**
+	 * actualizaEstado<br>
+	 * actualiza el estado de la persona<br>
+	 */
 	public void actualizaEstado() {
 		State estado;
 		if (this.isMoroso()) {
@@ -26,14 +26,19 @@ public class PersonaFisica extends Persona {
 		} else {
 			if (!this.contratos.isEmpty()) {
 				estado = new ConContratacionesState(this);
-			}
-			else {
+			} else {
 				estado = new SinContratacionesState(this);
 			}
 		}
 		this.estado = estado;
 	}
 
+	/**
+	 * isMoroso<br>
+	 * calcula si una persona se volvio morosa y retorna un boolaean<br>
+	 * 
+	 * @return retorna true si la persona se volvio morosa
+	 */
 	private boolean isMoroso() {
 		int cantidad = 0;
 		Iterator<Factura> it = facturas.iterator();
@@ -58,7 +63,5 @@ public class PersonaFisica extends Persona {
 	public PersonaFisica clone() throws CloneNotSupportedException {
 		return (PersonaFisica) super.clone();
 	}
-
-	
 
 }

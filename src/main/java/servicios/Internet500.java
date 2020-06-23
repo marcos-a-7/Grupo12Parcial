@@ -2,8 +2,8 @@ package servicios;
 
 /**
  * @author Grupo12<br>
- *         <b> La clase internet500 implementa el patron singleton y devuelve el
- *         costo de dicho internet</b><br>
+ *         <b>La calse internet500 extiende de internet e implementa una
+ *         devolucion de su costo y del detalle del mismo</b><br>
  */
 public class Internet500 extends Internet {
 

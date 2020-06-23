@@ -17,6 +17,7 @@ import javax.swing.WindowConstants;
 import javax.swing.ButtonGroup;
 import java.awt.event.KeyListener;
 import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.ActionEvent;
@@ -100,7 +101,7 @@ public class VistaAltas extends JFrame implements KeyListener {
 	private void initialize() {
 		this.frame = new JFrame("Alta de Persona");
 		this.frame.setBounds(100, 100, 881, 390);
-		this.frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		this.frame.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
 
 		this.panel = new JPanel();
 		this.frame.getContentPane().add(this.panel, BorderLayout.CENTER);
@@ -272,6 +273,10 @@ public class VistaAltas extends JFrame implements KeyListener {
 
 	}
 
+	/**
+	 * kerReleased<br>
+	 *controla que botones se encuentran habilitados de acuerdo al contenido de la ventana<br>
+	 */
 	public void keyReleased(KeyEvent arg0) {
 		int dni = 0;
 		String nombre = this.textField_Nombre.getText();
@@ -311,6 +316,10 @@ public class VistaAltas extends JFrame implements KeyListener {
 	
 	public void imprimeMensaje(String mensaje) {
 		JOptionPane.showMessageDialog(this,mensaje);
+	}
+	
+	public void setWindowListener(WindowListener windowListener) {
+		this.frame.addWindowListener(windowListener);
 	}
 	
 	public void cerrar() {

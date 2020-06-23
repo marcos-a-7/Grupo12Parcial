@@ -17,8 +17,8 @@ import servicios.Telefono;
 
 /**
  * @author grupo12<br>
- *         <b> la clase contrato guarda los datos de la persona y del paquete de
- *         servicio, tambien puede generar una factura</b>
+ *         <b> la clase contrato guarda los datos del paquete de
+ *         servicio, domicilio, medio de pago y tambien puede generar una factura</b>
  */
 public class Contrato implements Cloneable, Serializable {
 	private static int generadorIdContrato = 1;
@@ -108,7 +108,7 @@ public class Contrato implements Cloneable, Serializable {
 	}
 
 	public void eliminaCables(int cantCables) {
-		this.paqueteServicios.eliminaCable();
+		this.paqueteServicios.eliminaCables( cantCables);
 	}
 
 	/**
@@ -150,6 +150,11 @@ public class Contrato implements Cloneable, Serializable {
 		aux.medioPago = this.medioPago.clone();
 		aux.domicilio = this.domicilio.clone();
 		return aux;
+	}
+
+	@Override
+	public String toString() {
+		return "ID: " + this.idContrato +" "+ this.domicilio.toString();
 	}
 	
 	
