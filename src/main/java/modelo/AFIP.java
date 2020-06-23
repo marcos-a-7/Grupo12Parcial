@@ -7,17 +7,18 @@ import java.util.Observable;
 
 import util.Util;
 
-public class AFIP extends Observable implements Serializable, Runnable {
+public class AFIP extends Observable implements Serializable {
 	Empresa empresa;
 	ArrayList<Factura> facturas;
 	
 	public AFIP(Empresa empresa) {
 		this.empresa = empresa;
+		this.facturas = empresa.enlistarFacturas();
 	}
 	
 	
 	public ArrayList<Factura> getFacturas() {
-		return facturas;
+		return this.facturas;
 	}
 	public void setFacturas(ArrayList<Factura> facturas) {
 		this.facturas = facturas;
@@ -31,7 +32,7 @@ public class AFIP extends Observable implements Serializable, Runnable {
 		int pagadas = 0, ganancias = 0;
 		Factura factura = null;
 		StringBuilder sb = null;
-		if (facturas.isEmpty()) {
+		if (!facturas.isEmpty()) {
 			sb = new StringBuilder();
 			Iterator<Factura> it = this.facturas.iterator();
 			while (it.hasNext()) {
@@ -49,9 +50,4 @@ public class AFIP extends Observable implements Serializable, Runnable {
 		return sb.toString();
 	}
 	
-	public void run() {
-		//CONDICION DE LA VENTANA
-		Util.espera(60000); //1 minuto
-		
-	}
 }

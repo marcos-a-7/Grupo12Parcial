@@ -7,6 +7,7 @@ import javax.swing.JPanel;
 import java.awt.BorderLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowListener;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -205,6 +206,7 @@ public class VistaPrincipal extends JFrame {
 		this.panel_12.add(this.scrollPane);
 
 		this.textArea_Eventos = new JTextArea();
+		this.textArea_Eventos.setEditable(false);
 		this.scrollPane.setViewportView(this.textArea_Eventos);
 		this.frame.setVisible(true);
 	}
@@ -218,6 +220,10 @@ public class VistaPrincipal extends JFrame {
 		this.btn_VisitaAfip.addActionListener(actionListener);
 		this.btn_Persistir.addActionListener(actionListener);
 		this.actionListener = actionListener;
+	}
+	
+	public void setWindowListener(WindowListener windowListener) {
+		this.frame.addWindowListener(windowListener);
 	}
 	
 	public void setListSelectionListener(ListSelectionListener listSelectionListener) {

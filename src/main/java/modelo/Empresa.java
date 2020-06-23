@@ -2,6 +2,7 @@ package modelo;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Observer;
@@ -118,17 +119,15 @@ public class Empresa implements Serializable {
 	// REVISAR
 	public ArrayList<Factura> enlistarFacturas() {
 		ArrayList<Factura> facturas = new ArrayList<Factura>();
-		if (personas.isEmpty()) {
-			Set<Entry<Integer, Persona>> entrySet = personas.entrySet();
-			Iterator<Entry<Integer, Persona>> it = entrySet.iterator();
-			while (it.hasNext()) {
-				Iterator<Factura> itfac = it.next().getValue().getFacturas().iterator();
-				while (itfac.hasNext()) {
-					try {
-						facturas.add(itfac.next().clone());
-					} catch (CloneNotSupportedException e) {
-						e.printStackTrace(); // siempre clonable
-					}
+		Set<Entry<Integer, Persona>> entrySet = personas.entrySet();
+		Iterator<Entry<Integer, Persona>> it = entrySet.iterator();
+		while (it.hasNext()) {
+			Iterator<Factura> itfac = it.next().getValue().getFacturas().iterator();
+			while (itfac.hasNext()) {
+				try {
+					facturas.add(itfac.next().clone());
+				} catch (CloneNotSupportedException e) {
+					e.printStackTrace(); // siempre clonable
 				}
 			}
 		}

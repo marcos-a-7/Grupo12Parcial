@@ -68,7 +68,7 @@ public class Factura implements Cloneable, Serializable {
 	public String imprimeFactura() {
 		StringBuilder sb = new StringBuilder();
 		sb.append("Numero de contrato: " + this.idContrato + " Mes: " + this.mes + "\n");
-		sb.append("Titular: " + this.nombrePersona + " DNI/Identifcador: " + this.identificador);
+		sb.append("Titular: " + this.nombrePersona + " DNI/Identifcador: " + this.identificador + "\n");
 		sb.append(this.paqueteServicios.detalle());
 		sb.append("Costo basico: " + this.paqueteServicios.getCostoBase() + "\n");
 		sb.append("Aplicando tasas (descuentos/impuestos) Costo Final: " + this.getCostoFinal() + "\n");

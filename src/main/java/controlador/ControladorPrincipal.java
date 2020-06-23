@@ -2,6 +2,8 @@ package controlador;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
 import java.io.IOException;
 import java.util.ArrayList;
 
@@ -18,10 +20,11 @@ import persistencia.IPersistencia;
 import persistencia.PersistenciaBIN;
 import vista.VistaPrincipal;
 
-public class ControladorPrincipal implements ActionListener, ListSelectionListener {
+public class ControladorPrincipal implements ActionListener, ListSelectionListener, WindowListener {
 	Empresa empresa;
 	EmuladorPasoTiempo ept;
 	VistaPrincipal ventana;
+	RecursoCompartido recursoCompartido = new RecursoCompartido();
 
 	public ControladorPrincipal(Empresa empresa, EmuladorPasoTiempo ept) {
 		super();
@@ -30,7 +33,9 @@ public class ControladorPrincipal implements ActionListener, ListSelectionListen
 		ventana = new VistaPrincipal(empresa.getNombre());
 		ventana.setActionListener(this);
 		ventana.setListSelectionListener(this);
+		ventana.setWindowListener(this);
 		this.actualizaListaPersonas();
+		
 	}
 
 	public void actualizaListaPersonas() {
@@ -51,10 +56,10 @@ public class ControladorPrincipal implements ActionListener, ListSelectionListen
 			}
 			this.imprimeEvento("Paso un mes, el mes actual es: " + ept.getMes());
 		} else if (comando.equals("DARALTA")) {
-			new ControladorAltas(empresa, this);
+			new ThreadAltas(empresa, this, recursoCompartido).start();
 		} else if (comando.equals("MODIFICACONTRATO")) {
 			try {
-				if (ventana.getPersona().modificaContrato()) {
+				if (ventana.getPersona() != null && ventana.getPersona().modificaContrato()) {
 					new ControladorContrato(ventana.getPersona(), this);
 				}
 			} catch (MorosoException e) {
@@ -90,27 +95,30 @@ public class ControladorPrincipal implements ActionListener, ListSelectionListen
 				}
 			}
 		} else if (comando.equals("PERSISTIR")) {
-			IPersistencia persistencia = new PersistenciaBIN();
-
-			try {
-				persistencia.abrirOutput("Empresa.bin");
-				persistencia.escribir(empresa);
-				persistencia.cerrarOutput();
-				persistencia.abrirOutput("Mes.bin");
-				persistencia.escribir(ept);
-				persistencia.cerrarOutput();
-				this.imprimeEvento("Sistema guardado correctamente");
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
+			this.persistir();
 
 		} else if (comando.equals("AFIP")) {
-
-			// IMPLEMENTAR
+			new ThreadAfip(empresa, this, recursoCompartido).start();
 		}
 
 	}
 
+	public void persistir() {
+		IPersistencia persistencia = new PersistenciaBIN();
+
+		try {
+			persistencia.abrirOutput("Empresa.bin");
+			persistencia.escribir(empresa);
+			persistencia.cerrarOutput();
+			persistencia.abrirOutput("Mes.bin");
+			persistencia.escribir(ept);
+			persistencia.cerrarOutput();
+			this.imprimeEvento("Sistema guardado correctamente");
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+	
 	public void imprimeEvento(String evento) {
 		ventana.imprimeEvento(evento + "\n");
 	}
@@ -121,6 +129,46 @@ public class ControladorPrincipal implements ActionListener, ListSelectionListen
 			this.actualizaListaFacturas(persona.getFacturas());
 		}
 
+	}
+
+	public void imprimeMensaje(String string) {
+		ventana.imprimeMensaje(string);
+
+	}
+
+	public void windowActivated(WindowEvent arg0) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public void windowClosed(WindowEvent arg0) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public void windowClosing(WindowEvent arg0) {
+		this.persistir();
+		ventana.dispose();
+	}
+
+	public void windowDeactivated(WindowEvent arg0) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public void windowDeiconified(WindowEvent arg0) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public void windowIconified(WindowEvent arg0) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public void windowOpened(WindowEvent arg0) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }
