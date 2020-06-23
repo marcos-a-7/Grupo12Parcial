@@ -21,6 +21,14 @@ import servicios.Internet500;
 import servicios.Telefono;
 import vista.VistaContrato;
 
+/**
+ * @author Grupo12<br>
+ *         controlador de la interfaz grafica Modifica Contrato, posee una
+ *         referencia a la ventana que controla asi como una refenrecia al
+ *         controlador principal y a la persona de la cual se va a modificar un
+ *         contrato
+ *
+ */
 public class ControladorContrato implements ActionListener {
 	VistaContrato ventana;
 	ControladorPrincipal controladorPrincipal;
@@ -36,6 +44,11 @@ public class ControladorContrato implements ActionListener {
 		this.actualizaListaContratos(persona.getContratos());
 	}
 
+	/**
+	 * actionPerformed<br>
+	 * este metodo controla cuando un boton es pulsado en la ventana y dependiendo
+	 * de cual sea realiza las operaciones correspondientes<br>
+	 */
 	public void actionPerformed(ActionEvent arg0) {
 		String comando = arg0.getActionCommand();
 
@@ -125,7 +138,7 @@ public class ControladorContrato implements ActionListener {
 			String tipoInternet = ventana.getTipoInternet();
 			Contrato contrato = ventana.getContrato();
 			try {
-				if (persona.modificaContrato() && contrato!=null) {
+				if (persona.modificaContrato() && contrato != null) {
 					contrato.cambiaInternet(tipoInternet);
 					contrato.cambiaMedioPago(medioPago);
 					controladorPrincipal.imprimeEvento(persona.getNombre() + " modifico un contrato");
@@ -163,28 +176,63 @@ public class ControladorContrato implements ActionListener {
 
 	}
 
+	/**
+	 * actualizaListaContratos<br>
+	 * este metodo delega la actualizacion de la lista de contratos a la ventana<br>
+	 * 
+	 * @param contratos : arraylist de contratos
+	 */
 	private void actualizaListaContratos(ArrayList<Contrato> contratos) {
 		ventana.actualizaListaContratos(contratos);
 
 	}
 
+	/**
+	 * actualizaCantCables<br>
+	 * este metodo delega la actualizacion de la cantidad de cables a la ventana<br>
+	 * 
+	 * @param cant : cantidad de cables
+	 */
 	public void actualizaCantCables(int cant) {
 		ventana.actualizaCables(cant);
 	}
 
+	/**
+	 * actualizaListaTelefonos<br>
+	 * este metodo delega la actualizacion de la lista de telefonos a la ventana<br>
+	 * 
+	 * @param telefonos : arraylist de telefonos
+	 */
 	public void actualizaListaTelefonos(ArrayList<Telefono> telefonos) {
 		ventana.actualizaListaTelefonos(telefonos);
 
 	}
 
+	/**
+	 * actualizaListaCelulares<br>
+	 * este metodo delega la actualizacion de la lista de celulares a la ventana<br>
+	 * 
+	 * @param telefonos : arraylist de celulares
+	 */
 	public void actualizaListaCelulares(ArrayList<Celular> celulares) {
 		ventana.actualizaListaCelulares(celulares);
 	}
 
+	/**
+	 * actualizaDomicilio<br>
+	 * delega la actualizacion del domicilio a la ventana<br>
+	 * 
+	 * @param domicilio : domicilio a actualizar
+	 */
 	public void actualizaDomicilio(Domicilio domicilio) {
 		ventana.actualizaDomicilio(domicilio.getNumero(), domicilio.getCalle());
 	}
 
+	/**
+	 * actualizaMedioPago<br>
+	 * delega la actualizacion del medio de pago a la ventana mediante un string con
+	 * el mismo<br>
+	 */
 	public void actualizaMedioPago() {
 		Contrato contrato = ventana.getContrato();
 		if (contrato != null) {
@@ -198,6 +246,11 @@ public class ControladorContrato implements ActionListener {
 		}
 	}
 
+	/**
+	 * actualizaTipoInternet<br>
+	 * delega la actualizacion del tipo de internet a la ventana mediante un string
+	 * con el mismo
+	 */
 	public void actualizaTipoInternet() {
 		Contrato contrato = ventana.getContrato();
 		if (contrato != null) {
