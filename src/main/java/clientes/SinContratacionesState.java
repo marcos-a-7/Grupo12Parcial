@@ -45,8 +45,8 @@ public class SinContratacionesState implements State, Serializable {
 	 * <b>Pre: </b> no tiene<br>
 	 * <b>Post: </b> siempre lanza una excepcion SinContratacionesException<br>
 	 * 
-	 * @param contrato:sin condiciones <br>
-	 * @throws SinContratacionesException<br>
+	 * @param contrato : sin condiciones
+	 * @throws SinContratacionesException
 	 */
 	public void eliminaContrato(Contrato contrato) throws SinContratacionesException {
 		throw new SinContratacionesException(persona.getNombre() + " no tiene contrataciones para eliminar");

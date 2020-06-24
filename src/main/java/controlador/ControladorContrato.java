@@ -60,7 +60,7 @@ public class ControladorContrato implements ActionListener {
 					if (persona.modificaContrato()) {
 						contrato.eliminaCelular(celular.getNumeroCelular());
 						this.actualizaListaCelulares(contrato.getPaqueteServicios().getCelulares());
-						controladorPrincipal.imprimeEvento(persona.getNombre() + " modifico un contrato");
+						controladorPrincipal.imprimeEvento(persona.getNombre() + " elimino un celular");
 					}
 				} catch (MorosoException e) {
 					ventana.imprimeMensaje(
@@ -79,7 +79,7 @@ public class ControladorContrato implements ActionListener {
 					if (persona.modificaContrato()) {
 						contrato.eliminaTelefono(telefono.getNumeroTelefono());
 						this.actualizaListaTelefonos(contrato.getPaqueteServicios().getTelefonos());
-						controladorPrincipal.imprimeEvento(persona.getNombre() + " modifico un contrato");
+						controladorPrincipal.imprimeEvento(persona.getNombre() + " elimino un telefono");
 					}
 				} catch (MorosoException e) {
 					ventana.imprimeMensaje(
@@ -110,8 +110,9 @@ public class ControladorContrato implements ActionListener {
 			if (ventana.getContrato() != null) {
 				ventana.getContrato().eliminaCables(ventana.getCantCablesElim());
 				this.actualizaCantCables(ventana.getContrato().getPaqueteServicios().cantidadCables());
+				controladorPrincipal
+						.imprimeEvento(persona.getNombre() + " elimino" + ventana.getCantCablesElim() + " cable/s");
 				ventana.vaciarTextFields();
-				controladorPrincipal.imprimeEvento(persona.getNombre() + " modifico un contrato");
 			}
 		} else if (comando.equals("CREARCONTRATO")) {
 			String calle = ventana.getCalle();
@@ -138,7 +139,7 @@ public class ControladorContrato implements ActionListener {
 			String tipoInternet = ventana.getTipoInternet();
 			Contrato contrato = ventana.getContrato();
 			try {
-				if (persona.modificaContrato() && contrato != null) {
+				if (contrato != null && persona.modificaContrato()) {
 					contrato.cambiaInternet(tipoInternet);
 					contrato.cambiaMedioPago(medioPago);
 					controladorPrincipal.imprimeEvento(persona.getNombre() + " modifico un contrato");
@@ -161,8 +162,10 @@ public class ControladorContrato implements ActionListener {
 					this.actualizaListaCelulares(contrato.getPaqueteServicios().getCelulares());
 					this.actualizaListaTelefonos(contrato.getPaqueteServicios().getTelefonos());
 					this.actualizaCantCables(contrato.getPaqueteServicios().cantidadCables());
+					controladorPrincipal
+							.imprimeEvento(persona.getNombre() + " agrego " + ventana.getCantCables() + " cable/s "
+									+ ventana.getTelefono() + " telefono/s " + ventana.getCelular() + " celulare/s");
 					ventana.vaciarTextFields();
-					controladorPrincipal.imprimeEvento(persona.getNombre() + " modifico un contrato");
 				}
 			} catch (MorosoException e) {
 				ventana.imprimeMensaje(persona.getNombre() + " no puede modificar su contrato debido a que es Moroso");
@@ -212,7 +215,7 @@ public class ControladorContrato implements ActionListener {
 	 * actualizaListaCelulares<br>
 	 * este metodo delega la actualizacion de la lista de celulares a la ventana<br>
 	 * 
-	 * @param telefonos : arraylist de celulares
+	 * @param celulares : arraylist de celulares
 	 */
 	public void actualizaListaCelulares(ArrayList<Celular> celulares) {
 		ventana.actualizaListaCelulares(celulares);

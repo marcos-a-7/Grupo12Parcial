@@ -44,8 +44,8 @@ public class MorosoState implements State, Serializable {
 	 * <b>Pre: </b> no tiene<br>
 	 * <b>Post: </b> siempre lanza una excepcion MorosoException<br>
 	 * 
-	 * @param contrato:sin condiciones <br>
-	 * @throws MorosoException<br>
+	 * @param contrato : sin condiciones 
+	 * @throws MorosoException 
 	 */
 	public void eliminaContrato(Contrato contrato) throws MorosoException {
 		throw new MorosoException(persona.getNombre() + " es morosa y no se puede eliminar el contrato");
@@ -69,6 +69,7 @@ public class MorosoState implements State, Serializable {
 	 * MorosoException dado que este estado no puede agregar contratos<br>
 	 * <b>Pre: </b> no tiene<br>
 	 * <b>Post: </b> siempre lanza una excepcion MorosoException<br>
+	 * 
 	 * @throws MorosoException
 	 */
 	public void agregaContrato(String calle, int numeroCalle, String tipoInternet, int cantCelu, int cantTel,

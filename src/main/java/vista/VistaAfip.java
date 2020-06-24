@@ -153,7 +153,7 @@ public class VistaAfip extends JFrame {
 	}
 
 	/**
-	 * imprimeFactura<>br>
+	 * imprimeFactura<br>
 	 * imprime una factura en el text area de detalle
 	 * 
 	 * @param factura
