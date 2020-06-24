@@ -31,7 +31,7 @@ public class RecursoCompartido {
 	public synchronized void ejecutarAlta(Empresa empresa, ControladorPrincipal controladorPrincipal) {
 		while (this.afip == true) {
 			try {
-				controladorPrincipal.imprimeMensaje("La ventana de alta se ejecutar al terminar la visita de la AFIP");
+				controladorPrincipal.imprimeMensaje("La ventana de alta se ejecutara al terminar la visita de la AFIP");
 				wait();
 			} catch (InterruptedException e) {
 			}
@@ -76,6 +76,10 @@ public class RecursoCompartido {
 				}
 			}
 			new ControladorAfip(afip, controladorPrincipal, this);
+			controladorPrincipal.imprimeEvento("La afip comenzo su visita");
+		}
+		else {
+			controladorPrincipal.imprimeEvento("La afip ya esta esperando para visitar");
 		}
 	}
 

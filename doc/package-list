@@ -1,5 +1,9 @@
 clientes
+controlador
 excepciones
+main
 modelo
-prueba
+pasoDelTiempo
+persistencia
 servicios
+vista

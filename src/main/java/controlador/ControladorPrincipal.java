@@ -94,7 +94,7 @@ public class ControladorPrincipal implements ActionListener, ListSelectionListen
 			}
 		} else if (comando.equals("DARBAJA")) {
 			Persona persona = ventana.getPersona();
-			if (persona.cantidadFacturasDebidas() == 0) {
+			if (persona!=null && persona.cantidadFacturasDebidas() == 0) {
 				empresa.removePersona(persona);
 				this.actualizaListaPersonas();
 				this.imprimeEvento("Se dio de baja a " + persona.toString());
@@ -117,7 +117,16 @@ public class ControladorPrincipal implements ActionListener, ListSelectionListen
 						this.imprimeMensaje(factura.imprimeFactura());
 					}
 				} catch (SinContratacionesException e) {
-					e.printStackTrace();
+					monto = factura.getCostoFinal();
+					factura.pagar();
+					if (monto == 0) {
+						this.imprimeEvento("La factura del mes " + factura.getMes() + " ya se encuentra pagada");
+					} else {
+						this.imprimeEvento(persona.getNombre() + " abono la factura del mes " + factura.getMes()
+								+ " pagando un total de " + monto);
+						this.actualizaListaFacturas(persona.getFacturas());
+						this.imprimeMensaje(factura.imprimeFactura());
+					}
 				}
 			}
 		} else if (comando.equals("PERSISTIR")) {

@@ -20,8 +20,6 @@ public class PersonaFactory {
 	 * @param nombre        : El nombre del titular <br>
 	 * @param identificador : El DNI/ID del titular<br>
 	 * @return Retorna una persona o arrojara una excepcion<br>
-	 * @throws MedioPagoInvalidoException   : en caso de que el medio de pago sea
-	 *                                      invalido<br>
 	 * @throws NumeroInvalidoException      : en casi de que el numero de DNI sea
 	 *                                      invalido<br>
 	 * @throws TipoPersonaInvalidoException : En caso que el tipo de persona sea
