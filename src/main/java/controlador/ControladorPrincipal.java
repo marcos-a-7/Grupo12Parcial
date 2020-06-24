@@ -94,10 +94,11 @@ public class ControladorPrincipal implements ActionListener, ListSelectionListen
 			}
 		} else if (comando.equals("DARBAJA")) {
 			Persona persona = ventana.getPersona();
-			if (persona!=null && persona.cantidadFacturasDebidas() == 0) {
+			if (persona != null && persona.cantidadFacturasDebidas() == 0) {
 				empresa.removePersona(persona);
 				this.actualizaListaPersonas();
 				this.imprimeEvento("Se dio de baja a " + persona.toString());
+				ventana.limpiaListaFacturas();
 			} else {
 				ventana.imprimeMensaje("El abonado debe pagar todas las facturas debidas para poder ser dado de baja");
 			}

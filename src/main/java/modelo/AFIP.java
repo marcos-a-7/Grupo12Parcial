@@ -12,7 +12,7 @@ import java.util.Observable;
  *         y una lista de facturas que recibira de la misma<br>
  *
  */
-public class AFIP extends Observable implements Serializable {
+public class AFIP implements Serializable {
 	Empresa empresa;
 	ArrayList<Factura> facturas;
 
