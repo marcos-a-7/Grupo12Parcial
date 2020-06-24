@@ -28,10 +28,10 @@ public class Main {
 			persistencia.cerrarInput();
 
 		} catch (IOException e) {
-			empresa = new Empresa("MobiEstar");
+			empresa = new Empresa("SpaceX");
 			ept = new EmuladorPasoTiempo();
 		} catch (ClassNotFoundException e) {
-			empresa = new Empresa("MobiEstar");
+			empresa = new Empresa("SpaceX");
 			ept = new EmuladorPasoTiempo();
 		}
 
