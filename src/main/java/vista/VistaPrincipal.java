@@ -288,4 +288,7 @@ public class VistaPrincipal extends JFrame {
 		JOptionPane.showMessageDialog(this, mensaje);
 	}
 
+	public void limpiaListaFacturas() {
+		this.listaFacturas.clear();
+	}
 }
