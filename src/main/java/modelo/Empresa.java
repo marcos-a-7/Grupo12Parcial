@@ -165,7 +165,6 @@ public class Empresa implements Serializable {
 	 * 
 	 * @return retorna un string con la impresion correspondiente a cada factura<br>
 	 */
-	// REVISAR
 	public ArrayList<Factura> enlistarFacturas() {
 		ArrayList<Factura> facturas = new ArrayList<Factura>();
 		Set<Entry<Integer, Persona>> entrySet = personas.entrySet();

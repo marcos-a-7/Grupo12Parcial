@@ -75,7 +75,7 @@ public class Factura implements Cloneable, Serializable {
 		return sb.toString();
 	}
 
-	@Override // NO se que pasa cuando clonas un string si requiere llamada a clone
+	@Override 
 	public Factura clone() throws CloneNotSupportedException {
 		Factura aux = null;
 

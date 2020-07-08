@@ -38,7 +38,6 @@ public class PersonaJuridica extends Persona {
 		} else {
 			estado = new SinContratacionesState(this);
 		}
-
 		this.estado = estado;
 
 	}
